@@ -14,6 +14,7 @@ const LoginScreen = () => {
     MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
   });
+
   const navigation = useNavigation<NavigationProp>();
 
   const [email, setEmail] = useState<string>('');
@@ -59,7 +60,7 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Login</Text>
+      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Bem-Vindo de volta</Text>
       <Text style={[styles.subtitle, { fontFamily: 'MontserratRegular' }]}>Entre com sua conta</Text>
 
       <TextInput

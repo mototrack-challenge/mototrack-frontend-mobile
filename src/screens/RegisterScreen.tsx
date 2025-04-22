@@ -5,10 +5,16 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useFonts } from 'expo-font';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const RegisterScreen = () => {
+    const [fontsLoaded] = useFonts({
+    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+    });
+
   const navigation = useNavigation<NavigationProp>();
 
   const [name, setName] = useState<string>('');
@@ -50,17 +56,18 @@ const RegisterScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cadastro</Text>
+      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Bem-vindo à MotoTrack</Text>
+      <Text style={[styles.subtitle, { fontFamily: 'MontserratRegular' }]}>Cadastre-se para acessar o dashboard</Text>
 
       <TextInput
-        style={styles.input}
+        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
         value={name}
         onChangeText={setName}
         placeholder="Nome"
       />
 
       <TextInput
-        style={styles.input}
+        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
         value={email}
         onChangeText={setEmail}
         placeholder="E-mail"
@@ -69,22 +76,25 @@ const RegisterScreen = () => {
       />
 
       <TextInput
-        style={styles.input}
+        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
         value={password}
         onChangeText={setPassword}
         placeholder="Senha"
         secureTextEntry
       />
 
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
 
-      <Button title="Cadastrar" onPress={handleRegister} />
+            <TouchableOpacity style={styles.button} onPress={handleRegister}>
+              <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Cadastrar</Text>
+            </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.linkText}>
-            Já possui uma conta? Faça login
+        <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
+            Já possui uma conta? 
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.textLink}>Faça login</Text> 
+            </TouchableOpacity>
         </Text>
-    </TouchableOpacity>
     </View>
   );
 };
@@ -94,21 +104,41 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#FFFFFF',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#78909C',
+    fontWeight: 'normal',
     marginBottom: 24,
     textAlign: 'center',
   },
   input: {
     height: 40,
+    backgroundColor: '#ECEFF1',
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
     paddingLeft: 10,
     borderRadius: 5,
+  },
+  button: {
+    backgroundColor: '#546E7A',
+    paddingVertical: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   error: {
     color: 'red',
@@ -117,7 +147,12 @@ const styles = StyleSheet.create({
   },
   linkText: {
     marginTop: 16,
-    color: '#007bff',
+    color: '#000000',
+    textAlign: 'center',
+  },
+  textLink: {
+    marginTop: 16,
+    color: '#546E7A',
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
