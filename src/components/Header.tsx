@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useFonts } from 'expo-font';
 
 interface HeaderProps {
   title: string;
@@ -8,13 +9,18 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ title, userName, onLogout }) => {
+    const [fontsLoaded] = useFonts({
+      MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+      MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+    });
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{title}</Text>
       <View style={styles.rightSection}>
-        <Text style={styles.userName}>{`Bem-vindo, ${userName}`}</Text>
+        <Text style={[styles.userName, { fontFamily: 'MontserratRegular' }]}>{`Bem-vindo, ${userName}`}</Text>
         <TouchableOpacity onPress={onLogout}>
-          <Text style={styles.logoutText}>Logout</Text>
+          <Text style={[styles.logoutText, { fontFamily: 'MontserratRegular' }]}>Logout</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -23,11 +29,9 @@ const Header: React.FC<HeaderProps> = ({ title, userName, onLogout }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40, // Ajuste para o cabeçalho não ficar em cima do status bar
-    paddingBottom: 20,
+    paddingTop: 40,
+    paddingBottom: 30,
     paddingHorizontal: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     backgroundColor: '#546E7A',
     alignItems: 'center',
   },
@@ -35,18 +39,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#fff',
     fontWeight: 'bold',
+    paddingBottom: 10,
   },
   rightSection: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
+    gap: 5
   },
   userName: {
     color: '#fff',
     marginRight: 10,
+    fontSize: 16,
   },
   logoutText: {
     color: '#fff',
     textDecorationLine: 'underline',
+    fontSize: 14,
   },
 });
 
