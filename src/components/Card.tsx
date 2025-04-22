@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ title, count, backgroundColor }) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: '45%',
+    width: '100%',
     padding: 16,
     borderRadius: 5,
     marginBottom: 16,
