@@ -1,10 +1,17 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Header from '../components/Header';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../types/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const HomeScreen = () => {
+  const navigation = useNavigation<NavigationProp>();
+
   const handleLogout = () => {
-    // Lógica de logout aqui, como limpar o AsyncStorage e redirecionar para a tela de login
+    navigation.navigate('Login');
   };
 
   return (

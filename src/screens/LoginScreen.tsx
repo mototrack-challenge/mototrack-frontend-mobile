@@ -48,7 +48,13 @@ const LoginScreen = () => {
         // Login bem-sucedido
         SetMensagem('Login realizado!');
         setError('');
-        // navigation.navigate('Dashboard');
+        
+
+        setTimeout(() => {
+          setError('');
+          SetMensagem('');
+          navigation.navigate('Home');
+        }, 2000);
       } else {
         setError('E-mail ou senha incorretos.');
       }
