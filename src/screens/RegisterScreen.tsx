@@ -21,36 +21,44 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [mensagem, SetMensagem] = useState<string>('');
 
   const handleRegister = async () => {
     if (!name || !email || !password) {
       setError('Preencha todos os campos!');
       return;
     }
-  
+
     try {
       const existingUsers = await AsyncStorage.getItem('users');
       const users = existingUsers ? JSON.parse(existingUsers) : [];
-  
+
       // Verifica se o e-mail já foi cadastrado
       const emailExists = users.some((user: any) => user.email === email);
       if (emailExists) {
         setError('Este e-mail já está cadastrado.');
         return;
       }
-  
+
       const newUser = { name, email, password };
       const updatedUsers = [...users, newUser];
-  
+
       await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
-  
+
+      // Exibe a mensagem de sucesso
+      setError('');
+      SetMensagem('Cadastro realizado!');
+
+      // Espera 2 segundos antes de navegar
       setTimeout(() => {
-        alert('Cadastro realizado!');
+        setError('');
+        SetMensagem('');
         navigation.navigate('Login');
-      }, 100);
+      }, 2000);
+      
     } catch (e) {
       console.error('Erro ao salvar no AsyncStorage', e);
-      Alert.alert('Erro', 'Não foi possível realizar o cadastro.');
+      alert('Não foi possível realizar o cadastro.');
     }
   };
 
@@ -83,6 +91,7 @@ const RegisterScreen = () => {
         secureTextEntry
       />
 
+      {mensagem? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
       {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
 
             <TouchableOpacity style={styles.button} onPress={handleRegister}>
@@ -155,6 +164,11 @@ const styles = StyleSheet.create({
     color: '#546E7A',
     textAlign: 'center',
     textDecorationLine: 'underline',
+  },
+  success: {
+    color: 'green',
+    marginBottom: 10,
+    textAlign: 'center',
   },
 });
 
