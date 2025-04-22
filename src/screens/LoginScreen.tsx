@@ -5,16 +5,23 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useFonts } from 'expo-font';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const LoginScreen = () => {
+  const [fontsLoaded] = useFonts({
+    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+  });
   const navigation = useNavigation<NavigationProp>();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [mensagem, SetMensagem] = useState<string>('');
+
+
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -52,10 +59,11 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Login</Text>
+      <Text style={[styles.subtitle, { fontFamily: 'MontserratRegular' }]}>Entre com sua conta</Text>
 
       <TextInput
-        style={styles.input}
+        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
         value={email}
         onChangeText={setEmail}
         placeholder="E-mail"
@@ -64,24 +72,26 @@ const LoginScreen = () => {
       />
 
       <TextInput
-        style={styles.input}
+        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
         value={password}
         onChangeText={setPassword}
         placeholder="Senha"
         secureTextEntry
       />
 
-      {mensagem? <Text style={styles.success}>{mensagem}</Text> : null}
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {mensagem? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
+      {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
 
-      <Button title="Entrar" onPress={handleLogin} />
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Entrar</Text>
+      </TouchableOpacity>
 
-      
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.linkText}>
-            Não possui uma conta? Cadastre-se
+        <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
+            Não possui uma conta? 
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.textLink}>Cadastre-se</Text> 
+            </TouchableOpacity>
         </Text>
-        </TouchableOpacity>
     </View>
   );
 };
@@ -91,21 +101,41 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#FFFFFF',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#78909C',
+    fontWeight: 'normal',
     marginBottom: 24,
     textAlign: 'center',
   },
   input: {
     height: 40,
+    backgroundColor: '#ECEFF1',
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
     paddingLeft: 10,
     borderRadius: 5,
+  },
+  button: {
+    backgroundColor: '#546E7A',
+    paddingVertical: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   error: {
     color: 'red',
@@ -114,7 +144,12 @@ const styles = StyleSheet.create({
   },
   linkText: {
     marginTop: 16,
-    color: '#007bff',
+    color: '#000000',
+    textAlign: 'center',
+  },
+  textLink: {
+    marginTop: 16,
+    color: '#546E7A',
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
