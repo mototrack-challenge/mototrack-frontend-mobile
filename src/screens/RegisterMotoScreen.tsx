@@ -28,12 +28,12 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 const STORAGE_KEY = 'motos';
 
 const RegisterMotoScreen = () => {
-    const navigation = useNavigation<NavigationProp>();
+  const navigation = useNavigation<NavigationProp>();
 
-      const [fontsLoaded] = useFonts({
-        MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-        MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-      });
+  const [fontsLoaded] = useFonts({
+    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+  });
 
   const [placa, setPlaca] = useState('');
   const [modelo, setModelo] = useState('');
@@ -41,8 +41,8 @@ const RegisterMotoScreen = () => {
   const [departamento, setDepartamento] = useState('ENTRADA');
   const [motos, setMotos] = useState<Moto[]>([]);
   const [nextId, setNextId] = useState(1);
-    const [mensageError, setMensageError] = useState<string>('');
-    const [mensageSucess, SetMensageSucess] = useState<string>('');
+  const [mensageError, setMensageError] = useState<string>('');
+  const [mensageSucess, SetMensageSucess] = useState<string>('');
 
   const handleLogout = () => {
     navigation.navigate('Login');
@@ -51,7 +51,7 @@ const RegisterMotoScreen = () => {
   const handleBackToHome = () => {
     navigation.navigate('Home');
   };
-  // Carrega motos do AsyncStorage ao iniciar a tela
+  
   useEffect(() => {
     const loadMotos = async () => {
       const storedMotos = await AsyncStorage.getItem(STORAGE_KEY);
@@ -101,61 +101,61 @@ const RegisterMotoScreen = () => {
 
   return (
     <View style={styles.header}>
-    <Header title="Cadastrar Motos" onLogout={handleLogout} />
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Preecha todos os dados</Text>
+      <Header title="Cadastrar Motos" onLogout={handleLogout} />
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Preecha todos os dados</Text>
 
-      <TextInput
-        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
-        placeholder="Placa"
-        value={placa}
-        onChangeText={setPlaca}
-      />
+        <TextInput
+          style={[styles.input, { fontFamily: 'MontserratRegular' }]}
+          placeholder="Placa"
+          value={placa}
+          onChangeText={setPlaca}
+        />
 
-      <TextInput
-        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
-        placeholder="Modelo"
-        value={modelo}
-        onChangeText={setModelo}
-      />
+        <TextInput
+          style={[styles.input, { fontFamily: 'MontserratRegular' }]}
+          placeholder="Modelo"
+          value={modelo}
+          onChangeText={setModelo}
+        />
 
-      <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Departamento</Text>
-      <Picker
-        selectedValue={departamento}
-        onValueChange={(itemValue) => setDepartamento(itemValue)}
-        style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
-      >
-        <Picker.Item label="ENTRADA" value="ENTRADA" />
-        <Picker.Item label="AVALIAÇÃO" value="AVALIAÇÃO" />
-        <Picker.Item label="MANUTENÇÃO" value="MANUTENÇÃO" />
-        <Picker.Item label="PRONTA PARA USO" value="PRONTA PARA USO" />
-        <Picker.Item label="SAÍDA" value="SAÍDA" />
-      </Picker>
+        <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Departamento</Text>
+        <Picker
+          selectedValue={departamento}
+          onValueChange={(itemValue) => setDepartamento(itemValue)}
+          style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
+        >
+          <Picker.Item label="ENTRADA" value="ENTRADA" />
+          <Picker.Item label="AVALIAÇÃO" value="AVALIAÇÃO" />
+          <Picker.Item label="MANUTENÇÃO" value="MANUTENÇÃO" />
+          <Picker.Item label="PRONTA PARA USO" value="PRONTA PARA USO" />
+          <Picker.Item label="SAÍDA" value="SAÍDA" />
+        </Picker>
 
-      <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Status</Text>
-      <Picker
-        selectedValue={status}
-        onValueChange={(itemValue) => setStatus(itemValue)}
-        style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
-      >
-        <Picker.Item label="Em manutenção" value="Em manutenção" />
-        <Picker.Item label="Em avaliação" value="Em avaliação" />
-        <Picker.Item label="Pronta para uso" value="Pronta para uso" />
-      </Picker>
+        <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Status</Text>
+        <Picker
+          selectedValue={status}
+          onValueChange={(itemValue) => setStatus(itemValue)}
+          style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
+        >
+          <Picker.Item label="Em manutenção" value="Em manutenção" />
+          <Picker.Item label="Em avaliação" value="Em avaliação" />
+          <Picker.Item label="Pronta para uso" value="Pronta para uso" />
+        </Picker>
 
-            {mensageSucess? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensageSucess}</Text> : null}
-            {mensageError ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{mensageError}</Text> : null}
+        {mensageSucess ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensageSucess}</Text> : null}
+        {mensageError ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{mensageError}</Text> : null}
 
-    <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Cadastrar Moto</Text>
-    </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleRegister}>
+          <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Cadastrar Moto</Text>
+        </TouchableOpacity>
 
-    <TouchableOpacity style={styles.button} onPress={handleBackToHome}>
-        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Voltar</Text>
-    </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleBackToHome}>
+          <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Voltar</Text>
+        </TouchableOpacity>
 
-    </ScrollView>
-  </View>
+      </ScrollView>
+    </View>
   );
 };
 

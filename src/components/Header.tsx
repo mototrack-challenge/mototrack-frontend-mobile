@@ -8,10 +8,10 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ title, onLogout }) => {
-    const [fontsLoaded] = useFonts({
-      MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-      MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-    });
+  const [fontsLoaded] = useFonts({
+    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+  });
 
   return (
     <View style={styles.container}>

@@ -29,26 +29,24 @@ const LoginScreen = () => {
       setError('Preencha todos os campos!');
       return;
     }
-  
+
     try {
       const storedUsers = await AsyncStorage.getItem('users');
       if (!storedUsers) {
         setError('Usuário não encontrado. Faça o cadastro primeiro.');
         return;
       }
-  
+
       const parsedUsers = JSON.parse(storedUsers);
-  
-      // Procurando o usuário com o e-mail e senha fornecidos
+
       const foundUser = parsedUsers.find(
         (user: any) => user.email === email && user.password === password
       );
-  
+
       if (foundUser) {
-        // Login bem-sucedido
         SetMensagem('Login realizado!');
         setError('');
-        
+
 
         setTimeout(() => {
           setError('');
@@ -86,19 +84,19 @@ const LoginScreen = () => {
         secureTextEntry
       />
 
-      {mensagem? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
+      {mensagem ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
       {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Entrar</Text>
       </TouchableOpacity>
 
-        <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
-            Não possui uma conta? 
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.textLink}>Cadastre-se</Text> 
-            </TouchableOpacity>
-        </Text>
+      <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
+        Não possui uma conta?
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.textLink}>Cadastre-se</Text>
+        </TouchableOpacity>
+      </Text>
     </View>
   );
 };

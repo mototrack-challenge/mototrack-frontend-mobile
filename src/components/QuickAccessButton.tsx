@@ -5,7 +5,7 @@ import { useFonts } from 'expo-font';
 interface QuickAccessButtonProps {
   title: string;
   onPress: () => void;
-  icon: JSX.Element; // Pode ser um ícone como um ícone de FontAwesome ou outro
+  icon: JSX.Element;
 }
 
 const QuickAccessButton: React.FC<QuickAccessButtonProps> = ({ title, onPress, icon }) => {

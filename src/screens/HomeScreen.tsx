@@ -15,50 +15,47 @@ const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp>();
 
   const [motosEmManutencao] = useState(5); // Exemplo de quantidade
-  const [motosEmAnalise] = useState(3);
+  const [motosEmAnalise] = useState(3); // Exemplo de quantidade
 
   const handleLogout = () => {
     navigation.navigate('Login');
   };
 
-    // Funções para navegação para outras telas (cadastro de motos, lista de motos, etc.)
-    const navigateToRegister = () => {
-      navigation.navigate('Moto');
-      console.log('Navegar para Cadastro');
-    };
-  
-    const navigateToList = () => {
-      navigation.navigate('ListMotos');
-      console.log('Navegar para Lista de Motos');
-    };
+  const navigateToRegister = () => {
+    navigation.navigate('Moto');
+  };
+
+  const navigateToList = () => {
+    navigation.navigate('ListMotos');
+  };
 
   return (
     <View style={styles.header}>
       <Header title="Página Inicial" onLogout={handleLogout} />
       <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.cardsContainer}>
-          <Card title="Motos em Manutenção" count={motosEmManutencao} backgroundColor="#FF5722" />
-          <Card title="Motos em Análise" count={motosEmAnalise} backgroundColor="#A5BFCC" />
-        </View>
+        <ScrollView contentContainerStyle={styles.content}>
+          <View style={styles.cardsContainer}>
+            <Card title="Motos em Manutenção" count={motosEmManutencao} backgroundColor="#FF5722" />
+            <Card title="Motos em Análise" count={motosEmAnalise} backgroundColor="#A5BFCC" />
+          </View>
 
-        <View>
-        <QuickAccessButton
-          title="Cadastrar Moto"
-          onPress={navigateToRegister}
-          icon={<Ionicons name="add-circle-outline" size={24} color="white" />}
-        />
+          <View>
+            <QuickAccessButton
+              title="Cadastrar Moto"
+              onPress={navigateToRegister}
+              icon={<Ionicons name="add-circle-outline" size={24} color="white" />}
+            />
 
-        <QuickAccessButton
-          title="Ver Lista de Motos"
-          onPress={navigateToList}
-          icon={<Ionicons name="list-outline" size={24} color="white" />}
-        />
-        </View>
-      </ScrollView>
+            <QuickAccessButton
+              title="Ver Lista de Motos"
+              onPress={navigateToList}
+              icon={<Ionicons name="list-outline" size={24} color="white" />}
+            />
+          </View>
+        </ScrollView>
+      </View>
     </View>
-    </View>
-    
+
   );
 };
 

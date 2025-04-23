@@ -26,10 +26,10 @@ type Moto = {
 };
 
 export default function ListMotosScreen() {
-      const [fontsLoaded] = useFonts({
-        MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-        MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-      });
+  const [fontsLoaded] = useFonts({
+    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+  });
   const navigation = useNavigation<NavigationProp>();
 
   const [motos, setMotos] = useState<Moto[]>([]);
@@ -54,7 +54,6 @@ export default function ListMotosScreen() {
     if (isFocused) carregarMotos();
   }, [isFocused]);
 
-  // Função para deletar uma moto usando alert padrão
   const handleDelete = (id_moto: number) => {
     const confirmed = window.confirm('Tem certeza de que deseja excluir esta moto?');
     if (confirmed) {
@@ -66,32 +65,31 @@ export default function ListMotosScreen() {
 
   const renderItem = ({ item }: { item: Moto }) => (
     <View style={styles.card}>
-      <Text style={[styles.title,{ fontFamily: 'MontserratBold' }]}>{item.modelo} - {item.placa}</Text>
-      <Text style={{fontFamily: 'MontserratRegular'}}>Status: {item.status}</Text>
-      <Text style={{fontFamily: 'MontserratRegular'}}>Departamento atual: {item.departamento}</Text>
-      <Text style={{fontFamily: 'MontserratRegular'}}>Movimentações:</Text>
+      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{item.modelo} - {item.placa}</Text>
+      <Text style={{ fontFamily: 'MontserratRegular' }}>Status: {item.status}</Text>
+      <Text style={{ fontFamily: 'MontserratRegular' }}>Departamento atual: {item.departamento}</Text>
+      <Text style={{ fontFamily: 'MontserratRegular' }}>Movimentações:</Text>
       {item.movimentacoes.map((mov, index) => (
-        <Text style={{fontFamily: 'MontserratRegular'}} key={index}>• {mov.departamento} - {mov.horario}</Text>
+        <Text style={{ fontFamily: 'MontserratRegular' }} key={index}>• {mov.departamento} - {mov.horario}</Text>
       ))}
 
       <View style={styles.buttons}>
         <TouchableOpacity
           style={styles.buttonEdit}
           onPress={() => navigation.navigate('EditMoto', { moto: item })}>
-          <Text style={[styles.btnText,{ fontFamily: 'MontserratRegular' }]}>Editar</Text>
+          <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Editar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonMove}
           onPress={() => navigation.navigate('ChangeDepartamento', { moto: item })}>
-          <Text style={[styles.btnText,{ fontFamily: 'MontserratRegular' }]}>Mover Departamento</Text>
+          <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Mover Departamento</Text>
         </TouchableOpacity>
 
-        {/* Botão de deletar moto */}
         <TouchableOpacity
           style={styles.buttonDelete}
           onPress={() => handleDelete(item.id_moto)}>
-          <Text style={[styles.btnText,{ fontFamily: 'MontserratRegular' }]}>Deletar</Text>
+          <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Deletar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -99,20 +97,20 @@ export default function ListMotosScreen() {
 
   return (
     <View style={styles.header}>
-    <Header title="Lista de Motos" onLogout={handleLogout} />
-    <View style={styles.container}>
-      <FlatList
-        data={motos}
-        keyExtractor={(item) => item.id_moto.toString()}
-        renderItem={renderItem}
-        contentContainerStyle={styles.listContainer}
-      />
-    <TouchableOpacity style={styles.button} onPress={handleBackToHome}>
-        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Voltar</Text>
-    </TouchableOpacity>
-    </View>
+      <Header title="Lista de Motos" onLogout={handleLogout} />
+      <View style={styles.container}>
+        <FlatList
+          data={motos}
+          keyExtractor={(item) => item.id_moto.toString()}
+          renderItem={renderItem}
+          contentContainerStyle={styles.listContainer}
+        />
+        <TouchableOpacity style={styles.button} onPress={handleBackToHome}>
+          <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
 
-  </View>
+    </View>
   );
 }
 
@@ -136,26 +134,26 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   title: { fontSize: 16, fontWeight: 'bold', marginBottom: 8 },
-  buttons: { 
+  buttons: {
     flexDirection: 'column',
     alignItems: 'flex-start',
     gap: 10,
-    marginTop: 10, 
+    marginTop: 10,
   },
-  buttonEdit: { 
-    backgroundColor: '#007bff', 
-    padding: 10, 
-    borderRadius: 8, 
+  buttonEdit: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    borderRadius: 8,
   },
-  buttonMove: { 
-    backgroundColor: '#28a745', 
-    padding: 10, 
-    borderRadius: 8, 
+  buttonMove: {
+    backgroundColor: '#28a745',
+    padding: 10,
+    borderRadius: 8,
   },
-  buttonDelete: { 
-    backgroundColor: '#dc3545', 
-    padding: 10, 
-    borderRadius: 8, 
+  buttonDelete: {
+    backgroundColor: '#dc3545',
+    padding: 10,
+    borderRadius: 8,
   },
   btnText: { color: '#fff' },
   button: {

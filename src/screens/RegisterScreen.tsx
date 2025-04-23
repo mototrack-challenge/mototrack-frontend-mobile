@@ -10,10 +10,10 @@ import { useFonts } from 'expo-font';
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const RegisterScreen = () => {
-    const [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-    });
+  });
 
   const navigation = useNavigation<NavigationProp>();
 
@@ -33,7 +33,6 @@ const RegisterScreen = () => {
       const existingUsers = await AsyncStorage.getItem('users');
       const users = existingUsers ? JSON.parse(existingUsers) : [];
 
-      // Verifica se o e-mail já foi cadastrado
       const emailExists = users.some((user: any) => user.email === email);
       if (emailExists) {
         setError('Este e-mail já está cadastrado.');
@@ -45,17 +44,15 @@ const RegisterScreen = () => {
 
       await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
 
-      // Exibe a mensagem de sucesso
       setError('');
       SetMensagem('Cadastro realizado!');
 
-      // Espera 2 segundos antes de navegar
       setTimeout(() => {
         setError('');
         SetMensagem('');
         navigation.navigate('Login');
       }, 2000);
-      
+
     } catch (e) {
       console.error('Erro ao salvar no AsyncStorage', e);
       alert('Não foi possível realizar o cadastro.');
@@ -91,19 +88,19 @@ const RegisterScreen = () => {
         secureTextEntry
       />
 
-      {mensagem? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
+      {mensagem ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
       {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
 
-            <TouchableOpacity style={styles.button} onPress={handleRegister}>
-              <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Cadastrar</Text>
-            </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Cadastrar</Text>
+      </TouchableOpacity>
 
-        <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
-            Já possui uma conta? 
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.textLink}>Faça login</Text> 
-            </TouchableOpacity>
-        </Text>
+      <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
+        Já possui uma conta?
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.textLink}>Faça login</Text>
+        </TouchableOpacity>
+      </Text>
     </View>
   );
 };

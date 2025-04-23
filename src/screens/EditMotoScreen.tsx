@@ -12,10 +12,10 @@ type EditMotoRouteProp = RouteProp<RootStackParamList, 'EditMoto'>;
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function EditMotoScreen() {
-          const [fontsLoaded] = useFonts({
-            MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-            MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-          });
+  const [fontsLoaded] = useFonts({
+    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+  });
 
   const route = useRoute<EditMotoRouteProp>();
   const navigation = useNavigation<NavigationProp>();
@@ -43,40 +43,40 @@ export default function EditMotoScreen() {
           status,
         };
         await AsyncStorage.setItem('motos', JSON.stringify(motos));
-        Alert.alert('Sucesso', 'Moto atualizada com sucesso!');
+        alert('Moto atualizada com sucesso!');
         navigation.goBack();
       }
     } catch (error) {
-      Alert.alert('Erro', 'Não foi possível atualizar a moto.');
+      alert('Não foi possível atualizar a moto.');
     }
   };
 
   return (
     <View style={styles.header}>
-    <Header title="Editar Moto" onLogout={handleLogout} />
-    <View style={styles.container}>
-      <Text style={[styles.label,{ fontFamily: 'MontserratRegular' }]}>Modelo:</Text>
-      <TextInput style={styles.input} value={modelo} onChangeText={setModelo} />
+      <Header title="Editar Moto" onLogout={handleLogout} />
+      <View style={styles.container}>
+        <Text style={[styles.label, { fontFamily: 'MontserratRegular' }]}>Modelo:</Text>
+        <TextInput style={styles.input} value={modelo} onChangeText={setModelo} />
 
-      <Text style={[styles.label,{ fontFamily: 'MontserratRegular' }]}>Placa:</Text>
-      <TextInput style={styles.input} value={placa} onChangeText={setPlaca} />
+        <Text style={[styles.label, { fontFamily: 'MontserratRegular' }]}>Placa:</Text>
+        <TextInput style={styles.input} value={placa} onChangeText={setPlaca} />
 
-      <Text style={[styles.label,{ fontFamily: 'MontserratRegular' }]}>Status:</Text>
+        <Text style={[styles.label, { fontFamily: 'MontserratRegular' }]}>Status:</Text>
         <Picker
-            selectedValue={status}
-            onValueChange={(itemValue) => setStatus(itemValue)}
-            style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
+          selectedValue={status}
+          onValueChange={(itemValue) => setStatus(itemValue)}
+          style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
         >
-            <Picker.Item label="Em manutenção" value="Em manutenção" />
-            <Picker.Item label="Em avaliação" value="Em avaliação" />
-            <Picker.Item label="Pronta para uso" value="Pronta para uso" />
+          <Picker.Item label="Em manutenção" value="Em manutenção" />
+          <Picker.Item label="Em avaliação" value="Em avaliação" />
+          <Picker.Item label="Pronta para uso" value="Pronta para uso" />
         </Picker>
 
         <TouchableOpacity style={styles.button} onPress={handleSave}>
-            <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Salvar Alterações</Text>
+          <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Salvar Alterações</Text>
         </TouchableOpacity>
+      </View>
     </View>
-  </View>
 
   );
 }
