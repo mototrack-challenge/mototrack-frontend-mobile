@@ -6,16 +6,27 @@ import { RootStackParamList } from '../types/types';
 import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Picker } from '@react-native-picker/picker';
+import Header from '../components/Header';
+import { useFonts } from 'expo-font';
 
 type ChangeRouteProp = RouteProp<RootStackParamList, 'ChangeDepartamento'>;
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function ChangeDepartamentoScreen() {
+          const [fontsLoaded] = useFonts({
+            MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+            MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+          });
+
     const route = useRoute<ChangeRouteProp>();
     const navigation = useNavigation<NavigationProp>();
     const { moto } = route.params;
 
     const [novoDepartamento, setNovoDepartamento] = useState('');
+
+    const handleLogout = () => {
+        navigation.navigate('Login');
+      };
 
     const handleSave = async () => {
         const horario = new Date().toLocaleString();
@@ -39,12 +50,14 @@ export default function ChangeDepartamentoScreen() {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.label}>Novo Departamento:</Text>
+        <View style={styles.header}>
+    <Header title="Departamento" onLogout={handleLogout} />
+    <View style={styles.container}>
+            <Text style={[styles.label,{ fontFamily: 'MontserratRegular' }]}>Novo Departamento:</Text>
             <Picker
                 selectedValue={novoDepartamento}
                 onValueChange={(itemValue) => setNovoDepartamento(itemValue)}
-                style={styles.picker}
+                style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
             >
                 <Picker.Item label="ENTRADA" value="ENTRADA" />
                 <Picker.Item label="AVALIAÇÃO" value="AVALIAÇÃO" />
@@ -54,13 +67,17 @@ export default function ChangeDepartamentoScreen() {
             </Picker>
 
             <TouchableOpacity style={styles.button} onPress={handleSave}>
-                <Text style={styles.buttonText}>Salvar Alteração</Text>
+                <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Salvar Alteração</Text>
             </TouchableOpacity>
         </View>
+  </View>
     );
 }
 
 const styles = StyleSheet.create({
+    header: {
+        flex: 1,
+      },
     container: { flex: 1, padding: 16, backgroundColor: '#fff' },
     label: { fontSize: 16, marginBottom: 8 },
     input: {
@@ -71,12 +88,18 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     button: {
-        backgroundColor: '#28a745',
-        padding: 12,
-        borderRadius: 8,
+        backgroundColor: '#546E7A',
+        paddingVertical: 12,
+        borderRadius: 5,
         alignItems: 'center',
-    },
-    buttonText: { color: '#fff', fontSize: 16 },
+        justifyContent: 'center',
+        marginTop: 10
+      },
+      buttonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
     picker: {
         height: 40,
         backgroundColor: '#ECEFF1',
