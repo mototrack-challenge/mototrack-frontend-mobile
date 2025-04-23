@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-picker/picker';
@@ -7,6 +7,7 @@ import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header';
+import { useFonts } from 'expo-font';
 
 type Moto = {
   id_moto: number;
@@ -23,6 +24,11 @@ const STORAGE_KEY = 'motos';
 const RegisterMotoScreen = () => {
     const navigation = useNavigation<NavigationProp>();
 
+      const [fontsLoaded] = useFonts({
+        MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+        MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+      });
+
   const [placa, setPlaca] = useState('');
   const [modelo, setModelo] = useState('');
   const [status, setStatus] = useState('Em manutenção');
@@ -33,6 +39,9 @@ const RegisterMotoScreen = () => {
     navigation.navigate('Login');
   };
 
+  const handleBackToHome = () => {
+    navigation.navigate('Home');
+  };
   // Carrega motos do AsyncStorage ao iniciar a tela
   useEffect(() => {
     const loadMotos = async () => {
@@ -75,70 +84,100 @@ const RegisterMotoScreen = () => {
   };
 
   return (
+    <View style={styles.header}>
+    <Header title="Cadastrar Motos" onLogout={handleLogout} />
     <ScrollView contentContainerStyle={styles.container}>
-      <Header title="Cadastrar Motos" onLogout={handleLogout} />
-      <Text style={styles.title}>Preecha todos os dados</Text>
+      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Preecha todos os dados</Text>
 
       <TextInput
-        style={styles.input}
+        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
         placeholder="Placa"
         value={placa}
         onChangeText={setPlaca}
       />
 
       <TextInput
-        style={styles.input}
+        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
         placeholder="Modelo"
         value={modelo}
         onChangeText={setModelo}
       />
 
-      <Text style={styles.label}>Status</Text>
+      <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Status</Text>
       <Picker
         selectedValue={status}
         onValueChange={(itemValue) => setStatus(itemValue)}
-        style={styles.picker}
+        style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
       >
         <Picker.Item label="Em manutenção" value="Em manutenção" />
         <Picker.Item label="Em avaliação" value="Em avaliação" />
         <Picker.Item label="Pronta para uso" value="Pronta para uso" />
       </Picker>
 
-      <View style={styles.button}>
-        <Button title="Cadastrar Moto" onPress={handleRegister} />
-      </View>
+    <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Cadastrar Moto</Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity style={styles.button} onPress={handleBackToHome}>
+        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Voltar</Text>
+    </TouchableOpacity>
+
     </ScrollView>
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
+  header: {
+    flex: 1,
+  },
   container: {
     padding: 16,
     backgroundColor: '#FFF',
-    flexGrow: 1,
+    flex: 1
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
   },
   input: {
+    height: 40,
+    backgroundColor: '#ECEFF1',
+    borderColor: 'gray',
     borderWidth: 1,
-    borderColor: '#CCC',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 15,
+    marginBottom: 10,
+    paddingLeft: 10,
+    borderRadius: 5,
   },
   label: {
+    fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
   },
   picker: {
+    height: 40,
+    backgroundColor: '#ECEFF1',
+    borderColor: 'gray',
+    fontWeight: 'normal',
+    borderWidth: 1,
+    paddingLeft: 10,
+    borderRadius: 5,
     marginBottom: 20,
   },
   button: {
-    marginTop: 10,
+    backgroundColor: '#546E7A',
+    paddingVertical: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

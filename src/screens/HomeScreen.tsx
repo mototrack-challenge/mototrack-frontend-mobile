@@ -23,7 +23,7 @@ const HomeScreen = () => {
 
     // Funções para navegação para outras telas (cadastro de motos, lista de motos, etc.)
     const navigateToRegister = () => {
-      // Navegação para a tela de cadastro de motos
+      navigation.navigate('Moto');
       console.log('Navegar para Cadastro');
     };
   
