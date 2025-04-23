@@ -7,6 +7,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import RegisterMotoScreen from './src/screens/RegisterMotoScreen';
 import ListMotosScreen from './src/screens/ListMotosScreen';
 import EditMotoScreen from './src/screens/EditMotoScreen';
+import ChangeDepartamentoScreen from './src/screens/ChangeDepartamentoScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ function App() {
       <Stack.Screen name="Moto" component={RegisterMotoScreen} />
       <Stack.Screen name="ListMotos" component={ListMotosScreen} />
       <Stack.Screen name="EditMoto" component={EditMotoScreen} />
+      <Stack.Screen name="ChangeDepartamento" component={ChangeDepartamentoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
