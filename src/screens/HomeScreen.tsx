@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 16,
+    padding: 10,
     backgroundColor: '#FFF',
   },
   content: {
     flexGrow: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   cardsContainer: {
     flexDirection: 'column',
