@@ -39,6 +39,10 @@ export default function ListMotosScreen() {
     navigation.navigate('Login');
   };
 
+  const handleBackToHome = () => {
+    navigation.navigate('Home');
+  };
+
   useEffect(() => {
     const carregarMotos = async () => {
       const data = await AsyncStorage.getItem(STORAGE_KEY);
@@ -103,7 +107,11 @@ export default function ListMotosScreen() {
         renderItem={renderItem}
         contentContainerStyle={styles.listContainer}
       />
+    <TouchableOpacity style={styles.button} onPress={handleBackToHome}>
+        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Voltar</Text>
+    </TouchableOpacity>
     </View>
+
   </View>
   );
 }
@@ -150,4 +158,17 @@ const styles = StyleSheet.create({
     borderRadius: 8, 
   },
   btnText: { color: '#fff' },
+  button: {
+    backgroundColor: '#546E7A',
+    paddingVertical: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });

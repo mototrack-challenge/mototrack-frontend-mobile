@@ -28,7 +28,7 @@ const HomeScreen = () => {
     };
   
     const navigateToList = () => {
-      // Navegação para a tela de lista de motos
+      navigation.navigate('ListMotos');
       console.log('Navegar para Lista de Motos');
     };
 
