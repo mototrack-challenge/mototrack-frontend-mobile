@@ -34,7 +34,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.header}>
-      <Header title="Página Inicial" userName="João" onLogout={handleLogout} />
+      <Header title="Página Inicial" onLogout={handleLogout} />
       <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.cardsContainer}>

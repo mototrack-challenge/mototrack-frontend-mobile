@@ -4,11 +4,10 @@ import { useFonts } from 'expo-font';
 
 interface HeaderProps {
   title: string;
-  userName: string;
   onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, userName, onLogout }) => {
+const Header: React.FC<HeaderProps> = ({ title, onLogout }) => {
     const [fontsLoaded] = useFonts({
       MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
       MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
@@ -18,7 +17,6 @@ const Header: React.FC<HeaderProps> = ({ title, userName, onLogout }) => {
     <View style={styles.container}>
       <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{title}</Text>
       <View style={styles.rightSection}>
-        <Text style={[styles.userName, { fontFamily: 'MontserratRegular' }]}>{`Bem-vindo, ${userName}`}</Text>
         <TouchableOpacity onPress={onLogout}>
           <Text style={[styles.logoutText, { fontFamily: 'MontserratRegular' }]}>Logout</Text>
         </TouchableOpacity>
