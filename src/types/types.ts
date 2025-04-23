@@ -18,6 +18,6 @@ export type RootStackParamList = {
     Home: undefined;
     Moto: undefined;
     ListMotos: undefined;
-    EditarMoto: { moto: Moto };
-    MudarDepartamento: { moto: Moto };
+    EditMoto: { moto: Moto };
+    ChangeDepartamento: { moto: Moto };
 };

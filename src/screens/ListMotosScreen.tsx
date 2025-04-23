@@ -77,13 +77,13 @@ export default function ListMotosScreen() {
       <View style={styles.buttons}>
         <TouchableOpacity
           style={styles.buttonEdit}
-          onPress={() => navigation.navigate('EditarMoto', { moto: item })}>
+          onPress={() => navigation.navigate('EditMoto', { moto: item })}>
           <Text style={[styles.btnText,{ fontFamily: 'MontserratRegular' }]}>Editar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonMove}
-          onPress={() => navigation.navigate('MudarDepartamento', { moto: item })}>
+          onPress={() => navigation.navigate('ChangeDepartamento', { moto: item })}>
           <Text style={[styles.btnText,{ fontFamily: 'MontserratRegular' }]}>Mover Departamento</Text>
         </TouchableOpacity>
 
