@@ -9,12 +9,18 @@ import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header';
 import { useFonts } from 'expo-font';
 
+type Movimentacao = {
+  departamento: string;
+  horario: string;
+};
+
 type Moto = {
   id_moto: number;
   placa: string;
   modelo: string;
   status: string;
-  movimentacoes: string[];
+  departamento: string;
+  movimentacoes: Movimentacao[];
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -32,6 +38,7 @@ const RegisterMotoScreen = () => {
   const [placa, setPlaca] = useState('');
   const [modelo, setModelo] = useState('');
   const [status, setStatus] = useState('Em manutenção');
+  const [departamento, setDepartamento] = useState('ENTRADA');
   const [motos, setMotos] = useState<Moto[]>([]);
   const [nextId, setNextId] = useState(1);
     const [mensageError, setMensageError] = useState<string>('');
@@ -72,7 +79,11 @@ const RegisterMotoScreen = () => {
       placa,
       modelo,
       status,
-      movimentacoes: [],
+      departamento,
+      movimentacoes: [{
+        departamento,
+        horario: new Date().toLocaleString()
+      }],
     };
 
     const updatedMotos = [...motos, novaMoto];
@@ -81,6 +92,7 @@ const RegisterMotoScreen = () => {
     setPlaca('');
     setModelo('');
     setStatus('Em manutenção');
+    setDepartamento('ENTRADA');
 
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMotos));
     SetMensageSucess('Moto cadastrada com sucesso!');
@@ -106,6 +118,19 @@ const RegisterMotoScreen = () => {
         value={modelo}
         onChangeText={setModelo}
       />
+
+      <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Departamento</Text>
+      <Picker
+        selectedValue={departamento}
+        onValueChange={(itemValue) => setDepartamento(itemValue)}
+        style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
+      >
+        <Picker.Item label="ENTRADA" value="ENTRADA" />
+        <Picker.Item label="AVALIAÇÃO" value="AVALIAÇÃO" />
+        <Picker.Item label="MANUTENÇÃO" value="MANUTENÇÃO" />
+        <Picker.Item label="PRONTA PARA USO" value="PRONTA PARA USO" />
+        <Picker.Item label="SAÍDA" value="SAÍDA" />
+      </Picker>
 
       <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Status</Text>
       <Picker
