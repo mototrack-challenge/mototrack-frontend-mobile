@@ -34,6 +34,8 @@ const RegisterMotoScreen = () => {
   const [status, setStatus] = useState('Em manutenção');
   const [motos, setMotos] = useState<Moto[]>([]);
   const [nextId, setNextId] = useState(1);
+    const [mensageError, setMensageError] = useState<string>('');
+    const [mensageSucess, SetMensageSucess] = useState<string>('');
 
   const handleLogout = () => {
     navigation.navigate('Login');
@@ -60,7 +62,8 @@ const RegisterMotoScreen = () => {
 
   const handleRegister = async () => {
     if (!placa || !modelo) {
-      Alert.alert('Erro', 'Preencha todos os campos.');
+      setMensageError('Preencha todos os campos.')
+      SetMensageSucess('');
       return;
     }
 
@@ -80,7 +83,8 @@ const RegisterMotoScreen = () => {
     setStatus('Em manutenção');
 
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMotos));
-    alert('Moto cadastrada com sucesso!');
+    SetMensageSucess('Moto cadastrada com sucesso!');
+    setMensageError('');
   };
 
   return (
@@ -113,6 +117,9 @@ const RegisterMotoScreen = () => {
         <Picker.Item label="Em avaliação" value="Em avaliação" />
         <Picker.Item label="Pronta para uso" value="Pronta para uso" />
       </Picker>
+
+            {mensageSucess? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensageSucess}</Text> : null}
+            {mensageError ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{mensageError}</Text> : null}
 
     <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Cadastrar Moto</Text>
@@ -178,6 +185,16 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  success: {
+    color: 'green',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  error: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign: 'center',
   },
 });
 
