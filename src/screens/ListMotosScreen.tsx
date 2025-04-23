@@ -5,6 +5,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Header from '../components/Header';
+import { useFonts } from 'expo-font';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -25,6 +26,10 @@ type Moto = {
 };
 
 export default function ListMotosScreen() {
+      const [fontsLoaded] = useFonts({
+        MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
+        MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
+      });
   const navigation = useNavigation<NavigationProp>();
 
   const [motos, setMotos] = useState<Moto[]>([]);
@@ -57,32 +62,32 @@ export default function ListMotosScreen() {
 
   const renderItem = ({ item }: { item: Moto }) => (
     <View style={styles.card}>
-      <Text style={styles.title}>{item.modelo} - {item.placa}</Text>
-      <Text>Status: {item.status}</Text>
-      <Text>Departamento atual: {item.departamento}</Text>
-      <Text>Movimentações:</Text>
+      <Text style={[styles.title,{ fontFamily: 'MontserratBold' }]}>{item.modelo} - {item.placa}</Text>
+      <Text style={{fontFamily: 'MontserratRegular'}}>Status: {item.status}</Text>
+      <Text style={{fontFamily: 'MontserratRegular'}}>Departamento atual: {item.departamento}</Text>
+      <Text style={{fontFamily: 'MontserratRegular'}}>Movimentações:</Text>
       {item.movimentacoes.map((mov, index) => (
-        <Text key={index}>• {mov.departamento} - {mov.horario}</Text>
+        <Text style={{fontFamily: 'MontserratRegular'}} key={index}>• {mov.departamento} - {mov.horario}</Text>
       ))}
 
       <View style={styles.buttons}>
         <TouchableOpacity
           style={styles.buttonEdit}
           onPress={() => navigation.navigate('EditarMoto', { moto: item })}>
-          <Text style={styles.btnText}>Editar</Text>
+          <Text style={[styles.btnText,{ fontFamily: 'MontserratRegular' }]}>Editar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonMove}
           onPress={() => navigation.navigate('MudarDepartamento', { moto: item })}>
-          <Text style={styles.btnText}>Mover Departamento</Text>
+          <Text style={[styles.btnText,{ fontFamily: 'MontserratRegular' }]}>Mover Departamento</Text>
         </TouchableOpacity>
 
         {/* Botão de deletar moto */}
         <TouchableOpacity
           style={styles.buttonDelete}
           onPress={() => handleDelete(item.id_moto)}>
-          <Text style={styles.btnText}>Deletar</Text>
+          <Text style={[styles.btnText,{ fontFamily: 'MontserratRegular' }]}>Deletar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -104,9 +109,9 @@ export default function ListMotosScreen() {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        flex: 1,
-      },
+  header: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     padding: 16,
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   card: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#ECEFF1',
     padding: 16,
     borderRadius: 12,
     marginBottom: 12,
