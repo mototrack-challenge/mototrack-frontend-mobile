@@ -139,21 +139,28 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: 10,
     marginTop: 10,
+    width: "100%"
   },
   buttonEdit: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#37474F',
     padding: 10,
     borderRadius: 8,
+    width: "60%",
+    alignItems: 'center'
   },
   buttonMove: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#546E7A',
     padding: 10,
     borderRadius: 8,
+    width: "60%",
+    alignItems: 'center'
   },
   buttonDelete: {
-    backgroundColor: '#dc3545',
+    backgroundColor: '#D32F2F',
     padding: 10,
     borderRadius: 8,
+    width: "60%",
+    alignItems: 'center'
   },
   btnText: { color: '#fff' },
   button: {
