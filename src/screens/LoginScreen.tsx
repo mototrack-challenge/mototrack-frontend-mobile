@@ -44,9 +44,12 @@ const LoginScreen = () => {
       );
 
       if (foundUser) {
+        await AsyncStorage.setItem('loggedUser', JSON.stringify({
+          email: foundUser.email,
+          name: foundUser.name,
+        }));
         SetMensagem('Login realizado!');
         setError('');
-
 
         setTimeout(() => {
           setError('');
