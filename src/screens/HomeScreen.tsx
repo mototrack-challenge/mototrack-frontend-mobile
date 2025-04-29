@@ -35,8 +35,10 @@ const HomeScreen = () => {
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.cardsContainer}>
-            <Card title="Motos em Manutenção" count={motosEmManutencao} backgroundColor="#FF5722" />
-            <Card title="Motos em Análise" count={motosEmAnalise} backgroundColor="#A5BFCC" />
+            <Card title="Motos Cadastradas" count={125} backgroundColor="#455A64" />
+            <Card title="Motos em Análise" count={20} backgroundColor="#8D6E63" />
+            <Card title="Motos em Manutenção" count={60} backgroundColor="#6D4C41" />
+            <Card title="Motos prontas para Uso" count={45} backgroundColor="#547A6E" />
           </View>
 
           <View>
@@ -69,7 +71,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   content: {
-    flexGrow: 1,
     justifyContent: 'center',
   },
   cardsContainer: {
