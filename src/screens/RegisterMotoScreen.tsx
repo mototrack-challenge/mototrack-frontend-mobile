@@ -37,7 +37,7 @@ const RegisterMotoScreen = () => {
 
   const [placa, setPlaca] = useState('');
   const [modelo, setModelo] = useState('');
-  const [status, setStatus] = useState('Em manutenção');
+  const [status, setStatus] = useState('Em avaliação');
   const [departamento, setDepartamento] = useState('ENTRADA');
   const [motos, setMotos] = useState<Moto[]>([]);
   const [nextId, setNextId] = useState(1);
@@ -138,8 +138,8 @@ const RegisterMotoScreen = () => {
           onValueChange={(itemValue) => setStatus(itemValue)}
           style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
         >
-          <Picker.Item label="Em manutenção" value="Em manutenção" />
           <Picker.Item label="Em avaliação" value="Em avaliação" />
+          <Picker.Item label="Em manutenção" value="Em manutenção" />
           <Picker.Item label="Pronta para uso" value="Pronta para uso" />
         </Picker>
 
