@@ -24,6 +24,8 @@ export default function EditMotoScreen() {
   const [modelo, setModelo] = useState(moto.modelo);
   const [placa, setPlaca] = useState(moto.placa);
   const [status, setStatus] = useState(moto.status);
+  const [error, setError] = useState<string>('');
+  const [mensagem, SetMensagem] = useState<string>('');
 
   const handleLogout = () => {
     navigation.navigate('Login');
@@ -43,11 +45,15 @@ export default function EditMotoScreen() {
           status,
         };
         await AsyncStorage.setItem('motos', JSON.stringify(motos));
-        alert('Moto atualizada com sucesso!');
-        navigation.goBack();
+        SetMensagem('Moto atualizada com sucesso!');
+        setTimeout(() => {
+          setError('');
+          SetMensagem('');
+          navigation.goBack();
+        }, 2000);
       }
     } catch (error) {
-      alert('Não foi possível atualizar a moto.');
+      setError('Não foi possível atualizar a moto.');
     }
   };
 
@@ -71,6 +77,9 @@ export default function EditMotoScreen() {
           <Picker.Item label="Em avaliação" value="Em avaliação" />
           <Picker.Item label="Pronta para uso" value="Pronta para uso" />
         </Picker>
+
+        {mensagem ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
+        {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
 
         <TouchableOpacity style={styles.button} onPress={handleSave}>
           <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Salvar Alterações</Text>
@@ -118,5 +127,15 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  error: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  success: {
+    color: 'green',
+    marginBottom: 10,
+    textAlign: 'center',
   },
 });
