@@ -21,10 +21,6 @@ const HomeScreen = () => {
   const [emManutencao, setEmManutencao] = useState(0);
   const [prontas, setProntas] = useState(0);
 
-  const handleLogout = () => {
-    navigation.navigate('Login');
-  };
-
   const navigateToRegister = () => {
     navigation.navigate('Moto');
   };
@@ -60,7 +56,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.header}>
-      <Header title="Página Inicial" onLogout={handleLogout} />
+      <Header title="Página Inicial"/>
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.cardsContainer}>

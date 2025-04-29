@@ -26,10 +26,6 @@ export default function ChangeDepartamentoScreen() {
     const [error, setError] = useState<string>('');
     const [mensagem, SetMensagem] = useState<string>('');
 
-    const handleLogout = () => {
-        navigation.navigate('Login');
-    };
-
     const handleSave = async () => {
         const horario = new Date().toLocaleString();
 
@@ -58,7 +54,7 @@ export default function ChangeDepartamentoScreen() {
 
     return (
         <View style={styles.header}>
-            <Header title="Departamento" onLogout={handleLogout} />
+            <Header title="Departamento"/>
             <View style={styles.container}>
                 <Text style={[styles.label, { fontFamily: 'MontserratRegular' }]}>Novo Departamento:</Text>
                 <Picker

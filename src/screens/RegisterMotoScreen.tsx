@@ -44,10 +44,6 @@ const RegisterMotoScreen = () => {
   const [mensageError, setMensageError] = useState<string>('');
   const [mensageSucess, SetMensageSucess] = useState<string>('');
 
-  const handleLogout = () => {
-    navigation.navigate('Login');
-  };
-
   const handleBackToHome = () => {
     navigation.navigate('Home');
   };
@@ -101,7 +97,7 @@ const RegisterMotoScreen = () => {
 
   return (
     <View style={styles.header}>
-      <Header title="Cadastrar Motos" onLogout={handleLogout} />
+      <Header title="Cadastrar Motos"/>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Preecha todos os dados</Text>
 

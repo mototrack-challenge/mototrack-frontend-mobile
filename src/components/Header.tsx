@@ -1,23 +1,42 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../types/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 interface HeaderProps {
   title: string;
-  onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, onLogout }) => {
+const Header: React.FC<HeaderProps> = ({ title }) => {
+  const navigation = useNavigation<NavigationProp>();
+
   const [fontsLoaded] = useFonts({
     MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
   });
 
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('loggedUser');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      });
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível realizar o logout.');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{title}</Text>
       <View style={styles.rightSection}>
-        <TouchableOpacity onPress={onLogout}>
+        <TouchableOpacity onPress={handleLogout}>
           <Text style={[styles.logoutText, { fontFamily: 'MontserratRegular' }]}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -42,12 +61,7 @@ const styles = StyleSheet.create({
   rightSection: {
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 5
-  },
-  userName: {
-    color: '#fff',
-    marginRight: 10,
-    fontSize: 16,
+    gap: 5,
   },
   logoutText: {
     color: '#fff',

@@ -27,10 +27,6 @@ export default function EditMotoScreen() {
   const [error, setError] = useState<string>('');
   const [mensagem, SetMensagem] = useState<string>('');
 
-  const handleLogout = () => {
-    navigation.navigate('Login');
-  };
-
   const handleSave = async () => {
     try {
       const data = await AsyncStorage.getItem('motos');
@@ -59,7 +55,7 @@ export default function EditMotoScreen() {
 
   return (
     <View style={styles.header}>
-      <Header title="Editar Moto" onLogout={handleLogout} />
+      <Header title="Editar Moto"/>
       <View style={styles.container}>
         <Text style={[styles.label, { fontFamily: 'MontserratRegular' }]}>Modelo:</Text>
         <TextInput style={styles.input} value={modelo} onChangeText={setModelo} />

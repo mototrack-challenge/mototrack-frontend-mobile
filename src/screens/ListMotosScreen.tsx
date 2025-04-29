@@ -35,10 +35,6 @@ export default function ListMotosScreen() {
   const [motos, setMotos] = useState<Moto[]>([]);
   const isFocused = useIsFocused();
 
-  const handleLogout = () => {
-    navigation.navigate('Login');
-  };
-
   const handleBackToHome = () => {
     navigation.navigate('Home');
   };
@@ -117,7 +113,7 @@ export default function ListMotosScreen() {
 
   return (
     <View style={styles.header}>
-      <Header title="Lista de Motos" onLogout={handleLogout} />
+      <Header title="Lista de Motos"/>
       <View style={styles.container}>
         <FlatList
           data={motos}
