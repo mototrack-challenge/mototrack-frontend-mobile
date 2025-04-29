@@ -23,6 +23,8 @@ export default function ChangeDepartamentoScreen() {
     const { moto } = route.params;
 
     const [novoDepartamento, setNovoDepartamento] = useState('');
+    const [error, setError] = useState<string>('');
+    const [mensagem, SetMensagem] = useState<string>('');
 
     const handleLogout = () => {
         navigation.navigate('Login');
@@ -41,11 +43,16 @@ export default function ChangeDepartamentoScreen() {
                 motos[index].movimentacoes.push({ departamento: novoDepartamento, horario });
 
                 await AsyncStorage.setItem('motos', JSON.stringify(motos));
-                alert('Departamento alterado!');
-                navigation.goBack();
+                SetMensagem('Departamento alterado!');
+                setTimeout(() => {
+                    setError('');
+                    SetMensagem('');
+                    navigation.goBack();
+                }, 2000);
+
             }
         } catch (error) {
-            alert('Erro ao alterar o departamento.');
+            setError('Erro ao alterar o departamento.');
         }
     };
 
@@ -65,6 +72,9 @@ export default function ChangeDepartamentoScreen() {
                     <Picker.Item label="PRONTA PARA USO" value="PRONTA PARA USO" />
                     <Picker.Item label="SAÍDA" value="SAÍDA" />
                 </Picker>
+
+                {mensagem ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
+                {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
 
                 <TouchableOpacity style={styles.button} onPress={handleSave}>
                     <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Salvar Alteração</Text>
@@ -110,4 +120,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 20,
     },
+    error: {
+        color: 'red',
+        marginBottom: 10,
+        textAlign: 'center',
+      },
+      success: {
+        color: 'green',
+        marginBottom: 10,
+        textAlign: 'center',
+      },
 });
