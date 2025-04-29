@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
@@ -61,6 +61,10 @@ const RegisterScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require('../../assets/images/logo-sem-fundo.png')}
+        style={styles.logo}
+      />
       <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Bem-vindo à MotoTrack</Text>
       <Text style={[styles.subtitle, { fontFamily: 'MontserratRegular' }]}>Cadastre-se para acessar o dashboard</Text>
 
@@ -111,6 +115,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 16,
     backgroundColor: '#FFFFFF',
+  },
+  logo: {
+    alignSelf: 'center',
+    marginBottom: 20,
   },
   title: {
     fontSize: 24,
