@@ -8,14 +8,18 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Card from '../components/Card';
 import QuickAccessButton from '../components/QuickAccessButton';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp>();
 
-  const [motosEmManutencao] = useState(5); // Exemplo de quantidade
-  const [motosEmAnalise] = useState(3); // Exemplo de quantidade
+  const [totalMotos, setTotalMotos] = useState(0);
+  const [emAnalise, setEmAnalise] = useState(0);
+  const [emManutencao, setEmManutencao] = useState(0);
+  const [prontas, setProntas] = useState(0);
 
   const handleLogout = () => {
     navigation.navigate('Login');
@@ -29,16 +33,41 @@ const HomeScreen = () => {
     navigation.navigate('ListMotos');
   };
 
+  useEffect(() => {
+    const loadMotos = async () => {
+      const stored = await AsyncStorage.getItem('motos');
+      if (stored) {
+        const motos = JSON.parse(stored);
+  
+        setTotalMotos(motos.length);
+  
+        const analise = motos.filter((moto: any) => moto.departamento === 'AVALIAÇÃO').length;
+        const manutencao = motos.filter((moto: any) => moto.departamento === 'MANUTENÇÃO').length;
+        const prontas = motos.filter((moto: any) => moto.departamento === 'PRONTA PARA USO').length;
+  
+        setEmAnalise(analise);
+        setEmManutencao(manutencao);
+        setProntas(prontas);
+      }
+    };
+  
+    const unsubscribe = navigation.addListener('focus', loadMotos); // Recarrega sempre que voltar pra Home
+  
+    loadMotos();
+  
+    return unsubscribe;
+  }, [navigation]);
+
   return (
     <View style={styles.header}>
       <Header title="Página Inicial" onLogout={handleLogout} />
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.cardsContainer}>
-            <Card title="Motos Cadastradas" count={125} backgroundColor="#455A64" />
-            <Card title="Motos em Análise" count={20} backgroundColor="#8D6E63" />
-            <Card title="Motos em Manutenção" count={60} backgroundColor="#6D4C41" />
-            <Card title="Motos prontas para Uso" count={45} backgroundColor="#547A6E" />
+            <Card title="Motos Cadastradas" count={totalMotos} backgroundColor="#455A64" />
+            <Card title="Motos em Avaliação" count={emAnalise} backgroundColor="#8D6E63" />
+            <Card title="Motos em Manutenção" count={emManutencao} backgroundColor="#6D4C41" />
+            <Card title="Motos prontas para Uso" count={prontas} backgroundColor="#547A6E" />
           </View>
 
           <View>
