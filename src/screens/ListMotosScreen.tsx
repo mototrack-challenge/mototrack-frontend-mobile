@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
@@ -55,12 +55,32 @@ export default function ListMotosScreen() {
   }, [isFocused]);
 
   const handleDelete = (id_moto: number) => {
-    const confirmed = window.confirm('Tem certeza de que deseja excluir esta moto?');
-    if (confirmed) {
-      const updatedMotos = motos.filter(moto => moto.id_moto !== id_moto);
-      setMotos(updatedMotos);
-      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMotos));
-    }
+    // const confirmed = window.confirm('Tem certeza de que deseja excluir esta moto?');
+    // if (confirmed) {
+    //   const updatedMotos = motos.filter(moto => moto.id_moto !== id_moto);
+    //   setMotos(updatedMotos);
+    //   AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMotos));
+    // }
+    Alert.alert(
+      'Confirmar exclusão',
+      'Tem certeza de que deseja excluir esta moto?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Excluir',
+          onPress: () => {
+            const updatedMotos = motos.filter(moto => moto.id_moto !== id_moto);
+            setMotos(updatedMotos);
+            AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMotos));
+          },
+          style: 'destructive'
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   const renderItem = ({ item }: { item: Moto }) => (
