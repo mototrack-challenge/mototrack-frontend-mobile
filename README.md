@@ -85,3 +85,9 @@ npx expo start
 - [Protótipo no Figma](https://www.figma.com/proto/8i4XiCi16s1NIJUHwOXBH7/MotoTrack?node-id=1-3&p=f&t=IE8DNYqiGsRNgN80-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A3)
 
 - [Design no Figma](https://www.figma.com/design/8i4XiCi16s1NIJUHwOXBH7/MotoTrack?node-id=0-1&p=f&t=HSyQYs87hWQccr5O-0)
+
+## 📹 Demonstração
+
+Veja o vídeo de demonstração do app em funcionamento:
+
+📽️ [Clique aqui para assistir o vídeo](https://www.youtube.com/shorts/YUL0tFtFq9U)
