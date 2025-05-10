@@ -47,7 +47,7 @@ const RegisterMotoScreen = () => {
   const handleBackToHome = () => {
     navigation.navigate('Home');
   };
-  
+
   useEffect(() => {
     const loadMotos = async () => {
       const storedMotos = await AsyncStorage.getItem(STORAGE_KEY);
@@ -96,9 +96,11 @@ const RegisterMotoScreen = () => {
   };
 
   return (
-    <View style={styles.header}>
-      <Header title="Cadastrar Motos"/>
-      <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.innerContainer}>
+        <Header title="Cadastrar Motos" />
+
+        <View style={styles.containerMain}>
         <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Preecha todos os dados</Text>
 
         <TextInput
@@ -116,28 +118,30 @@ const RegisterMotoScreen = () => {
         />
 
         <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Departamento</Text>
-        <Picker
-          selectedValue={departamento}
-          onValueChange={(itemValue) => setDepartamento(itemValue)}
-          style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
-        >
-          <Picker.Item label="ENTRADA" value="ENTRADA" />
-          <Picker.Item label="AVALIAÇÃO" value="AVALIAÇÃO" />
-          <Picker.Item label="MANUTENÇÃO" value="MANUTENÇÃO" />
-          <Picker.Item label="PRONTA PARA USO" value="PRONTA PARA USO" />
-          <Picker.Item label="SAÍDA" value="SAÍDA" />
-        </Picker>
+        <View style={styles.optionContainer}>
+          {['ENTRADA', 'AVALIAÇÃO', 'MANUTENÇÃO', 'PRONTA PARA USO', 'SAÍDA'].map((dep) => (
+            <TouchableOpacity
+              key={dep}
+              style={[styles.optionButton, departamento === dep && styles.optionButtonSelected]}
+              onPress={() => setDepartamento(dep)}
+            >
+              <Text style={[styles.optionText, { fontFamily: 'MontserratRegular' }]}>{dep}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
         <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Status</Text>
-        <Picker
-          selectedValue={status}
-          onValueChange={(itemValue) => setStatus(itemValue)}
-          style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
-        >
-          <Picker.Item label="Em avaliação" value="Em avaliação" />
-          <Picker.Item label="Em manutenção" value="Em manutenção" />
-          <Picker.Item label="Pronta para uso" value="Pronta para uso" />
-        </Picker>
+        <View style={styles.optionContainer}>
+          {['Em avaliação', 'Em manutenção', 'Pronta para uso'].map((st) => (
+            <TouchableOpacity
+              key={st}
+              style={[styles.optionButton, status === st && styles.optionButtonSelected]}
+              onPress={() => setStatus(st)}
+            >
+              <Text style={[styles.optionText, { fontFamily: 'MontserratRegular' }]}>{st}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
         {mensageSucess ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensageSucess}</Text> : null}
         {mensageError ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{mensageError}</Text> : null}
@@ -149,9 +153,9 @@ const RegisterMotoScreen = () => {
         <TouchableOpacity style={styles.button} onPress={handleBackToHome}>
           <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Voltar</Text>
         </TouchableOpacity>
-
-      </ScrollView>
-    </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -163,6 +167,10 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#FFF',
     flex: 1
+  },
+  containerMain: {
+    paddingTop: 20,
+    paddingHorizontal: 10
   },
   title: {
     fontSize: 20,
@@ -183,16 +191,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
-  },
-  picker: {
-    height: 40,
-    backgroundColor: '#ECEFF1',
-    borderColor: 'gray',
-    fontWeight: 'normal',
-    borderWidth: 1,
-    paddingLeft: 10,
-    borderRadius: 5,
-    marginBottom: 20,
   },
   button: {
     backgroundColor: '#546E7A',
@@ -216,6 +214,35 @@ const styles = StyleSheet.create({
     color: 'red',
     marginBottom: 10,
     textAlign: 'center',
+  },
+  optionContainer: {
+    flexDirection: 'column',
+    marginBottom: 20,
+  },
+  optionButton: {
+    backgroundColor: '#CFD8DC',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 5,
+    marginBottom: 8,
+    marginRight: 8,
+  },
+  optionButtonSelected: {
+    backgroundColor: '#607D8B',
+  },
+  optionText: {
+    color: '#FFF',
+    fontSize: 14,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: '#FFF',
+    paddingBottom: 32
+  },
+
+  innerContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
   },
 });
 

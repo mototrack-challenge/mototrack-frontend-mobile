@@ -64,15 +64,17 @@ export default function EditMotoScreen() {
         <TextInput style={styles.input} value={placa} onChangeText={setPlaca} />
 
         <Text style={[styles.label, { fontFamily: 'MontserratRegular' }]}>Status:</Text>
-        <Picker
-          selectedValue={status}
-          onValueChange={(itemValue) => setStatus(itemValue)}
-          style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
-        >
-          <Picker.Item label="Em manutenção" value="Em manutenção" />
-          <Picker.Item label="Em avaliação" value="Em avaliação" />
-          <Picker.Item label="Pronta para uso" value="Pronta para uso" />
-        </Picker>
+         <View style={styles.optionContainer}>
+                  {['Em avaliação', 'Em manutenção', 'Pronta para uso'].map((st) => (
+                    <TouchableOpacity
+                      key={st}
+                      style={[styles.optionButton, status === st && styles.optionButtonSelected]}
+                      onPress={() => setStatus(st)}
+                    >
+                      <Text style={[styles.optionText, { fontFamily: 'MontserratRegular' }]}>{st}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
 
         {mensagem ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
         {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
@@ -133,5 +135,24 @@ const styles = StyleSheet.create({
     color: 'green',
     marginBottom: 10,
     textAlign: 'center',
+  },
+  optionContainer: {
+    flexDirection: 'column',
+    marginBottom: 20,
+  },
+  optionButton: {
+    backgroundColor: '#CFD8DC',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 5,
+    marginBottom: 8,
+    marginRight: 8,
+  },
+  optionButtonSelected: {
+    backgroundColor: '#607D8B',
+  },
+  optionText: {
+    color: '#FFF',
+    fontSize: 14,
   },
 });

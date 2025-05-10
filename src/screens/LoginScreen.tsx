@@ -98,12 +98,14 @@ const LoginScreen = () => {
         <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Entrar</Text>
       </TouchableOpacity>
 
-      <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
-        Não possui uma conta?
+      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 16 }}>
+        <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
+          Não possui uma conta?{' '}
+        </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.textLink}>Cadastre-se</Text>
         </TouchableOpacity>
-      </Text>
+      </View>
     </View>
   );
 };

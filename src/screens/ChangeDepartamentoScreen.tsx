@@ -22,7 +22,7 @@ export default function ChangeDepartamentoScreen() {
     const navigation = useNavigation<NavigationProp>();
     const { moto } = route.params;
 
-    const [novoDepartamento, setNovoDepartamento] = useState('');
+    const [novoDepartamento, setNovoDepartamento] = useState(moto.departamento);
     const [error, setError] = useState<string>('');
     const [mensagem, SetMensagem] = useState<string>('');
 
@@ -57,17 +57,17 @@ export default function ChangeDepartamentoScreen() {
             <Header title="Departamento"/>
             <View style={styles.container}>
                 <Text style={[styles.label, { fontFamily: 'MontserratRegular' }]}>Novo Departamento:</Text>
-                <Picker
-                    selectedValue={novoDepartamento}
-                    onValueChange={(itemValue) => setNovoDepartamento(itemValue)}
-                    style={[styles.picker, { fontFamily: 'MontserratRegular' }]}
-                >
-                    <Picker.Item label="ENTRADA" value="ENTRADA" />
-                    <Picker.Item label="AVALIAÇÃO" value="AVALIAÇÃO" />
-                    <Picker.Item label="MANUTENÇÃO" value="MANUTENÇÃO" />
-                    <Picker.Item label="PRONTA PARA USO" value="PRONTA PARA USO" />
-                    <Picker.Item label="SAÍDA" value="SAÍDA" />
-                </Picker>
+                <View style={styles.optionContainer}>
+                          {['ENTRADA', 'AVALIAÇÃO', 'MANUTENÇÃO', 'PRONTA PARA USO', 'SAÍDA'].map((dep) => (
+                            <TouchableOpacity
+                              key={dep}
+                              style={[styles.optionButton, novoDepartamento === dep && styles.optionButtonSelected]}
+                              onPress={() => setNovoDepartamento(dep)}
+                            >
+                              <Text style={[styles.optionText, { fontFamily: 'MontserratRegular' }]}>{dep}</Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
 
                 {mensagem ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
                 {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
@@ -125,5 +125,24 @@ const styles = StyleSheet.create({
         color: 'green',
         marginBottom: 10,
         textAlign: 'center',
+      },
+      optionContainer: {
+        flexDirection: 'column',
+        marginBottom: 20,
+      },
+      optionButton: {
+        backgroundColor: '#CFD8DC',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        borderRadius: 5,
+        marginBottom: 8,
+        marginRight: 8,
+      },
+      optionButtonSelected: {
+        backgroundColor: '#607D8B',
+      },
+      optionText: {
+        color: '#FFF',
+        fontSize: 14,
       },
 });
