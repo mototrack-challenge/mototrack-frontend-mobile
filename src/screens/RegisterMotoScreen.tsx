@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Picker } from '@react-native-picker/picker';
 import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -160,14 +159,6 @@ const RegisterMotoScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-  },
-  container: {
-    padding: 16,
-    backgroundColor: '#FFF',
-    flex: 1
-  },
   containerMain: {
     paddingTop: 20,
     paddingHorizontal: 10
@@ -239,7 +230,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     paddingBottom: 32
   },
-
   innerContainer: {
     flex: 1,
     justifyContent: 'flex-start',
