@@ -3,9 +3,10 @@ import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-n
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
-import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
+import { RootStackParamList } from '../types/navigation';
+import { buscarUsuarios } from '../services/usuarioService';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -18,50 +19,40 @@ const LoginScreen = () => {
   const navigation = useNavigation<NavigationProp>();
 
   const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [senha, setSenha] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const [mensagem, SetMensagem] = useState<string>('');
+  const [mensagem, setMensagem] = useState<string>('');
 
 
 
   const handleLogin = async () => {
-    if (!email || !password) {
+    if (!email || !senha) {
       setError('Preencha todos os campos!');
       return;
     }
 
     try {
-      const storedUsers = await AsyncStorage.getItem('users');
-      if (!storedUsers) {
-        setError('Usuário não encontrado. Faça o cadastro primeiro.');
-        return;
-      }
-
-      const parsedUsers = JSON.parse(storedUsers);
-
-      const foundUser = parsedUsers.find(
-        (user: any) => user.email === email && user.password === password
+      const usuarios = await buscarUsuarios() || [];
+      const usuario = usuarios.find(
+        (u:any) => u.email === email && u.senha === senha
       );
 
-      if (foundUser) {
-        await AsyncStorage.setItem('loggedUser', JSON.stringify({
-          email: foundUser.email,
-          name: foundUser.name,
-        }));
-        SetMensagem('Login realizado!');
+      if (usuario) {
+        await AsyncStorage.setItem('LoggedUser', usuario.id_usuario.toString());
         setError('');
+        setMensagem('Login realizado com sucesso!');
 
         setTimeout(() => {
-          setError('');
-          SetMensagem('');
           navigation.navigate('Home');
         }, 2000);
+
       } else {
-        setError('E-mail ou senha incorretos.');
+        setError('Email ou senha incorretos');
       }
+
     } catch (e) {
-      console.error('Erro ao acessar o AsyncStorage', e);
-      Alert.alert('Erro', 'Não foi possível realizar o login.');
+      console.error(e);
+      setError('Erro ao conectar com o servidor');
     }
   };
 
@@ -85,8 +76,8 @@ const LoginScreen = () => {
 
       <TextInput
         style={[styles.input, { fontFamily: 'MontserratRegular' }]}
-        value={password}
-        onChangeText={setPassword}
+        value={senha}
+        onChangeText={setSenha}
         placeholder="Senha"
         secureTextEntry
       />
