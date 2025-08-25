@@ -3,9 +3,10 @@ import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-n
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
-import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
+import { buscarUsuarios, cadastrarUsuario } from '../services/usuarioService';
+import { RootStackParamList } from '../types/navigation';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -17,45 +18,48 @@ const RegisterScreen = () => {
 
   const navigation = useNavigation<NavigationProp>();
 
-  const [name, setName] = useState<string>('');
+  const [nome, setNome] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [senha, setSenha] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [mensagem, SetMensagem] = useState<string>('');
 
   const handleRegister = async () => {
-    if (!name || !email || !password) {
+    if (!nome || !email || !senha) {
       setError('Preencha todos os campos!');
       return;
     }
 
     try {
-      const existingUsers = await AsyncStorage.getItem('users');
-      const users = existingUsers ? JSON.parse(existingUsers) : [];
+      const usuariosExistentes = await buscarUsuarios();
 
-      const emailExists = users.some((user: any) => user.email === email);
-      if (emailExists) {
-        setError('Este e-mail já está cadastrado.');
+      const emailExiste = usuariosExistentes.some(
+        (u: any) => u.email.toLowerCase() === email.toLowerCase()
+      );
+
+      if (emailExiste) {
+        setError('Este e-mail já está cadastrado!');
         return;
       }
 
-      const newUser = { name, email, password };
-      const updatedUsers = [...users, newUser];
+      if (senha.length < 6) {
+        setError('A senha deve ter pelo menos 6 caracteres');
+        return;
+      }
 
-      await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+      await cadastrarUsuario({ nome, email, senha });
 
       setError('');
-      SetMensagem('Cadastro realizado!');
+      SetMensagem('Cadastro realizado com sucesso!');
 
       setTimeout(() => {
-        setError('');
         SetMensagem('');
         navigation.navigate('Login');
       }, 2000);
 
     } catch (e) {
-      console.error('Erro ao salvar no AsyncStorage', e);
-      alert('Não foi possível realizar o cadastro.');
+      console.error('Erro no cadastro:', error);
+      setError('Erro ao conectar com o servidor');
     }
   };
 
@@ -70,8 +74,8 @@ const RegisterScreen = () => {
 
       <TextInput
         style={[styles.input, { fontFamily: 'MontserratRegular' }]}
-        value={name}
-        onChangeText={setName}
+        value={nome}
+        onChangeText={setNome}
         placeholder="Nome"
       />
 
@@ -86,8 +90,8 @@ const RegisterScreen = () => {
 
       <TextInput
         style={[styles.input, { fontFamily: 'MontserratRegular' }]}
-        value={password}
-        onChangeText={setPassword}
+        value={senha}
+        onChangeText={setSenha}
         placeholder="Senha"
         secureTextEntry
       />
