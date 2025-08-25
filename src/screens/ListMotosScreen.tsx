@@ -9,23 +9,29 @@ import QuickAccessButton from '../components/QuickAccessButton';
 import { RootStackParamList } from '../types/navigation';
 import { ScrollView } from 'react-native-gesture-handler';
 import CardMoto from '../components/CardMoto';
+import { buscarMotos } from '../services/motoService';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
-
-const STORAGE_KEY = 'motos';
-
-type Movimentacao = {
-  departamento: string;
-  horario: string;
-};
 
 type Moto = {
   id_moto: number;
   placa: string;
+  chassi: string;
   modelo: string;
   status: string;
-  departamento: string;
   movimentacoes: Movimentacao[];
+  alertas: Alerta[];
+};
+
+type Movimentacao = {
+    departamento_descricao: string;
+    data_movimentacao: string;
+};
+
+type Alerta = {
+    id_alerta: number;
+    gravidade: string;
+    mensagem: string;
 };
 
 export default function ListMotosScreen() {
@@ -36,22 +42,20 @@ export default function ListMotosScreen() {
   const navigation = useNavigation<NavigationProp>();
 
   const [motos, setMotos] = useState<Moto[]>([]);
-  const isFocused = useIsFocused();
-
-  const handleBackToHome = () => {
-    navigation.navigate('Home');
-  };
 
   useEffect(() => {
     const carregarMotos = async () => {
-      const data = await AsyncStorage.getItem(STORAGE_KEY);
-      if (data) {
-        setMotos(JSON.parse(data));
+      try {
+        const todasMotos = await buscarMotos();
+
+        setMotos(todasMotos);
+      } catch (error) {
+        console.error('Erro ao carregar as motos:', error);
       }
     };
 
-    if (isFocused) carregarMotos();
-  }, [isFocused]);
+    carregarMotos();
+  }, []);
 
   const handleDelete = (id_moto: number) => {
     // const confirmed = window.confirm('Tem certeza de que deseja excluir esta moto?');
@@ -82,37 +86,37 @@ export default function ListMotosScreen() {
     );
   };
 
-  const renderItem = ({ item }: { item: Moto }) => (
-    <View style={styles.card}>
-      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{item.modelo} - {item.placa}</Text>
-      <Text style={{ fontFamily: 'MontserratRegular' }}>Status: {item.status}</Text>
-      <Text style={{ fontFamily: 'MontserratRegular' }}>Departamento atual: {item.departamento}</Text>
-      <Text style={{ fontFamily: 'MontserratRegular' }}>Movimentações:</Text>
-      {item.movimentacoes.map((mov, index) => (
-        <Text style={{ fontFamily: 'MontserratRegular' }} key={index}>• {mov.departamento} - {mov.horario}</Text>
-      ))}
+  // const renderItem = ({ item }: { item: Moto }) => (
+  //   <View style={styles.card}>
+  //     <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{item.modelo} - {item.placa}</Text>
+  //     <Text style={{ fontFamily: 'MontserratRegular' }}>Status: {item.status}</Text>
+  //     <Text style={{ fontFamily: 'MontserratRegular' }}>Departamento atual: {item.departamento}</Text>
+  //     <Text style={{ fontFamily: 'MontserratRegular' }}>Movimentações:</Text>
+  //     {item.movimentacoes.map((mov, index) => (
+  //       <Text style={{ fontFamily: 'MontserratRegular' }} key={index}>• {mov.departamento} - {mov.horario}</Text>
+  //     ))}
 
-      <View style={styles.buttons}>
-        <TouchableOpacity
-          style={styles.buttonEdit}
-          onPress={() => navigation.navigate('EditMoto', { moto: item })}>
-          <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Editar</Text>
-        </TouchableOpacity>
+  //     <View style={styles.buttons}>
+  //       <TouchableOpacity
+  //         style={styles.buttonEdit}
+  //         onPress={() => navigation.navigate('EditMoto', { moto: item })}>
+  //         <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Editar</Text>
+  //       </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonMove}
-          onPress={() => navigation.navigate('ChangeDepartamento', { moto: item })}>
-          <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Mover Departamento</Text>
-        </TouchableOpacity>
+  //       <TouchableOpacity
+  //         style={styles.buttonMove}
+  //         onPress={() => navigation.navigate('ChangeDepartamento', { moto: item })}>
+  //         <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Mover Departamento</Text>
+  //       </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonDelete}
-          onPress={() => handleDelete(item.id_moto)}>
-          <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Deletar</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+  //       <TouchableOpacity
+  //         style={styles.buttonDelete}
+  //         onPress={() => handleDelete(item.id_moto)}>
+  //         <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Deletar</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   </View>
+  // );
 
   return (
     <View style={styles.header}>
@@ -121,8 +125,9 @@ export default function ListMotosScreen() {
         <ScrollView contentContainerStyle={styles.content}>
         
         <View>
-          <CardMoto />
-          <CardMoto />
+          {motos.map((moto) => (
+            <CardMoto key={moto.id_moto} moto={moto} />
+          ))}
         </View>
 
         <View>

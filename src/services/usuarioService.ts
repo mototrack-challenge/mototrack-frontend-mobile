@@ -12,7 +12,7 @@ export interface UsuarioRequestDTO {
 
 export const cadastrarUsuario = async (usuario: UsuarioRequestDTO) => {
     return await api.post('/usuarios', usuario)
-}
+};
 
 export const buscarUsuarios = async () => {
   try {

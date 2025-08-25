@@ -7,7 +7,28 @@ import { RootStackParamList } from '../types/navigation';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-const CardMoto = () => {
+type MotoProps = {
+    id_moto: number;
+    placa: string;
+    chassi: string;
+    modelo: string;
+    status: string;
+    movimentacoes: Movimentacao[];
+    alertas: Alerta[];
+};
+
+type Movimentacao = {
+    departamento_descricao: string;
+    data_movimentacao: string;
+};
+
+type Alerta = {
+    id_alerta: number;
+    gravidade: string;
+    mensagem: string;
+};
+
+const CardMoto = ({ moto }: { moto: MotoProps }) => {
     const navigation = useNavigation<NavigationProp>();
 
     const [fontsLoaded] = useFonts({
@@ -15,13 +36,65 @@ const CardMoto = () => {
         MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
     });
 
+    const formatarModelo = (modelo: string) => {
+        switch (modelo) {
+            case "MOTTU_POP":
+                return "Mottu-Pop";
+            case "MOTTU_E":
+                return "Mottu-E";
+            case "MOTTU_SPORT":
+                return "Mottu-Sport";
+            default:
+                return modelo;
+        }
+    };
+
+    const definirImagem = (modelo: string) => {
+        switch (modelo) {
+            case "MOTTU_POP":
+                return require("../../assets/images/mottu-pop.png");
+            case "MOTTU_E":
+                return require("../../assets/images/mottu-e.png");
+            case "MOTTU_SPORT":
+                return require("../../assets/images/mottu-sport.png");
+            default:
+                return require("../../assets/images/mottu-pop.png");
+        }
+    };
+
+    const formartarStatus = (status: string) => {
+        switch (status) {
+            case "AVALIACAO":
+                return "Avaliação";
+            case "MANUTENCAO":
+                return "Manutenção";
+            case "PRONTA_PARA_USO":
+                return "Pronta para uso";
+            default:
+                return status;
+        }
+    };
+
+    const formartarGravidade = (gravidade: string) => {
+        switch (gravidade) {
+            case "ALTA":
+                return "Alta";
+            case "MEDIA":
+                return "Média";
+            case "BAIXA":
+                return "Baixa";
+            default:
+                return gravidade;
+        }
+    };
+
     return (
         <View style={[styles.cardMoto]}>
 
             <View style={[styles.cabecalhoCardMoto]}>
-                <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Mottu-E</Text>
+                <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{formatarModelo(moto.modelo)}</Text>
                 <Image
-                    source={require('../../assets/images/mottu-e.png')}
+                    source={definirImagem(moto.modelo)}
                     style={styles.imagemMoto}
                 />
             </View>
@@ -29,51 +102,82 @@ const CardMoto = () => {
             <View>
                 <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
                     Placa:
-                    <Text style={[styles.descricao, { fontFamily: 'MontserratRegular' }]}> {' '} ABC1234</Text>
+                    <Text style={[styles.descricao, { fontFamily: 'MontserratRegular' }]}> {' '} {moto.placa}</Text>
                 </Text>
 
                 <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
                     Número do chassi:
-                    <Text style={[styles.descricao, { fontFamily: 'MontserratRegular' }]}> {' '} 23131231323av</Text>
+                    <Text style={[styles.descricao, { fontFamily: 'MontserratRegular' }]}> {' '} {moto.chassi}</Text>
                 </Text>
 
                 <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
                     Status:
-                    <Text style={[styles.descricao, { fontFamily: 'MontserratRegular' }]}> {' '} Em análise</Text>
+                    <Text style={[styles.descricao, { fontFamily: 'MontserratRegular' }]}> {' '} {formartarStatus(moto.status)}</Text>
                 </Text>
 
                 <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
                     Movimentações:
                 </Text>
 
+                {moto.movimentacoes.length > 0 ? (
+                    moto.movimentacoes.map((mov, index) => (
+                        <Text
+                            key={index}
+                            style={{ fontFamily: 'MontserratRegular', marginLeft: 10, fontSize: 14, marginBottom: 5 }}
+                        >
+                            • {mov.departamento_descricao} ({new Date(mov.data_movimentacao).toLocaleString()})
+                        </Text>
+                    ))
+                ) : (
+                    <Text style={{ fontFamily: 'MontserratRegular', marginLeft: 10, fontSize: 14, marginBottom: 5, fontStyle: 'italic', color: '#666' }}>
+                        Nenhuma movimentação cadastrada
+                    </Text>
+                )}
+
                 <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
                     Serviços:
                 </Text>
+
+                {moto.alertas.length > 0 && (
+                    <>
+                        <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
+                            Alertas:
+                        </Text>
+                        {moto.alertas.map(alerta => (
+                            <Text
+                                key={alerta.id_alerta}
+                                style={{ fontFamily: 'MontserratRegular', color: alerta.gravidade === 'ALTA' ? 'red' : 'orange' }}
+                            >
+                                • [{formartarGravidade(alerta.gravidade)}] {alerta.mensagem}
+                            </Text>
+                        ))}
+                    </>
+                )}
 
             </View>
 
             <View style={[styles.botoesCardMoto]}>
 
                 <TouchableOpacity
-                    style={[styles.botaoCardMoto, styles.botaoEditar]}  
+                    style={[styles.botaoCardMoto, styles.botaoEditar]}
                 >
                     <Text style={[styles.textoBotao, { fontFamily: 'MontserratRegular' }]}>Editar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[styles.botaoCardMoto, styles.botaoMover]}  
+                    style={[styles.botaoCardMoto, styles.botaoMover]}
                 >
                     <Text style={[styles.textoBotao, { fontFamily: 'MontserratRegular' }]}>Mover Departamento</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[styles.botaoCardMoto, styles.botaoServico]}  
+                    style={[styles.botaoCardMoto, styles.botaoServico]}
                 >
                     <Text style={[styles.textoBotao, { fontFamily: 'MontserratRegular' }]}>Serviços</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[styles.botaoCardMoto, styles.botaoDeletar]}  
+                    style={[styles.botaoCardMoto, styles.botaoDeletar]}
                 >
                     <Text style={[styles.textoBotao, { fontFamily: 'MontserratRegular' }]}>Deletar</Text>
                 </TouchableOpacity>
@@ -114,7 +218,7 @@ const styles = StyleSheet.create({
     descricao: {
         fontSize: 14,
         color: '#000000',
-        marginBottom: 5
+        marginBottom: 7
     },
     botoesCardMoto: {
         marginTop: 20
