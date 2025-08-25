@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Header from '../components/Header';
 import { useFonts } from 'expo-font';
+import QuickAccessButton from '../components/QuickAccessButton';
+import { RootStackParamList } from '../types/navigation';
+import { ScrollView } from 'react-native-gesture-handler';
+import CardMoto from '../components/CardMoto';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -115,17 +118,28 @@ export default function ListMotosScreen() {
     <View style={styles.header}>
       <Header title="Lista de Motos"/>
       <View style={styles.container}>
-        <FlatList
-          data={motos}
-          keyExtractor={(item) => item.id_moto.toString()}
-          renderItem={renderItem}
-          contentContainerStyle={styles.listContainer}
-        />
-        <TouchableOpacity style={styles.button} onPress={handleBackToHome}>
-          <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Voltar</Text>
-        </TouchableOpacity>
-      </View>
+        <ScrollView contentContainerStyle={styles.content}>
+        
+        <View>
+          <CardMoto />
+          <CardMoto />
+        </View>
 
+        <View>
+            <QuickAccessButton
+              title="Cadastrar Moto"
+              onPress={() => navigation.navigate('RegisterMoto')}
+              backgroundColor='#547A6E'
+            />
+
+            <QuickAccessButton
+              title="Voltar"
+              onPress={() => navigation.navigate('Home')}
+            />
+        </View>
+
+        </ScrollView>
+      </View>
     </View>
   );
 }
@@ -138,6 +152,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
+  },
+  content: {
+    justifyContent: 'center',
   },
   listContainer: {
     paddingBottom: 100,

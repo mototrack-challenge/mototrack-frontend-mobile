@@ -5,11 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
-import Card from '../components/Card';
 import QuickAccessButton from '../components/QuickAccessButton';
-import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
+import CardHome from '../components/CardHome';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -20,14 +19,6 @@ const HomeScreen = () => {
   const [emAnalise, setEmAnalise] = useState(0);
   const [emManutencao, setEmManutencao] = useState(0);
   const [prontas, setProntas] = useState(0);
-
-  const navigateToRegister = () => {
-    navigation.navigate('Moto');
-  };
-
-  const navigateToList = () => {
-    navigation.navigate('ListMotos');
-  };
 
   useEffect(() => {
     const loadMotos = async () => {
@@ -60,23 +51,22 @@ const HomeScreen = () => {
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.cardsContainer}>
-            <Card title="Motos Cadastradas" count={totalMotos} backgroundColor="#455A64" />
-            <Card title="Motos em Avaliação" count={emAnalise} backgroundColor="#8D6E63" />
-            <Card title="Motos em Manutenção" count={emManutencao} backgroundColor="#6D4C41" />
-            <Card title="Motos prontas para Uso" count={prontas} backgroundColor="#547A6E" />
+            <CardHome title="Motos Cadastradas" count={totalMotos} backgroundColor="#455A64" />
+            <CardHome title="Motos em Avaliação" count={emAnalise} backgroundColor="#8D6E63" />
+            <CardHome title="Motos em Manutenção" count={emManutencao} backgroundColor="#6D4C41" />
+            <CardHome title="Motos prontas para Uso" count={prontas} backgroundColor="#547A6E" />
           </View>
 
           <View>
+
             <QuickAccessButton
-              title="Cadastrar Moto"
-              onPress={navigateToRegister}
-              icon={<Ionicons name="add-circle-outline" size={24} color="white" />}
+              title="Lista de Motos"
+              onPress={() => navigation.navigate('ListMotos')}
             />
 
             <QuickAccessButton
-              title="Ver Lista de Motos"
-              onPress={navigateToList}
-              icon={<Ionicons name="list-outline" size={24} color="white" />}
+              title="Lista de Colaboradores"
+              onPress={() => navigation.navigate('ListMotos')}
             />
           </View>
         </ScrollView>

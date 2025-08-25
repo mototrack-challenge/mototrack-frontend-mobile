@@ -8,7 +8,7 @@ interface CardProps {
   backgroundColor: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, count, backgroundColor }) => {
+const CardHome: React.FC<CardProps> = ({ title, count, backgroundColor }) => {
   const [fontsLoaded] = useFonts({
     MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Card;
+export default CardHome;
