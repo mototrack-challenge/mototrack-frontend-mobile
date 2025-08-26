@@ -7,14 +7,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import { RootStackParamList } from '../types/navigation';
 import { buscarUsuarios } from '../services/usuarioService';
+import theme from '../styles/theme';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const LoginScreen = () => {
-  const [fontsLoaded] = useFonts({
-    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-  });
 
   const navigation = useNavigation<NavigationProp>();
 
@@ -62,35 +59,37 @@ const LoginScreen = () => {
         source={require('../../assets/images/logo-sem-fundo.png')}
         style={styles.logo}
       />
-      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Bem-Vindo de volta</Text>
-      <Text style={[styles.subtitle, { fontFamily: 'MontserratRegular' }]}>Entre com sua conta</Text>
+      <Text style={[styles.title, { fontFamily: theme.fonts.bold }]}>Bem-Vindo de volta</Text>
+      <Text style={[styles.subtitle, { fontFamily: theme.fonts.regular }]}>Entre com sua conta</Text>
 
       <TextInput
-        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
+        style={[styles.input, { fontFamily: theme.fonts.regular }]}
         value={email}
         onChangeText={setEmail}
         placeholder="E-mail"
+        placeholderTextColor="#999"
         keyboardType="email-address"
         autoCapitalize="none"
       />
 
       <TextInput
-        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
+        style={[styles.input, { fontFamily: theme.fonts.regular }]}
         value={senha}
         onChangeText={setSenha}
         placeholder="Senha"
+        placeholderTextColor="#999"
         secureTextEntry
       />
 
-      {mensagem ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
-      {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
+      {mensagem ? <Text style={[styles.success, { fontFamily: theme.fonts.regular }]}>{mensagem}</Text> : null}
+      {error ? <Text style={[styles.error, { fontFamily: theme.fonts.regular }]}>{error}</Text> : null}
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Entrar</Text>
+        <Text style={[styles.buttonText, { fontFamily: theme.fonts.regular }]}>Entrar</Text>
       </TouchableOpacity>
 
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 16 }}>
-        <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
+        <Text style={[styles.linkText, { fontFamily: theme.fonts.regular }]}>
           Não possui uma conta?{' '}
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>

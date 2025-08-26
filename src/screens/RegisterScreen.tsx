@@ -7,15 +7,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import { buscarUsuarios, cadastrarUsuario } from '../services/usuarioService';
 import { RootStackParamList } from '../types/navigation';
+import theme from '../styles/theme';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const RegisterScreen = () => {
-  const [fontsLoaded] = useFonts({
-    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-  });
-
   const navigation = useNavigation<NavigationProp>();
 
   const [nome, setNome] = useState<string>('');
@@ -69,42 +65,45 @@ const RegisterScreen = () => {
         source={require('../../assets/images/logo-sem-fundo.png')}
         style={styles.logo}
       />
-      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Bem-vindo à MotoTrack</Text>
-      <Text style={[styles.subtitle, { fontFamily: 'MontserratRegular' }]}>Cadastre-se para acessar o dashboard</Text>
+      <Text style={[styles.title, { fontFamily: theme.fonts.bold }]}>Bem-vindo à MotoTrack</Text>
+      <Text style={[styles.subtitle, { fontFamily: theme.fonts.regular }]}>Cadastre-se para acessar o dashboard</Text>
 
       <TextInput
-        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
+        style={[styles.input, { fontFamily: theme.fonts.regular }]}
         value={nome}
         onChangeText={setNome}
         placeholder="Nome"
+        placeholderTextColor="#999"
       />
 
       <TextInput
-        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
+        style={[styles.input, { fontFamily: theme.fonts.regular }]}
         value={email}
         onChangeText={setEmail}
         placeholder="E-mail"
+        placeholderTextColor="#999"
         keyboardType="email-address"
         autoCapitalize="none"
       />
 
       <TextInput
-        style={[styles.input, { fontFamily: 'MontserratRegular' }]}
+        style={[styles.input, { fontFamily: theme.fonts.regular }]}
         value={senha}
         onChangeText={setSenha}
         placeholder="Senha"
+        placeholderTextColor="#999"
         secureTextEntry
       />
 
-      {mensagem ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensagem}</Text> : null}
-      {error ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{error}</Text> : null}
+      {mensagem ? <Text style={[styles.success, { fontFamily: theme.fonts.regular }]}>{mensagem}</Text> : null}
+      {error ? <Text style={[styles.error, { fontFamily: theme.fonts.regular }]}>{error}</Text> : null}
 
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Cadastrar</Text>
+        <Text style={[styles.buttonText, { fontFamily: theme.fonts.regular }]}>Cadastrar</Text>
       </TouchableOpacity>
 
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 16 }}>
-        <Text style={[styles.linkText, { fontFamily: 'MontserratRegular' }]}>
+        <Text style={[styles.linkText, { fontFamily: theme.fonts.regular }]}>
           Já possui uma conta?{' '}
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>

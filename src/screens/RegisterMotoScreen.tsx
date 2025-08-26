@@ -1,200 +1,247 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
-import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header';
 import { useFonts } from 'expo-font';
-
-type Movimentacao = {
-  departamento: string;
-  horario: string;
-};
-
-type Moto = {
-  id_moto: number;
-  placa: string;
-  modelo: string;
-  status: string;
-  departamento: string;
-  movimentacoes: Movimentacao[];
-};
+import { RootStackParamList } from '../types/navigation';
+import { buscarMotos, cadastrarMoto } from '../services/motoService';
+import DropDownPicker from 'react-native-dropdown-picker';
+import QuickAccessButton from '../components/QuickAccessButton';
+import theme from '../styles/theme';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
-
-const STORAGE_KEY = 'motos';
 
 const RegisterMotoScreen = () => {
   const navigation = useNavigation<NavigationProp>();
 
-  const [fontsLoaded] = useFonts({
-    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-  });
+  const [placa, setPlaca] = useState<string>('');
+  const [chassi, setChassi] = useState<string>('');
+  const [modelo, setModelo] = useState<string>('');
+  const [status, setStatus] = useState<string>('');
+  const [mensagemErro, setMensagemErro] = useState<string>('');
+  const [mensagemSucesso, SetMensagemSucesso] = useState<string>('');
+  const [openModelos, setOpenModelos] = useState(false);
+  const [itemsModelos, setItemsModelos] = useState([
+    { label: 'Mottu-E', value: 'MOTTU_E' },
+    { label: 'Mottu-Pop', value: 'MOTTU_POP' },
+    { label: 'Mottu-Sport', value: 'MOTTU_SPORT' },
+  ]);
+  const [openStatus, setOpenStatus] = useState(false);
+  const [itemsStatus, setItemsStatus] = useState([
+    { label: 'Avaliação', value: 'AVALIACAO' },
+    { label: 'Manutenção', value: 'MANUTENCAO' },
+    { label: 'Pronta para uso', value: 'PRONTA_PARA_USO' },
+  ]);
+  const [focusedInput, setFocusedInput] = useState<string | null>(null);
 
-  const [placa, setPlaca] = useState('');
-  const [modelo, setModelo] = useState('');
-  const [status, setStatus] = useState('Em avaliação');
-  const [departamento, setDepartamento] = useState('ENTRADA');
-  const [motos, setMotos] = useState<Moto[]>([]);
-  const [nextId, setNextId] = useState(1);
-  const [mensageError, setMensageError] = useState<string>('');
-  const [mensageSucess, SetMensageSucess] = useState<string>('');
-
-  const handleBackToHome = () => {
-    navigation.navigate('Home');
-  };
-
-  useEffect(() => {
-    const loadMotos = async () => {
-      const storedMotos = await AsyncStorage.getItem(STORAGE_KEY);
-      if (storedMotos) {
-        const parsed = JSON.parse(storedMotos);
-        setMotos(parsed);
-        if (parsed.length > 0) {
-          const lastId = parsed[parsed.length - 1].id_moto;
-          setNextId(lastId + 1);
-        }
-      }
-    };
-    loadMotos();
-  }, []);
-
-  const handleRegister = async () => {
-    if (!placa || !modelo) {
-      setMensageError('Preencha todos os campos.')
-      SetMensageSucess('');
+  const handleCadastrarMoto = async () => {
+    if (!placa || !chassi || !modelo || !status) {
+      setMensagemErro('Preencha todos os campos.')
+      SetMensagemSucesso('');
       return;
     }
 
-    const novaMoto: Moto = {
-      id_moto: nextId,
-      placa,
-      modelo,
-      status,
-      departamento,
-      movimentacoes: [{
-        departamento,
-        horario: new Date().toLocaleString()
-      }],
-    };
+    if (placa.length !== 7) {
+      setMensagemErro('A placa deve conter exatamente 7 caracteres.');
+      SetMensagemSucesso('');
+      return;
+    }
 
-    const updatedMotos = [...motos, novaMoto];
-    setMotos(updatedMotos);
-    setNextId(nextId + 1);
-    setPlaca('');
-    setModelo('');
-    setStatus('Em manutenção');
-    setDepartamento('ENTRADA');
+    if (chassi.length !== 17) {
+      setMensagemErro('O chassi deve conter exatamente 17 caracteres.');
+      SetMensagemSucesso('');
+      return;
+    }
 
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMotos));
-    SetMensageSucess('Moto cadastrada com sucesso!');
-    setMensageError('');
+    try {
+      const motosCadastradas = await buscarMotos();
+
+      const placaCadastrada = motosCadastradas.some(
+        (m: any) => m.placa.toUpperCase() === placa.toUpperCase()
+      );
+
+      const chassiCadastrado = motosCadastradas.some(
+        (m: any) => m.chassi.toUpperCase() === chassi.toUpperCase()
+      );
+
+      if (placaCadastrada) {
+        setMensagemErro('Esta placa já está cadastrada!');
+        return;
+      }
+
+      if (chassiCadastrado) {
+        setMensagemErro('Este chassi já está cadastrado!');
+        return;
+      }
+
+      await cadastrarMoto({ placa, chassi, modelo, status });
+
+      setMensagemErro('');
+      SetMensagemSucesso('Moto cadastrada com sucesso!');
+
+      setTimeout(() => {
+        SetMensagemSucesso('');
+        navigation.navigate('ListMotos');
+      }, 2000);
+
+    } catch (error) {
+      console.error('Erro no cadastro da moto:', error);
+      setMensagemErro('Erro ao conectar com o servidor');
+    }
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.innerContainer}>
-        <Header title="Cadastrar Motos" />
+    <View style={styles.header}>
+      <Header title="Cadastrar Motos" />
 
-        <View style={styles.containerMain}>
-        <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>Preecha todos os dados</Text>
+      <View style={styles.containerCadastrarMoto}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.containerMain}>
+            <Text style={[styles.title, { fontFamily: theme.fonts.bold }]}>Preecha todos os dados</Text>
 
-        <TextInput
-          style={[styles.input, { fontFamily: 'MontserratRegular' }]}
-          placeholder="Placa"
-          value={placa}
-          onChangeText={setPlaca}
-        />
+            <Text style={[styles.label, { fontFamily: theme.fonts.regular }]}>Placa</Text>
+            <TextInput
+              style={[styles.input, { fontFamily: theme.fonts.regular }]}
+              placeholder="Ex: ABC1234"
+              placeholderTextColor="#999"
+              value={placa}
+              onChangeText={setPlaca}
+              selectionColor="black"
+              underlineColorAndroid="transparent"
+            />
 
-        <TextInput
-          style={[styles.input, { fontFamily: 'MontserratRegular' }]}
-          placeholder="Modelo"
-          value={modelo}
-          onChangeText={setModelo}
-        />
+            <Text style={[styles.label, { fontFamily: theme.fonts.regular }]}>Chassi</Text>
+            <TextInput
+              style={[styles.input, { fontFamily: theme.fonts.regular }]}
+              placeholder="Ex: 9BWZZZ377VT004251"
+              placeholderTextColor="#999"
+              value={chassi}
+              onChangeText={setChassi}
+              selectionColor="black"
+              underlineColorAndroid="transparent"
+            />
 
-        <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Departamento</Text>
-        <View style={styles.optionContainer}>
-          {['ENTRADA', 'AVALIAÇÃO', 'MANUTENÇÃO', 'PRONTA PARA USO', 'SAÍDA'].map((dep) => (
-            <TouchableOpacity
-              key={dep}
-              style={[styles.optionButton, departamento === dep && styles.optionButtonSelected]}
-              onPress={() => setDepartamento(dep)}
-            >
-              <Text style={[styles.optionText, { fontFamily: 'MontserratRegular' }]}>{dep}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+            <View style={{ zIndex: openModelos ? 3000 : 1000 }}>
+              <Text style={[styles.label, { fontFamily: theme.fonts.regular }]}>Modelo</Text>
+              <DropDownPicker
+                open={openModelos}
+                value={modelo}
+                items={itemsModelos}
+                setOpen={setOpenModelos}
+                setValue={setModelo}
+                setItems={setItemsModelos}
+                placeholder="Selecione um modelo"
+                style={[styles.input, focusedInput === "modelo" && styles.inputFocused,]}
+                dropDownContainerStyle={styles.dropdownContainer}
+                onOpen={() => setFocusedInput("modelo")}
+                onClose={() => setFocusedInput(null)}
+                zIndex={3000}
+                zIndexInverse={1000}
+                textStyle={{
+                  fontFamily: theme.fonts.regular,
+                  fontSize: 14,
+                  color: '#000'
+                }}
+                placeholderStyle={{
+                  fontFamily: theme.fonts.regular,
+                  color: '#999'
+                }}
+              />
+            </View>
 
-        <Text style={[styles.label, { fontFamily: 'MontserratBold' }]}>Status</Text>
-        <View style={styles.optionContainer}>
-          {['Em avaliação', 'Em manutenção', 'Pronta para uso'].map((st) => (
-            <TouchableOpacity
-              key={st}
-              style={[styles.optionButton, status === st && styles.optionButtonSelected]}
-              onPress={() => setStatus(st)}
-            >
-              <Text style={[styles.optionText, { fontFamily: 'MontserratRegular' }]}>{st}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+            <View style={{ zIndex: openStatus ? 3000 : 1000 }}>
+              <Text style={[styles.label, { fontFamily: theme.fonts.regular }]}>Status</Text>
+              <DropDownPicker
+                open={openStatus}
+                value={status}
+                items={itemsStatus}
+                setOpen={setOpenStatus}
+                setValue={setStatus}
+                setItems={setItemsStatus}
+                placeholder="Selecione um status"
+                style={[styles.input, focusedInput === "status" && styles.inputFocused,]}
+                
+                zIndex={2000}
+                zIndexInverse={1000}
+                textStyle={{
+                  fontFamily: theme.fonts.regular,
+                  fontSize: 14,
+                  color: '#000'
+                }}
+                placeholderStyle={{
+                  fontFamily: theme.fonts.regular,
+                  color: '#999'
+                }}
+              />
+            </View>
 
-        {mensageSucess ? <Text style={[styles.success, { fontFamily: 'MontserratRegular' }]}>{mensageSucess}</Text> : null}
-        {mensageError ? <Text style={[styles.error, { fontFamily: 'MontserratRegular' }]}>{mensageError}</Text> : null}
+            {mensagemSucesso ? <Text style={[styles.success, { fontFamily: theme.fonts.regular }]}>{mensagemSucesso}</Text> : null}
+            {mensagemErro ? <Text style={[styles.error, { fontFamily: theme.fonts.regular }]}>{mensagemErro}</Text> : null}
 
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Cadastrar Moto</Text>
-        </TouchableOpacity>
+            <View>
+              <QuickAccessButton
+                title="Cadastrar Moto"
+                onPress={handleCadastrarMoto}
+                backgroundColor='#547A6E'
+              />
 
-        <TouchableOpacity style={styles.button} onPress={handleBackToHome}>
-          <Text style={[styles.buttonText, { fontFamily: 'MontserratRegular' }]}>Voltar</Text>
-        </TouchableOpacity>
-        </View>
+              <QuickAccessButton
+                title="Voltar"
+                onPress={() => navigation.navigate('ListMotos')}
+              />
+            </View>
+          </View>
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  header: {
+    flex: 1,
+  },
+  containerCadastrarMoto: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: '#FFF',
+    paddingBottom: 32
+  },
   containerMain: {
-    paddingTop: 20,
-    paddingHorizontal: 10
+    paddingTop: 20
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'left',
+  },
+  label: {
+    fontSize: 14,
+    marginBottom: 5,
   },
   input: {
     height: 40,
-    backgroundColor: '#ECEFF1',
+    backgroundColor: '#FAFAFA',
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
     paddingLeft: 10,
     borderRadius: 5,
   },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 5,
+  inputFocused: {
+    borderColor: 'black',
   },
-  button: {
-    backgroundColor: '#546E7A',
-    paddingVertical: 12,
+  dropdownContainer: {
+    backgroundColor: '#FAFAFA',
+    borderColor: 'gray',
+    borderWidth: 1,
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 10
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   success: {
     color: 'green',
@@ -205,34 +252,6 @@ const styles = StyleSheet.create({
     color: 'red',
     marginBottom: 10,
     textAlign: 'center',
-  },
-  optionContainer: {
-    flexDirection: 'column',
-    marginBottom: 20,
-  },
-  optionButton: {
-    backgroundColor: '#CFD8DC',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 5,
-    marginBottom: 8,
-    marginRight: 8,
-  },
-  optionButtonSelected: {
-    backgroundColor: '#607D8B',
-  },
-  optionText: {
-    color: '#FFF',
-    fontSize: 14,
-  },
-  scrollContainer: {
-    flexGrow: 1,
-    backgroundColor: '#FFF',
-    paddingBottom: 32
-  },
-  innerContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
   },
 });
 

@@ -34,4 +34,8 @@ export default {
      large: 24,
      xlarge: 32,
   },
+  fonts: {
+    regular: "MontserratRegular",
+    bold: "MontserratBold",
+  },
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
+import theme from '../styles/theme';
 
 interface QuickAccessButtonProps {
   title: string;
@@ -9,17 +10,13 @@ interface QuickAccessButtonProps {
 }
 
 const QuickAccessButton: React.FC<QuickAccessButtonProps> = ({ title, onPress, backgroundColor }) => {
-  const [fontsLoaded] = useFonts({
-    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-  });
 
   return (
     <TouchableOpacity 
       style={[styles.button, backgroundColor ? { backgroundColor } : {}]}  
       onPress={onPress}
     >
-      <Text style={[styles.text, { fontFamily: 'MontserratRegular' }]}>{title}</Text>
+      <Text style={[styles.text, { fontFamily: theme.fonts.regular }]}>{title}</Text>
     </TouchableOpacity>
   );
 };

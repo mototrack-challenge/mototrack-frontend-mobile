@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../types/navigation';
+import theme from '../styles/theme';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -14,11 +15,6 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title }) => {
   const navigation = useNavigation<NavigationProp>();
-
-  const [fontsLoaded] = useFonts({
-    MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-    MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-  });
 
   const handleLogout = async () => {
     try {
@@ -34,10 +30,10 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{title}</Text>
+      <Text style={[styles.title, { fontFamily: theme.fonts.bold }]}>{title}</Text>
       <View style={styles.rightSection}>
         <TouchableOpacity onPress={handleLogout}>
-          <Text style={[styles.logoutText, { fontFamily: 'MontserratRegular' }]}>Logout</Text>
+          <Text style={[styles.logoutText, { fontFamily: theme.fonts.regular }]}>Logout</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import QuickAccessButton from '../components/QuickAccessButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import CardHome from '../components/CardHome';
+import { RootStackParamList } from '../types/navigation';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 

@@ -4,6 +4,7 @@ import QuickAccessButton from './QuickAccessButton';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
+import theme from '../styles/theme';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -30,11 +31,6 @@ type Alerta = {
 
 const CardMoto = ({ moto }: { moto: MotoProps }) => {
     const navigation = useNavigation<NavigationProp>();
-
-    const [fontsLoaded] = useFonts({
-        MontserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf'),
-        MontserratBold: require('../../assets/fonts/Montserrat-Bold.ttf'),
-    });
 
     const formatarModelo = (modelo: string) => {
         switch (modelo) {
@@ -92,7 +88,7 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
         <View style={[styles.cardMoto]}>
 
             <View style={[styles.cabecalhoCardMoto]}>
-                <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{formatarModelo(moto.modelo)}</Text>
+                <Text style={[styles.title, { fontFamily: theme.fonts.bold }]}>{formatarModelo(moto.modelo)}</Text>
                 <Image
                     source={definirImagem(moto.modelo)}
                     style={styles.imagemMoto}
@@ -100,22 +96,22 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
             </View>
 
             <View>
-                <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
+                <Text style={[styles.descricao, { fontFamily: theme.fonts.bold }]}>
                     Placa:
-                    <Text style={[styles.descricao, { fontFamily: 'MontserratRegular' }]}> {' '} {moto.placa}</Text>
+                    <Text style={[styles.descricao, { fontFamily: theme.fonts.regular }]}> {' '} {moto.placa}</Text>
                 </Text>
 
-                <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
+                <Text style={[styles.descricao, { fontFamily: theme.fonts.bold }]}>
                     Número do chassi:
-                    <Text style={[styles.descricao, { fontFamily: 'MontserratRegular' }]}> {' '} {moto.chassi}</Text>
+                    <Text style={[styles.descricao, { fontFamily: theme.fonts.regular }]}> {' '} {moto.chassi}</Text>
                 </Text>
 
-                <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
+                <Text style={[styles.descricao, { fontFamily: theme.fonts.bold }]}>
                     Status:
-                    <Text style={[styles.descricao, { fontFamily: 'MontserratRegular' }]}> {' '} {formartarStatus(moto.status)}</Text>
+                    <Text style={[styles.descricao, { fontFamily: theme.fonts.regular }]}> {' '} {formartarStatus(moto.status)}</Text>
                 </Text>
 
-                <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
+                <Text style={[styles.descricao, { fontFamily: theme.fonts.bold }]}>
                     Movimentações:
                 </Text>
 
@@ -123,30 +119,30 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
                     moto.movimentacoes.map((mov, index) => (
                         <Text
                             key={index}
-                            style={{ fontFamily: 'MontserratRegular', marginLeft: 10, fontSize: 14, marginBottom: 5 }}
+                            style={{ fontFamily: theme.fonts.regular, marginLeft: 10, fontSize: 14, marginBottom: 5 }}
                         >
                             • {mov.departamento_descricao} ({new Date(mov.data_movimentacao).toLocaleString()})
                         </Text>
                     ))
                 ) : (
-                    <Text style={{ fontFamily: 'MontserratRegular', marginLeft: 10, fontSize: 14, marginBottom: 5, fontStyle: 'italic', color: '#666' }}>
+                    <Text style={{ fontFamily: theme.fonts.regular, marginLeft: 10, fontSize: 14, marginBottom: 5, fontStyle: 'italic', color: '#666' }}>
                         Nenhuma movimentação cadastrada
                     </Text>
                 )}
 
-                <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
+                <Text style={[styles.descricao, { fontFamily: theme.fonts.bold }]}>
                     Serviços:
                 </Text>
 
                 {moto.alertas.length > 0 && (
                     <>
-                        <Text style={[styles.descricao, { fontFamily: 'MontserratBold' }]}>
+                        <Text style={[styles.descricao, { fontFamily: theme.fonts.bold }]}>
                             Alertas:
                         </Text>
                         {moto.alertas.map(alerta => (
                             <Text
                                 key={alerta.id_alerta}
-                                style={{ fontFamily: 'MontserratRegular', color: alerta.gravidade === 'ALTA' ? 'red' : 'orange' }}
+                                style={{ fontFamily: theme.fonts.regular, color: alerta.gravidade === 'ALTA' ? 'red' : 'orange' }}
                             >
                                 • [{formartarGravidade(alerta.gravidade)}] {alerta.mensagem}
                             </Text>
@@ -161,25 +157,25 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
                 <TouchableOpacity
                     style={[styles.botaoCardMoto, styles.botaoEditar]}
                 >
-                    <Text style={[styles.textoBotao, { fontFamily: 'MontserratRegular' }]}>Editar</Text>
+                    <Text style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}>Editar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={[styles.botaoCardMoto, styles.botaoMover]}
                 >
-                    <Text style={[styles.textoBotao, { fontFamily: 'MontserratRegular' }]}>Mover Departamento</Text>
+                    <Text style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}>Mover Departamento</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={[styles.botaoCardMoto, styles.botaoServico]}
                 >
-                    <Text style={[styles.textoBotao, { fontFamily: 'MontserratRegular' }]}>Serviços</Text>
+                    <Text style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}>Serviços</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={[styles.botaoCardMoto, styles.botaoDeletar]}
                 >
-                    <Text style={[styles.textoBotao, { fontFamily: 'MontserratRegular' }]}>Deletar</Text>
+                    <Text style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}>Deletar</Text>
                 </TouchableOpacity>
 
             </View>
