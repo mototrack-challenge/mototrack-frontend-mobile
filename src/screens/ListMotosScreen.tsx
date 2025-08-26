@@ -10,6 +10,7 @@ import { RootStackParamList } from '../types/navigation';
 import { ScrollView } from 'react-native-gesture-handler';
 import CardMoto from '../components/CardMoto';
 import { buscarMotos } from '../services/motoService';
+import { Movimentacao } from '../types/types';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -23,15 +24,10 @@ type Moto = {
   alertas: Alerta[];
 };
 
-type Movimentacao = {
-    departamento_descricao: string;
-    data_movimentacao: string;
-};
-
 type Alerta = {
-    id_alerta: number;
-    gravidade: string;
-    mensagem: string;
+  id_alerta: number;
+  gravidade: string;
+  mensagem: string;
 };
 
 export default function ListMotosScreen() {
@@ -55,17 +51,19 @@ export default function ListMotosScreen() {
 
   return (
     <View style={styles.header}>
-      <Header title="Lista de Motos"/>
+      <Header title="Lista de Motos" />
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
-        
-        <View>
-          {motos.map((moto) => (
-            <CardMoto key={moto.id_moto} moto={moto} />
-          ))}
-        </View>
 
-        <View>
+          <View>
+            {motos.length === 0 ? (
+              <Text style={styles.semMotos}>Nenhuma moto cadastrada</Text>
+            ) : (
+              motos.map((moto) => <CardMoto key={moto.id_moto} moto={moto} />)
+            )}
+          </View>
+
+          <View>
             <QuickAccessButton
               title="Cadastrar Moto"
               onPress={() => navigation.navigate('RegisterMoto')}
@@ -76,7 +74,7 @@ export default function ListMotosScreen() {
               title="Voltar"
               onPress={() => navigation.navigate('Home')}
             />
-        </View>
+          </View>
 
         </ScrollView>
       </View>
@@ -96,57 +94,12 @@ const styles = StyleSheet.create({
   content: {
     justifyContent: 'center',
   },
-  listContainer: {
-    paddingBottom: 100,
-  },
-  card: {
-    backgroundColor: '#ECEFF1',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    elevation: 2,
-  },
   title: { fontSize: 16, fontWeight: 'bold', marginBottom: 8 },
-  buttons: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: 10,
-    marginTop: 10,
-    width: "100%"
-  },
-  buttonEdit: {
-    backgroundColor: '#37474F',
-    padding: 10,
-    borderRadius: 8,
-    width: "60%",
-    alignItems: 'center'
-  },
-  buttonMove: {
-    backgroundColor: '#546E7A',
-    padding: 10,
-    borderRadius: 8,
-    width: "60%",
-    alignItems: 'center'
-  },
-  buttonDelete: {
-    backgroundColor: '#D32F2F',
-    padding: 10,
-    borderRadius: 8,
-    width: "60%",
-    alignItems: 'center'
-  },
-  btnText: { color: '#fff' },
-  button: {
-    backgroundColor: '#546E7A',
-    paddingVertical: 12,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 10
-  },
-  buttonText: {
-    color: '#FFFFFF',
+  semMotos: {
+    textAlign: 'center',
     fontSize: 16,
-    fontWeight: 'bold',
+    color: '#666',
+    marginVertical: 20,
+    fontStyle: 'italic'
   },
 });

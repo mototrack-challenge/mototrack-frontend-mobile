@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import theme from '../styles/theme';
+import { Movimentacao } from '../types/types';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -16,11 +17,6 @@ type MotoProps = {
     status: string;
     movimentacoes: Movimentacao[];
     alertas: Alerta[];
-};
-
-type Movimentacao = {
-    departamento_descricao: string;
-    data_movimentacao: string;
 };
 
 type Alerta = {
@@ -83,6 +79,14 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
                 return gravidade;
         }
     };
+
+    const movimentacoesParaEnviar = moto.movimentacoes.map(m => ({
+        id_movimentacao: m.id_movimentacao,
+        moto_id: m.moto_id,
+        departamento_id: m.departamento_id,
+        departamento_descricao: m.departamento_descricao,
+        data_movimentacao: m.data_movimentacao,
+    }));
 
     return (
         <View style={[styles.cardMoto]}>
@@ -163,8 +167,9 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
 
                 <TouchableOpacity
                     style={[styles.botaoCardMoto, styles.botaoMover]}
+                    onPress={() => navigation.navigate('Movimentacoes', { movimentacoes: movimentacoesParaEnviar })}
                 >
-                    <Text style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}>Mover Departamento</Text>
+                    <Text style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}>Movimentações</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity

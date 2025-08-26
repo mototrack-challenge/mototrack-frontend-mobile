@@ -1,4 +1,4 @@
-import { Moto } from "./types";
+import { Moto, Movimentacao } from "./types";
 
 export type RootStackParamList = {
     Login: undefined;
@@ -7,5 +7,6 @@ export type RootStackParamList = {
     RegisterMoto: undefined;
     ListMotos: undefined;
     EditMoto: { id_moto: number };
+    Movimentacoes: { movimentacoes: Movimentacao[]}
     ChangeDepartamento: { moto: Moto };
 };
