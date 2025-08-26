@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
@@ -10,10 +10,29 @@ import HomeScreen from '../screens/HomeScreen';
 import ListMotosScreen from '../screens/ListMotosScreen';
 import RegisterMotoScreen from '../screens/RegisterMotoScreen';
 import EditMotoScreen from '../screens/EditMotoScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const AppNavigator: React.FC = () => {
+
+  const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList | null>(null);
+  
+  useEffect(() => {
+    const checkLogin = async () => {
+      const usuarioId = await AsyncStorage.getItem('LoggedUser');
+      if (usuarioId) {
+        setInitialRoute('Home');
+      } else {
+        setInitialRoute('Login');
+      }
+    };
+    checkLogin();
+  }, []);
+
+  if (!initialRoute) {
+    return null;
+  }
 
 //   if (loading) {
 //     return null; // Ou um componente de loading
@@ -22,9 +41,8 @@ export const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
+        initialRouteName={initialRoute}
+        screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
