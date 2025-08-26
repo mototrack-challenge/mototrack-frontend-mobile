@@ -156,6 +156,7 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
 
                 <TouchableOpacity
                     style={[styles.botaoCardMoto, styles.botaoEditar]}
+                    onPress={() => navigation.navigate('EditMoto', { id_moto: moto.id_moto })}
                 >
                     <Text style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}>Editar</Text>
                 </TouchableOpacity>

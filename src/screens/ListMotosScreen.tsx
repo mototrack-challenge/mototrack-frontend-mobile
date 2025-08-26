@@ -53,67 +53,6 @@ export default function ListMotosScreen() {
     carregarMotos();
   }, []);
 
-  // const handleDelete = (id_moto: number) => {
-  //   // const confirmed = window.confirm('Tem certeza de que deseja excluir esta moto?');
-  //   // if (confirmed) {
-  //   //   const updatedMotos = motos.filter(moto => moto.id_moto !== id_moto);
-  //   //   setMotos(updatedMotos);
-  //   //   AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMotos));
-  //   // }
-  //   Alert.alert(
-  //     'Confirmar exclusão',
-  //     'Tem certeza de que deseja excluir esta moto?',
-  //     [
-  //       {
-  //         text: 'Cancelar',
-  //         style: 'cancel',
-  //       },
-  //       {
-  //         text: 'Excluir',
-  //         onPress: () => {
-  //           const updatedMotos = motos.filter(moto => moto.id_moto !== id_moto);
-  //           setMotos(updatedMotos);
-  //           AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMotos));
-  //         },
-  //         style: 'destructive'
-  //       },
-  //     ],
-  //     { cancelable: true }
-  //   );
-  // };
-
-  // const renderItem = ({ item }: { item: Moto }) => (
-  //   <View style={styles.card}>
-  //     <Text style={[styles.title, { fontFamily: 'MontserratBold' }]}>{item.modelo} - {item.placa}</Text>
-  //     <Text style={{ fontFamily: 'MontserratRegular' }}>Status: {item.status}</Text>
-  //     <Text style={{ fontFamily: 'MontserratRegular' }}>Departamento atual: {item.departamento}</Text>
-  //     <Text style={{ fontFamily: 'MontserratRegular' }}>Movimentações:</Text>
-  //     {item.movimentacoes.map((mov, index) => (
-  //       <Text style={{ fontFamily: 'MontserratRegular' }} key={index}>• {mov.departamento} - {mov.horario}</Text>
-  //     ))}
-
-  //     <View style={styles.buttons}>
-  //       <TouchableOpacity
-  //         style={styles.buttonEdit}
-  //         onPress={() => navigation.navigate('EditMoto', { moto: item })}>
-  //         <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Editar</Text>
-  //       </TouchableOpacity>
-
-  //       <TouchableOpacity
-  //         style={styles.buttonMove}
-  //         onPress={() => navigation.navigate('ChangeDepartamento', { moto: item })}>
-  //         <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Mover Departamento</Text>
-  //       </TouchableOpacity>
-
-  //       <TouchableOpacity
-  //         style={styles.buttonDelete}
-  //         onPress={() => handleDelete(item.id_moto)}>
-  //         <Text style={[styles.btnText, { fontFamily: 'MontserratRegular' }]}>Deletar</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   </View>
-  // );
-
   return (
     <View style={styles.header}>
       <Header title="Lista de Motos"/>

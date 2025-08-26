@@ -9,6 +9,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ListMotosScreen from '../screens/ListMotosScreen';
 import RegisterMotoScreen from '../screens/RegisterMotoScreen';
+import EditMotoScreen from '../screens/EditMotoScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,6 +31,7 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="ListMotos" component={ListMotosScreen} />
         <Stack.Screen name="RegisterMoto" component={RegisterMotoScreen} />
+        <Stack.Screen name="EditMoto" component={EditMotoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
