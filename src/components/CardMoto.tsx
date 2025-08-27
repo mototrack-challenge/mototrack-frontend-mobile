@@ -1,31 +1,18 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { useFonts } from "expo-font";
-import QuickAccessButton from "./QuickAccessButton";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types/navigation";
 import theme from "../styles/theme";
-import { Movimentacao } from "../types/types";
+import { Moto } from "../types/types";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-type MotoProps = {
-  id_moto: number;
-  placa: string;
-  chassi: string;
-  modelo: string;
-  status: string;
-  movimentacoes: Movimentacao[];
-  alertas: Alerta[];
+type Props = {
+  moto: Moto;
+  onDelete: (id: number) => void;
 };
 
-type Alerta = {
-  id_alerta: number;
-  gravidade: string;
-  mensagem: string;
-};
-
-const CardMoto = ({ moto }: { moto: MotoProps }) => {
+const CardMoto = ({ moto, onDelete }: Props) => {
   const navigation = useNavigation<NavigationProp>();
 
   const formatarModelo = (modelo: string) => {
@@ -196,9 +183,7 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
       <View style={[styles.botoesCardMoto]}>
         <TouchableOpacity
           style={[styles.botaoCardMoto, styles.botaoEditar]}
-          onPress={() =>
-            navigation.navigate("EditMoto", { id_moto: moto.id_moto })
-          }
+          onPress={() => navigation.navigate("EditMoto", { id_moto: moto.id_moto })}
         >
           <Text
             style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}
@@ -209,9 +194,7 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
 
         <TouchableOpacity
           style={[styles.botaoCardMoto, styles.botaoMover]}
-          onPress={() =>
-            navigation.navigate("Movimentacoes", { id_moto: moto.id_moto })
-          }
+          onPress={() => navigation.navigate("Movimentacoes", { id_moto: moto.id_moto })}
         >
           <Text
             style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}
@@ -230,9 +213,7 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
 
         <TouchableOpacity
           style={[styles.botaoCardMoto, styles.botaoAlerta]}
-          onPress={() =>
-            navigation.navigate("Alertas", { id_moto: moto.id_moto })
-          }
+          onPress={() => navigation.navigate("Alertas", { id_moto: moto.id_moto })}
         >
           <Text
             style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}
@@ -241,7 +222,10 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.botaoCardMoto, styles.botaoDeletar]}>
+        <TouchableOpacity 
+          style={[styles.botaoCardMoto, styles.botaoDeletar]} 
+          onPress={() => onDelete(moto.id_moto)}
+          >
           <Text
             style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}
           >

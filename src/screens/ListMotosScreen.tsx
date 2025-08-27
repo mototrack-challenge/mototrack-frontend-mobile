@@ -9,7 +9,7 @@ import QuickAccessButton from '../components/QuickAccessButton';
 import { RootStackParamList } from '../types/navigation';
 import { ScrollView } from 'react-native-gesture-handler';
 import CardMoto from '../components/CardMoto';
-import { buscarMotos } from '../services/motoService';
+import { buscarMotos, deletarMoto } from '../services/motoService';
 import { Moto, Movimentacao } from '../types/types';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -33,6 +33,30 @@ export default function ListMotosScreen() {
     carregarMotos();
   }, []);
 
+  const handleDeletarMoto = async (id_moto: number) => {
+    Alert.alert(
+      "Confirmar Exclusão",
+      "Tem certeza que deseja excluir esta moto?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Excluir",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await deletarMoto(id_moto);
+              setMotos((prev) =>
+                prev.filter((m) => m.id_moto !== id_moto)
+              );
+            } catch (error) {
+              console.error("Erro ao deletar moto:", error);
+            }
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <View style={styles.header}>
       <Header title="Lista de Motos" />
@@ -43,7 +67,7 @@ export default function ListMotosScreen() {
             {motos.length === 0 ? (
               <Text style={styles.semMotos}>Nenhuma moto cadastrada</Text>
             ) : (
-              motos.map((moto) => <CardMoto key={moto.id_moto} moto={moto} />)
+              motos.map((moto) => <CardMoto key={moto.id_moto} moto={moto} onDelete={handleDeletarMoto} />)
             )}
           </View>
 

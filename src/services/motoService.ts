@@ -51,3 +51,13 @@ export const editarMoto = async (id: number, moto: MotoRequestDTO) => {
     throw error;
   }
 };
+
+export const deletarMoto = async (id: number) => {
+  try {
+    const response = await api.delete(`/motos/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Erro ao deletar moto com ID ${id}:`, error);
+    throw error;
+  }
+};

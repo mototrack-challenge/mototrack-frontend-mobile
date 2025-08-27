@@ -36,7 +36,7 @@ const AlertasScreen = () => {
   const handleDelete = (id_alerta: number) => {
     Alert.alert(
       "Confirmar Exclusão",
-      "Tem certeza que deseja excluir esta movimentação?",
+      "Tem certeza que deseja excluir este alerta?",
       [
         { text: "Cancelar", style: "cancel" },
         {
