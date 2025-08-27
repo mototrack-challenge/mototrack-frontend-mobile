@@ -9,9 +9,9 @@ export interface MovimentacaoRequestDTO {
   departamento_id: number;
 }
 
-export const cadastrarMovimentacao = async (moviementacao: MovimentacaoRequestDTO) => {
+export const cadastrarMovimentacao = async (movimentacao: MovimentacaoRequestDTO) => {
   try {
-    const response = await api.post('/movimentacoes', moviementacao)
+    const response = await api.post('/movimentacoes', movimentacao)
   }
   catch (error) {
     console.error('Erro ao cadastrar moviementação:', error);

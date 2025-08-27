@@ -10,25 +10,9 @@ import { RootStackParamList } from '../types/navigation';
 import { ScrollView } from 'react-native-gesture-handler';
 import CardMoto from '../components/CardMoto';
 import { buscarMotos } from '../services/motoService';
-import { Movimentacao } from '../types/types';
+import { Moto, Movimentacao } from '../types/types';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
-
-type Moto = {
-  id_moto: number;
-  placa: string;
-  chassi: string;
-  modelo: string;
-  status: string;
-  movimentacoes: Movimentacao[];
-  alertas: Alerta[];
-};
-
-type Alerta = {
-  id_alerta: number;
-  gravidade: string;
-  mensagem: string;
-};
 
 export default function ListMotosScreen() {
   const navigation = useNavigation<NavigationProp>();

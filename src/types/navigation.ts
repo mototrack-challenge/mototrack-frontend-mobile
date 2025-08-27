@@ -9,5 +9,5 @@ export type RootStackParamList = {
     EditMoto: { id_moto: number };
     Movimentacoes: { id_moto: number };
     RegisterMovimentacao: { id_moto: number };
-    ChangeDepartamento: { moto: Moto };
+    Alertas: { id_moto: number };
 };

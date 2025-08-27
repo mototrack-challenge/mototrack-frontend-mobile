@@ -13,4 +13,13 @@ export type Moto = {
   modelo: string;
   status: string;
   movimentacoes: Movimentacao[];
+  alertas: Alerta[];
 };
+
+export type Alerta = {
+  id_alerta: number;
+  gravidade: string;
+  mensagem: string;
+  moto_id: number;
+  data_alerta: string;
+}

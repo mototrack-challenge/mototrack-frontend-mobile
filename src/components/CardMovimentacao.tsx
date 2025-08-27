@@ -1,16 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import theme from '../styles/theme';
+import { Movimentacao } from '../types/types';
 
-type MovimentacaoProps = {
-    id_movimentacao: number;
-    moto_id: number;
-    departamento_id: number;
-    departamento_descricao: string;
-    data_movimentacao: string;
-};
+// type MovimentacaoProps = {
+//     id_movimentacao: number;
+//     moto_id: number;
+//     departamento_id: number;
+//     departamento_descricao: string;
+//     data_movimentacao: string;
+// };
 
 type Props = {
-  movimentacao: MovimentacaoProps;
+  movimentacao: Movimentacao;
   onDelete: (id: number) => void;
 };
 

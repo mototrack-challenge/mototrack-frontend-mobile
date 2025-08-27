@@ -88,6 +88,19 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
     data_movimentacao: m.data_movimentacao,
   }));
 
+  const corGravidade = (gravidade: string) => {
+    switch (gravidade) {
+      case "ALTA":
+        return "red";
+      case "MEDIA":
+        return "orange";
+      case "BAIXA":
+        return "green";
+      default:
+        return "#000";
+    }
+  };
+
   return (
     <View style={[styles.cardMoto]}>
       <View style={[styles.cabecalhoCardMoto]}>
@@ -170,7 +183,7 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
                 key={alerta.id_alerta}
                 style={{
                   fontFamily: theme.fonts.regular,
-                  color: alerta.gravidade === "ALTA" ? "red" : "orange",
+                  color: corGravidade(alerta.gravidade),
                 }}
               >
                 • [{formartarGravidade(alerta.gravidade)}] {alerta.mensagem}
@@ -212,6 +225,19 @@ const CardMoto = ({ moto }: { moto: MotoProps }) => {
             style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}
           >
             Serviços
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.botaoCardMoto, styles.botaoAlerta]}
+          onPress={() =>
+            navigation.navigate("Alertas", { id_moto: moto.id_moto })
+          }
+        >
+          <Text
+            style={[styles.textoBotao, { fontFamily: theme.fonts.regular }]}
+          >
+            Alertas
           </Text>
         </TouchableOpacity>
 
@@ -276,6 +302,7 @@ const styles = StyleSheet.create({
   botaoEditar: { backgroundColor: "#37474F" },
   botaoMover: { backgroundColor: "#546E7A" },
   botaoServico: { backgroundColor: "#1976D2" },
+  botaoAlerta: { backgroundColor: "#1565C0" },
   botaoDeletar: { backgroundColor: "#D32F2F" },
 });
 
