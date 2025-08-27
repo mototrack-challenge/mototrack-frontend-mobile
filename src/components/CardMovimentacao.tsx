@@ -9,7 +9,12 @@ type MovimentacaoProps = {
     data_movimentacao: string;
 };
 
-const CardMovimentacao = ({ movimentacao }: { movimentacao: MovimentacaoProps }) => {
+type Props = {
+  movimentacao: MovimentacaoProps;
+  onDelete: (id: number) => void;
+};
+
+const CardMovimentacao = ({ movimentacao, onDelete }: Props) => {
 
     const formatarData = (data: string) => {
         const d = new Date(data);
@@ -42,6 +47,7 @@ const CardMovimentacao = ({ movimentacao }: { movimentacao: MovimentacaoProps })
 
             <TouchableOpacity
                 style={styles.botaoCardMovimentacao}
+                onPress={() => onDelete(movimentacao.id_movimentacao)}
             >
                 <Image
                     source={require('../../assets/images/icone-deletar.png')}
@@ -62,11 +68,18 @@ const styles = StyleSheet.create({
         borderColor: '#546E7A',
         borderWidth: 2,
     },
+    alinharItems: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
     cardMovimentacaoConteudo: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        gap: 5
+        gap: 10
+    },
+    textoData: {
+        marginTop: 5
     },
     descricao: {
         fontSize: 14,

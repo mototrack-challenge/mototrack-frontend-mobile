@@ -12,6 +12,7 @@ import RegisterMotoScreen from '../screens/RegisterMotoScreen';
 import EditMotoScreen from '../screens/EditMotoScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MovimentacoesScreen from '../screens/MovimentacoesScreen';
+import RegisterMovimentacaoScreen from '../screens/RegisterMovimentacaoScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -52,6 +53,7 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="RegisterMoto" component={RegisterMotoScreen} />
         <Stack.Screen name="EditMoto" component={EditMotoScreen} />
         <Stack.Screen name="Movimentacoes" component={MovimentacoesScreen} />
+        <Stack.Screen name="RegisterMovimentacao" component={RegisterMovimentacaoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
