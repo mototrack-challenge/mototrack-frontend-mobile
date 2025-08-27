@@ -84,7 +84,7 @@ const AlertasScreen = () => {
             <QuickAccessButton
               title="Cadastrar Alerta"
               onPress={() =>
-                navigation.navigate("RegisterMovimentacao", {
+                navigation.navigate("RegisterAlerta", {
                   id_moto: id_moto,
                 })
               }

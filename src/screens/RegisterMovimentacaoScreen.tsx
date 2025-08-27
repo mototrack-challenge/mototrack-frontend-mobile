@@ -12,10 +12,7 @@ import { buscarDepartamentos } from "../services/departamentoService";
 import { cadastrarMovimentacao } from "../services/movimentacaoService";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
-type RegisterMovimentacaoRouteProp = RouteProp<
-  RootStackParamList,
-  "RegisterMovimentacao"
->;
+type RegisterMovimentacaoRouteProp = RouteProp<RootStackParamList,"RegisterMovimentacao">;
 
 type Departamento = {
   id_departamento: number;
