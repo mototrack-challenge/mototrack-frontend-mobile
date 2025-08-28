@@ -5,7 +5,7 @@ import { RootStackParamList } from '../types/navigation';
 
 // Screens
 import LoginScreen from '../screens/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen';
+import CadastroScreen from '../screens/CadastroScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ListMotosScreen from '../screens/ListMotosScreen';
 import RegisterMotoScreen from '../screens/RegisterMotoScreen';
@@ -49,7 +49,7 @@ export const AppNavigator: React.FC = () => {
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Cadastro" component={CadastroScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="ListMotos" component={ListMotosScreen} />
         <Stack.Screen name="RegisterMoto" component={RegisterMotoScreen} />

@@ -80,7 +80,7 @@ const LoginScreen = () => {
             <ContainerLink>
                 <TextoLink>Não possui uma conta? {' '}</TextoLink>
 
-                <BotaoLink onPress={() => navigation.navigate('Register')}>
+                <BotaoLink onPress={() => navigation.navigate('Cadastro')}>
                     <TextoBotaoLink>Cadastre-se</TextoBotaoLink>
                 </BotaoLink>
             </ContainerLink>
