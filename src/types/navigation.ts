@@ -4,8 +4,8 @@ export type RootStackParamList = {
     Login: undefined;
     Cadastro: undefined;
     PaginaInicial: undefined;
+    ListaDeMotos: undefined;
     RegisterMoto: undefined;
-    ListMotos: undefined;
     EditMoto: { id_moto: number };
     Movimentacoes: { id_moto: number };
     RegisterMovimentacao: { id_moto: number };

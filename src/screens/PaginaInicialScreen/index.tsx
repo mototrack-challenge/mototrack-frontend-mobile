@@ -35,12 +35,12 @@ const PaginaInicial = () => {
 
                         <Botao
                             titulo="Lista de Motos"
-                            onPress={() => navigation.navigate('ListMotos')}
+                            onPress={() => navigation.navigate('ListaDeMotos')}
                         />
 
                         <Botao
                             titulo="Lista de Colaboradores"
-                            onPress={() => navigation.navigate('ListMotos')}
+                            onPress={() => navigation.navigate('ListaDeMotos')}
                         />
 
                     </ContainerBotoesPaginaInicial>
