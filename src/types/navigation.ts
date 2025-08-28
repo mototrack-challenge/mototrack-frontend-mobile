@@ -3,7 +3,7 @@ import { Moto, Movimentacao } from "./types";
 export type RootStackParamList = {
     Login: undefined;
     Cadastro: undefined;
-    Home: undefined;
+    PaginaInicial: undefined;
     RegisterMoto: undefined;
     ListMotos: undefined;
     EditMoto: { id_moto: number };
