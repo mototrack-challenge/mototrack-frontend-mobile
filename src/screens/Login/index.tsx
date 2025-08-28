@@ -8,7 +8,7 @@ import { BotaoEntrar, BotaoLink, Container, ContainerLink, Input, Logo, Mensagem
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-const LoginScreen = () => {
+const Login = () => {
     const navigation = useNavigation<NavigationProp>();
     const [email, setEmail] = useState<string>('');
     const [senha, setSenha] = useState<string>('');
@@ -33,7 +33,7 @@ const LoginScreen = () => {
             setMensagemSucesso('Login realizado com sucesso!');
 
             setTimeout(() => {
-            navigation.navigate('Home');
+            navigation.navigate('PaginaInicial');
             }, 2000);
 
         } else {
@@ -89,4 +89,4 @@ const LoginScreen = () => {
     );
 };
 
-export default LoginScreen;
+export default Login;

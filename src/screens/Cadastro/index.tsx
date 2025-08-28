@@ -7,7 +7,7 @@ import { BotaoCadastrar, BotaoLink, Container, ContainerLink, Input, Logo, Mensa
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-const CadastroScreen = () => {
+const Cadastro = () => {
     const navigation = useNavigation<NavigationProp>();
     const [nome, setNome] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -102,4 +102,4 @@ const CadastroScreen = () => {
     );
 };
 
-export default CadastroScreen;
+export default Cadastro;

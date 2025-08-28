@@ -4,9 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 
 // Screens
-import LoginScreen from '../screens/LoginScreen';
-import CadastroScreen from '../screens/CadastroScreen';
-import HomeScreen from '../screens/HomeScreen';
+import Login from '../screens/Login';
+import Cadastro from '../screens/Cadastro';
+import PaginaInicial from '../screens/PaginaInicialScreen';
 import ListMotosScreen from '../screens/ListMotosScreen';
 import RegisterMotoScreen from '../screens/RegisterMotoScreen';
 import EditMotoScreen from '../screens/EditMotoScreen';
@@ -26,7 +26,7 @@ export const AppNavigator: React.FC = () => {
     const checkLogin = async () => {
       const usuarioId = await AsyncStorage.getItem('LoggedUser');
       if (usuarioId) {
-        setInitialRoute('Home');
+        setInitialRoute('PaginaInicial');
       } else {
         setInitialRoute('Login');
       }
@@ -48,9 +48,9 @@ export const AppNavigator: React.FC = () => {
         initialRouteName={initialRoute}
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Cadastro" component={CadastroScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Cadastro" component={Cadastro} />
+        <Stack.Screen name="PaginaInicial" component={PaginaInicial} />
         <Stack.Screen name="ListMotos" component={ListMotosScreen} />
         <Stack.Screen name="RegisterMoto" component={RegisterMotoScreen} />
         <Stack.Screen name="EditMoto" component={EditMotoScreen} />
