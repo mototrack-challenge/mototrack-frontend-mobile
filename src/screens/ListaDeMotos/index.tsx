@@ -9,7 +9,7 @@ import { Container, ContainerBotoesPaginaListaDeMotos, ContainerPaginaListaDeMot
 import Cabecalho from "../../components/Cabecalho";
 import { ContainerCardsPaginaInicial } from "../PaginaInicialScreen/styles";
 import Botao from "../../components/Botao";
-import CardMoto from "../../components/CardMoto";
+import CardMoto from "./components/CardMoto";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 

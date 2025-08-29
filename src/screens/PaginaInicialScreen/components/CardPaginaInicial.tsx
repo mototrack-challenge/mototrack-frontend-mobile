@@ -1,4 +1,5 @@
-import { ContainerCardPaginaInicial, QuantidadeCardPaginaInicial, TituloCardPaginaInicial } from "./styles";
+import { ContainerCardPaginaInicial, QuantidadeCardPaginaInicial, TituloCardPaginaInicial } from "../styles";
+
 
 interface CardProps {
   titulo: string;
