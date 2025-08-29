@@ -112,7 +112,7 @@ const CardMoto = ({ moto, onDelete }: Props) => {
                 <TituloConteudoCardMoto>
                     Status:
                     <DescricaoConteudoCardMoto>
-                        {" "} {moto.status}
+                        {" "} {formartarStatus(moto.status)}
                     </DescricaoConteudoCardMoto>
 
                 </TituloConteudoCardMoto>
