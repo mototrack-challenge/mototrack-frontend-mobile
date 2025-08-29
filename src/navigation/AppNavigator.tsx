@@ -7,7 +7,7 @@ import { RootStackParamList } from '../types/navigation';
 import Login from '../screens/Login';
 import Cadastro from '../screens/Cadastro';
 import PaginaInicial from '../screens/PaginaInicialScreen';
-import ListMotosScreen from '../screens/ListMotosScreen';
+import ListaDeMotos from '../screens/ListaDeMotos';
 import RegisterMotoScreen from '../screens/RegisterMotoScreen';
 import EditMotoScreen from '../screens/EditMotoScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -51,7 +51,7 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="PaginaInicial" component={PaginaInicial} />
-        <Stack.Screen name="ListMotos" component={ListMotosScreen} />
+        <Stack.Screen name="ListaDeMotos" component={ListaDeMotos} />
         <Stack.Screen name="RegisterMoto" component={RegisterMotoScreen} />
         <Stack.Screen name="EditMoto" component={EditMotoScreen} />
         <Stack.Screen name="Movimentacoes" component={MovimentacoesScreen} />

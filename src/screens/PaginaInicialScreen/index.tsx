@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Container, ContainerBotoesPaginaInicial, ContainerCardsPaginaInicial, ContainerPaginaInicial, ScrollPaginaInicial } from "./styles";
 import Cabecalho from "../../components/Cabecalho";
 import Botao from "../../components/Botao";
-import CardPaginaInicial from "./components/CardPaginaIncial";
+import CardPaginaInicial from "./components/CardPaginaInicial";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -35,12 +35,12 @@ const PaginaInicial = () => {
 
                         <Botao
                             titulo="Lista de Motos"
-                            onPress={() => navigation.navigate('ListMotos')}
+                            onPress={() => navigation.navigate('ListaDeMotos')}
                         />
 
                         <Botao
                             titulo="Lista de Colaboradores"
-                            onPress={() => navigation.navigate('ListMotos')}
+                            onPress={() => navigation.navigate('ListaDeMotos')}
                         />
 
                     </ContainerBotoesPaginaInicial>
