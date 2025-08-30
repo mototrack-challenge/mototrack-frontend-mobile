@@ -77,7 +77,7 @@ const ListaDeMotos = () => {
 
                         <Botao
                             titulo="Cadastrar Moto"
-                            onPress={() => navigation.navigate('RegisterMoto')}
+                            onPress={() => navigation.navigate('CadastroDeMoto')}
                             backgroundColor='#547A6E'
                         />
 

@@ -112,7 +112,7 @@ const CardMoto = ({ moto, onDelete }: Props) => {
                 <TituloConteudoCardMoto>
                     Status:
                     <DescricaoConteudoCardMoto>
-                        {" "} {moto.status}
+                        {" "} {formartarStatus(moto.status)}
                     </DescricaoConteudoCardMoto>
 
                 </TituloConteudoCardMoto>
@@ -172,7 +172,7 @@ const CardMoto = ({ moto, onDelete }: Props) => {
 
             <BotoesConteudoCardMoto>
 
-                <BotaoConteudoCardMotoEditar onPress={() => navigation.navigate("EditMoto", { id_moto: moto.id_moto })}>
+                <BotaoConteudoCardMotoEditar onPress={() => navigation.navigate("EditarMoto", { id_moto: moto.id_moto })}>
                     <TextoBotaoConteudoCardMoto>Editar</TextoBotaoConteudoCardMoto>
                 </BotaoConteudoCardMotoEditar>
 
