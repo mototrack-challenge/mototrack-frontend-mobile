@@ -16,7 +16,9 @@ export const cadastrarUsuario = async (usuario: UsuarioRequestDTO) => {
 
 export const buscarUsuarios = async () => {
   try {
-    const response = await api.get('/usuarios');
+    const response = await api.get('/usuarios', {
+      params: { page: 0, size: 20 },
+    });
     return response.data.content;
 
   }

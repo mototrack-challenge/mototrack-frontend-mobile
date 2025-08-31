@@ -1,55 +1,113 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { Container, ContainerBotoesPaginaInicial, ContainerCardsPaginaInicial, ContainerPaginaInicial, ScrollPaginaInicial } from "./styles";
+import { useEffect, useState } from "react";
+import {
+  Container,
+  ContainerBotoesPaginaInicial,
+  ContainerCardsPaginaInicial,
+  ContainerPaginaInicial,
+  ScrollPaginaInicial,
+} from "./styles";
 import Cabecalho from "../../components/Cabecalho";
 import Botao from "../../components/Botao";
 import CardPaginaInicial from "./components/CardPaginaInicial";
+import { buscarMotos } from "../../services/motoService";
+import { Moto } from "../../types/types";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const PaginaInicial = () => {
-    const navigation = useNavigation<NavigationProp>();
-    const [totalMotos, setTotalMotos] = useState(0);
-    const [emAnalise, setEmAnalise] = useState(0);
-    const [emManutencao, setEmManutencao] = useState(0);
-    const [prontas, setProntas] = useState(0);
+  const navigation = useNavigation<NavigationProp>();
+  const [totalMotos, setTotalMotos] = useState(0);
+  const [emAnalise, setEmAnalise] = useState(0);
+  const [emManutencao, setEmManutencao] = useState(0);
+  const [prontas, setProntas] = useState(0);
 
-    return (
-        <Container>
-            <Cabecalho titulo="Página Inicial"/>
+  useEffect(() => {
+    const carregarDadosMotos = async () => {
+      try {
+        const motos = await buscarMotos();
 
-            <ContainerPaginaInicial>
+        setTotalMotos(motos.length);
 
-                <ScrollPaginaInicial>
+        const emAnaliseCount = motos.filter((m: Moto) => {
+          const ultimaMov = m.movimentacoes[m.movimentacoes.length - 1];
+          return (
+            ultimaMov?.departamento_descricao === "Departamento de Avaliação"
+          );
+        }).length;
 
-                    <ContainerCardsPaginaInicial>
-                        <CardPaginaInicial titulo="Motos Cadastradas" quantidade={totalMotos} backgroundColor="#455A64" />
-                        <CardPaginaInicial titulo="Motos em Avaliação" quantidade={emAnalise} backgroundColor="#8D6E63" />
-                        <CardPaginaInicial titulo="Motos em Manutenção" quantidade={emManutencao} backgroundColor="#6D4C41" />
-                        <CardPaginaInicial titulo="Motos prontas para Uso" quantidade={prontas} backgroundColor="#547A6E" />
-                    </ContainerCardsPaginaInicial>
+        const emManutencaoCount = motos.filter((m: Moto) => {
+          const ultimaMov = m.movimentacoes[m.movimentacoes.length - 1];
+          return (
+            ultimaMov?.departamento_descricao === "Departamento de Manutenção"
+          );
+        }).length;
 
-                    <ContainerBotoesPaginaInicial>
+        const prontasCount = motos.filter((m: Moto) => {
+          const ultimaMov = m.movimentacoes[m.movimentacoes.length - 1];
+          return (
+            ultimaMov?.departamento_descricao ===
+            "Departamento de Prontas para Uso"
+          );
+        }).length;
 
-                        <Botao
-                            titulo="Lista de Motos"
-                            onPress={() => navigation.navigate('ListaDeMotos')}
-                        />
+        setEmAnalise(emAnaliseCount);
+        setEmManutencao(emManutencaoCount);
+        setProntas(prontasCount);
+      } catch (error) {
+        console.error("Erro ao carregar dados das motos:", error);
+      }
+    };
 
-                        <Botao
-                            titulo="Lista de Colaboradores"
-                            onPress={() => navigation.navigate('ListaDeMotos')}
-                        />
+    carregarDadosMotos();
+  }, []);
 
-                    </ContainerBotoesPaginaInicial>
+  return (
+    <Container>
+      <Cabecalho titulo="Página Inicial" />
 
-                </ScrollPaginaInicial>
+      <ContainerPaginaInicial>
+        <ScrollPaginaInicial>
+          <ContainerCardsPaginaInicial>
+            <CardPaginaInicial
+              titulo="Motos Cadastradas"
+              quantidade={totalMotos}
+              backgroundColor="#455A64"
+            />
+            <CardPaginaInicial
+              titulo="Motos em Avaliação"
+              quantidade={emAnalise}
+              backgroundColor="#8D6E63"
+            />
+            <CardPaginaInicial
+              titulo="Motos em Manutenção"
+              quantidade={emManutencao}
+              backgroundColor="#6D4C41"
+            />
+            <CardPaginaInicial
+              titulo="Motos prontas para Uso"
+              quantidade={prontas}
+              backgroundColor="#547A6E"
+            />
+          </ContainerCardsPaginaInicial>
 
-            </ContainerPaginaInicial>
-        </Container>
-    );
+          <ContainerBotoesPaginaInicial>
+            <Botao
+              titulo="Lista de Motos"
+              onPress={() => navigation.navigate("ListaDeMotos")}
+            />
+
+            <Botao
+              titulo="Lista de Colaboradores"
+              onPress={() => navigation.navigate("ListaDeMotos")}
+            />
+          </ContainerBotoesPaginaInicial>
+        </ScrollPaginaInicial>
+      </ContainerPaginaInicial>
+    </Container>
+  );
 };
 
 export default PaginaInicial;

@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: "http://localhost:8080",
 });
 
 export interface MotoRequestDTO {
@@ -13,11 +13,12 @@ export interface MotoRequestDTO {
 
 export const buscarMotos = async () => {
   try {
-    const response = await api.get('/motos');
+    const response = await api.get("/motos", {
+      params: { page: 0, size: 1000 },
+    });
     return response.data.content;
-  }
-  catch (error) {
-    console.error('Erro ao buscar motos:', error);
+  } catch (error) {
+    console.error("Erro ao buscar motos:", error);
     throw error;
   }
 };
@@ -30,14 +31,13 @@ export const buscarMotoPorId = async (id: number) => {
     console.error(`Erro ao buscar moto com ID ${id}:`, error);
     throw error;
   }
-}
+};
 
 export const cadastrarMoto = async (moto: MotoRequestDTO) => {
   try {
-    const response = await api.post('/motos', moto)
-  }
-  catch (error) {
-    console.error('Erro ao cadastrar moto:', error);
+    const response = await api.post("/motos", moto);
+  } catch (error) {
+    console.error("Erro ao cadastrar moto:", error);
     throw error;
   }
 };
