@@ -24,14 +24,12 @@ export const ContainerCardsPaginaInicial = styled.View`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
     margin-bottom: 15px;
 `;
 
 export const ContainerBotoesPaginaInicial = styled.View`
     display: flex;
     flex-direction: column;
-    gap: 15px;
 `;
 
 export const ContainerCardPaginaInicial = styled.View`
@@ -43,7 +41,7 @@ export const ContainerCardPaginaInicial = styled.View`
     background-color: ${(props: CardProps) => props.backgroundColor || theme.colors.primary};
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    margin-bottom: 15px;
 `;
 
 export const TituloCardPaginaInicial = styled.Text`

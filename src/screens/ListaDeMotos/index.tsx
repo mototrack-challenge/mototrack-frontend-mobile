@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Moto } from "../../types/types";
 import { buscarMotos, deletarMoto } from "../../services/motoService";
 import { Alert } from "react-native";
-import { Container, ContainerBotoesPaginaListaDeMotos, ContainerPaginaListaDeMotos, ScrollPaginaListaDeMotos, TextoNenhumaMotoCadastrada } from "./styles";
+import { Container, ContainerBotoesPaginaListaDeMotos, ContainerCardsMotos, ContainerPaginaListaDeMotos, ScrollPaginaListaDeMotos, TextoNenhumaMotoCadastrada } from "./styles";
 import Cabecalho from "../../components/Cabecalho";
 import { ContainerCardsPaginaInicial } from "../PaginaInicialScreen/styles";
 import Botao from "../../components/Botao";
@@ -63,7 +63,7 @@ const ListaDeMotos = () => {
 
                 <ScrollPaginaListaDeMotos>
 
-                    <ContainerCardsPaginaInicial>
+                    <ContainerCardsMotos>
 
                         {motos.length === 0 ? (
                             <TextoNenhumaMotoCadastrada>Nenhuma moto cadastrada</TextoNenhumaMotoCadastrada>
@@ -71,7 +71,7 @@ const ListaDeMotos = () => {
                             motos.map((moto) => <CardMoto key={moto.id_moto} moto={moto} onDelete={handleDeletarMoto} />)
                         )}
 
-                    </ContainerCardsPaginaInicial>
+                    </ContainerCardsMotos>
 
                     <ContainerBotoesPaginaListaDeMotos>
 

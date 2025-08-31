@@ -8,7 +8,6 @@ export const ContainerCabecalho = styled.View`
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 7px;
 `;
 
 export const TituloCabecalho = styled.Text`
@@ -17,6 +16,7 @@ export const TituloCabecalho = styled.Text`
     padding-bottom: 10px;
     font-family: ${theme.fonts.bold};
     align-items: center;
+    margin-bottom: 7px;
 `;
 
 export const BotaoCabecalho = styled.TouchableOpacity`

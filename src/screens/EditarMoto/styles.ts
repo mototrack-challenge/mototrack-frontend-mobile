@@ -62,7 +62,6 @@ export const MensagemSucesso = styled.Text`
 export const Botoes = styled.View`
     display: flex;
     flex-direction: column;
-    gap: 15px;
     margin-top: 20px;
 `;
 

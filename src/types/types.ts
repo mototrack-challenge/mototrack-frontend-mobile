@@ -22,4 +22,9 @@ export type Alerta = {
   mensagem: string;
   moto_id: number;
   data_alerta: string;
-}
+};
+
+export type Departamento = {
+  id_departamento: number;
+  descricao: string;
+};
