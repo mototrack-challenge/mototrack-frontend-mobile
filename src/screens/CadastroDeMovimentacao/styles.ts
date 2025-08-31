@@ -6,23 +6,23 @@ export const Container = styled.View`
     background-color: ${theme.colors.background};
 `;
 
-export const ContainerPaginaCadastroDeMotos = styled.View`
+export const ContainerPaginaCadastroDeMovimentacao = styled.View`
     flex: 1;
     padding: 10px;
     background-color: #FFF;
 `;
 
-export const ScrollPaginaCadastroDeMotos = styled.ScrollView.attrs(() => ({
+export const ScrollPaginaCadastroDeMovimentacao = styled.ScrollView.attrs(() => ({
     contentContainerStyle: { justifyContent: 'center', flexGrow: 1 }
 }))``;
 
-export const ContainerCadastroDaMoto = styled.View`
+export const ContainerCadastroDaMovimentacao = styled.View`
     flex: 1;
     padding: 10px;
     background-color: #FFF;
 `;
 
-export const TituloCadastroDaMoto = styled.Text`
+export const TituloCadastroDaMovimentacao = styled.Text`
     font-size: 18px;
     margin-bottom: 20px;
     text-align: left;
@@ -32,16 +32,6 @@ export const TituloCadastroDaMoto = styled.Text`
 export const Label = styled.Text`
     font-size: 14px;
     margin-bottom: 5px;
-    font-family: ${theme.fonts.regular};
-`;
-
-export const Input = styled.TextInput`
-    background-color: #FAFAFA;
-    border-color: gray;
-    border-width: 1px;
-    margin-bottom: 10px;
-    padding: 6px 0 6px 6px;
-    border-radius: 5px;
     font-family: ${theme.fonts.regular};
 `;
 

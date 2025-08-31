@@ -27,10 +27,17 @@ export const TextoNenhumaMotoCadastrada = styled.Text`
     font-style: italic;
 `;
 
+export const ContainerCardsMotos = styled.View`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+`;
+
 export const ContainerBotoesPaginaListaDeMotos = styled.View`
     display: flex;
     flex-direction: column;
-    gap: 15px;
 `;
 
 export const ContainerCardMoto = styled.View`
@@ -47,13 +54,13 @@ export const CabecalhoCardMoto = styled.View`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
 `;
 
 export const TituloCabecalhoCardMoto = styled.Text`
     font-size: 16px;
     color: ${theme.colors.primary};
     font-family: ${theme.fonts.bold};
+    margin-bottom: 5px;
 `;
 
 export const ImagemCabecalhoCardMoto = styled.Image`
