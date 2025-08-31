@@ -16,7 +16,7 @@ export const ContainerPaginaInicial = styled.View`
 `;
 
 export const ScrollPaginaInicial = styled.ScrollView.attrs(() => ({
-    contentContainerStyle: { justifyContent: 'center', flexGrow: 1 }
+    contentContainerStyle: { justifyContent: 'center'}
 }))``;
 
 export const ContainerCardsPaginaInicial = styled.View`
