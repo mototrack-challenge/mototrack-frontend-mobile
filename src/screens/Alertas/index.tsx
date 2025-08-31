@@ -1,19 +1,19 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../types/navigation";
+import { RootStackParamList } from "../../types/navigation";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { ScrollView } from "react-native-gesture-handler";
-import QuickAccessButton from "../components/QuickAccessButton";
-import Header from "../components/Header";
-import { View, Text, StyleSheet, Alert } from "react-native";
 import { useEffect, useState } from "react";
-import { Alerta } from "../types/types";
-import { buscarAlertasPorMoto, deletarAlerta } from "../services/alertaService";
-import CardAlerta from "../components/CardAlerta";
+import { Alerta } from "../../types/types";
+import { buscarAlertasPorMoto, deletarAlerta } from "../../services/alertaService";
+import { Alert } from "react-native";
+import { Container, ContainerBotoesPaginaAlertas, ContainerCardsAlertas, ContainerPaginaAlertas, ScrollPaginaAlertas, TextoNenhumaAlertaCadastrado, TituloAlertas } from "./styles";
+import Cabecalho from "../../components/Cabecalho";
+import CardAlerta from "./components/CardAlerta";
+import Botao from "../../components/Botao";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type AlertasRouteProp = RouteProp<RootStackParamList, "Alertas">;
 
-const AlertasScreen = () => {
+const Alertas = () => {
   const navigation = useNavigation<NavigationProp>();
   const route = useRoute<AlertasRouteProp>();
   const { id_moto } = route.params;
@@ -58,17 +58,15 @@ const AlertasScreen = () => {
   };
 
   return (
-    <View style={styles.header}>
-      <Header title="Alertas" />
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.content}>
-          <Text style={styles.title}>Alertas da moto</Text>
+    <Container>
+      <Cabecalho titulo="Alertas" />
+      <ContainerPaginaAlertas>
+        <ScrollPaginaAlertas>
+          <TituloAlertas>Alertas da moto</TituloAlertas>
 
-          <View>
+          <ContainerCardsAlertas>
             {alertas.length === 0 ? (
-              <Text style={styles.semMovimentacao}>
-                Nenhum alerta encontrado
-              </Text>
+              <TextoNenhumaAlertaCadastrado>Nenhum alerta encontrado</TextoNenhumaAlertaCadastrado>
             ) : (
               alertas.map((alerta) => (
                 <CardAlerta
@@ -78,50 +76,28 @@ const AlertasScreen = () => {
                 />
               ))
             )}
-          </View>
+          </ContainerCardsAlertas>
 
-          <View>
-            <QuickAccessButton
-              title="Cadastrar Alerta"
+          <ContainerBotoesPaginaAlertas>
+            <Botao
+              titulo="Cadastrar Alerta"
               onPress={() =>
-                navigation.navigate("RegisterAlerta", {
+                navigation.navigate("CadastroDeAlerta", {
                   id_moto: id_moto,
                 })
               }
               backgroundColor="#547A6E"
             />
 
-            <QuickAccessButton
-              title="Voltar"
-              onPress={() => navigation.navigate("ListMotos")}
+            <Botao
+              titulo="Voltar"
+              onPress={() => navigation.navigate("ListaDeMotos")}
             />
-          </View>
-        </ScrollView>
-      </View>
-    </View>
+          </ContainerBotoesPaginaAlertas>
+        </ScrollPaginaAlertas>
+      </ContainerPaginaAlertas>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#fff",
-  },
-  content: {
-    justifyContent: "center",
-  },
-  title: { fontSize: 16, fontWeight: "bold", marginBottom: 8 },
-  semMovimentacao: {
-    textAlign: "center",
-    fontSize: 16,
-    color: "#666",
-    marginVertical: 20,
-    fontStyle: "italic",
-  },
-});
-
-export default AlertasScreen;
+export default Alertas;

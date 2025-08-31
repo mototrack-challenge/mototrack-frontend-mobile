@@ -12,10 +12,9 @@ import CadastroDeMoto from '../screens/CadastroDeMoto';
 import EditarMoto from '../screens/EditarMoto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Movimentacoes from '../screens/Movimentacoes';
-import RegisterMovimentacaoScreen from '../screens/RegisterMovimentacaoScreen';
-import AlertasScreen from '../screens/AlertasScreen';
-import RegisterAlertaScreen from '../screens/RegisterAlertaScreen';
 import CadastroDeMovimentacao from '../screens/CadastroDeMovimentacao';
+import Alertas from '../screens/Alertas';
+import CadastroDeAlerta from '../screens/CadastroDeAlerta';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -57,8 +56,8 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="EditarMoto" component={EditarMoto} />
         <Stack.Screen name="Movimentacoes" component={Movimentacoes} />
         <Stack.Screen name="CadastroDeMovimentacao" component={CadastroDeMovimentacao} />
-        <Stack.Screen name="Alertas" component={AlertasScreen} />
-        <Stack.Screen name="RegisterAlerta" component={RegisterAlertaScreen} />
+        <Stack.Screen name="Alertas" component={Alertas} />
+        <Stack.Screen name="CadastroDeAlerta" component={CadastroDeAlerta} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -12,7 +12,7 @@ export const ContainerPaginaListaDeMotos = styled.View`
 `;
 
 export const ScrollPaginaListaDeMotos = styled.ScrollView.attrs(() => ({
-    contentContainerStyle: { justifyContent: 'center', flexGrow: 1 }
+    contentContainerStyle: { justifyContent: 'center'}
 }))``;
 
 export const ContainerListaDeMotos = styled.View`
