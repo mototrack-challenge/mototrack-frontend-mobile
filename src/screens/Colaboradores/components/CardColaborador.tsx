@@ -1,5 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import { Colaborador } from "../../../types/types";
 import { BotaoEditarConteudoCardColaboradores, BotaoExcluirConteudoCardColaboradores, ContainerCardColaborador, ConteudoCardColaborador, DescricaoConteudoCardColaboradores, TextoBotaoConteudoCardColaboradores, TituloConteudoCardColaboradores } from "../styles";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../../types/navigation";
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 type Props = {
   colaborador: Colaborador;
@@ -7,6 +12,7 @@ type Props = {
 };
 
 const CardColaborador = ({ colaborador, onDelete }: Props) => {
+    const navigation = useNavigation<NavigationProp>();
 
     return (
         <ContainerCardColaborador>
@@ -30,7 +36,7 @@ const CardColaborador = ({ colaborador, onDelete }: Props) => {
 
             </ConteudoCardColaborador>
 
-            <BotaoEditarConteudoCardColaboradores>
+            <BotaoEditarConteudoCardColaboradores onPress={() => navigation.navigate("EditarColaborador", { id_colaborador: colaborador.id })}>
                         <TextoBotaoConteudoCardColaboradores>Editar</TextoBotaoConteudoCardColaboradores>
             </BotaoEditarConteudoCardColaboradores>
 

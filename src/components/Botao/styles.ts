@@ -12,7 +12,7 @@ export const ComponenteBotao = styled.TouchableOpacity<ComponenteBotaoProps>`
     padding: 12px;
     background-color: ${(props: ComponenteBotaoProps) => props.backgroundColor || theme.colors.primary};
     border-radius: 8px;
-    margin-bottom: 15px;
+    margin-bottom: 7px;
 `;
 
 export const TextoBotao = styled.Text`

@@ -7,7 +7,7 @@ export const Container = styled.View`
 
 export const ContainerPaginaColaboradores = styled.View`
     flex: 1;
-    padding: 16px;
+    padding: 10px;
     background-color: #FFF;
 `;
 
@@ -40,7 +40,7 @@ export const ContainerCardsColaboradores = styled.View`
 export const ContainerBotoesPaginaColaboradores = styled.View`
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-top: 5px;
 `;
 
 export const ContainerCardColaborador = styled.View`

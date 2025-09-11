@@ -22,6 +22,16 @@ export const buscarColaboradores = async () => {
   }
 };
 
+export const buscarColaboradorPorId = async (id: number) => {
+  try {
+    const response = await api.get(`/Colaborador/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Erro ao buscar colaborador com ID ${id}:`, error);
+    throw error;
+  }
+};
+
 export const cadastrarColaborador = async (colaborador: ColaboradorRequestDTO) => {
   try {
     const response = await api.post('/Colaborador', colaborador)
@@ -31,3 +41,23 @@ export const cadastrarColaborador = async (colaborador: ColaboradorRequestDTO) =
     throw error;
   }
 };
+
+export const editarColaborador = async (id: number, colaborador: ColaboradorRequestDTO) => {
+  try {
+    const response = await api.put(`/Colaborador/${id}`, colaborador);
+    return response.data;
+  } catch (error) {
+    console.error(`Erro ao editar colaborador com ID ${id}:`, error);
+    throw error;
+  }
+};
+
+export const deletarColaborador = async (id: number) => {
+  try {
+    const response = await api.delete(`/Colaborador/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Erro ao deletar colaborador com ID ${id}:`, error);
+    throw error;
+  }
+}

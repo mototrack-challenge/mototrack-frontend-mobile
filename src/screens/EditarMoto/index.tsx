@@ -64,11 +64,7 @@ const EditarMoto = () => {
       SetMensagemSucesso("");
       return;
     }
-    /*
-        
-        CONSERTAR ERRO DE EDITAR E NAO CONSEGUIR COM A MESMA PLACA
-        
-        */
+    
     if (placa.length !== 7) {
       setMensagemErro("A placa deve conter exatamente 7 caracteres.");
       SetMensagemSucesso("");
