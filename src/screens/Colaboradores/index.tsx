@@ -63,7 +63,7 @@ const Colaboradores = () => {
                     <Botao
                         titulo="Cadastrar Colaborador"
                         onPress={() =>
-                            navigation.navigate("ListaDeMotos")
+                            navigation.navigate("CadastroDeColaborador")
                         }
                         backgroundColor="#547A6E"
                     />

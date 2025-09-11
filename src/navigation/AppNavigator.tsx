@@ -16,6 +16,7 @@ import CadastroDeMovimentacao from '../screens/CadastroDeMovimentacao';
 import Alertas from '../screens/Alertas';
 import CadastroDeAlerta from '../screens/CadastroDeAlerta';
 import Colaboradores from '../screens/Colaboradores';
+import CadastroDeColaborador from '../screens/CadastroDeColaborador';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -60,6 +61,7 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="Alertas" component={Alertas} />
         <Stack.Screen name="CadastroDeAlerta" component={CadastroDeAlerta} />
         <Stack.Screen name="Colaboradores" component={Colaboradores} />
+        <Stack.Screen name="CadastroDeColaborador" component={CadastroDeColaborador} />
       </Stack.Navigator>
     </NavigationContainer>
   );

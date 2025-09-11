@@ -12,4 +12,5 @@ export type RootStackParamList = {
     Alertas: { id_moto: number };
     CadastroDeAlerta: { id_moto: number };
     Colaboradores: undefined;
+    CadastroDeColaborador: undefined;
 };

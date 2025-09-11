@@ -4,6 +4,12 @@ const api = axios.create({
   baseURL: "http://localhost:5073/api",
 });
 
+export interface ColaboradorRequestDTO {
+  nome: string;
+  matricula: string;
+  email: string;
+}
+
 export const buscarColaboradores = async () => {
   try {
     const response = await api.get("/Colaborador", {
@@ -12,6 +18,16 @@ export const buscarColaboradores = async () => {
     return response.data.data;
   } catch (error) {
     console.error("Erro ao buscar colaboradores:", error);
+    throw error;
+  }
+};
+
+export const cadastrarColaborador = async (colaborador: ColaboradorRequestDTO) => {
+  try {
+    const response = await api.post('/Colaborador', colaborador)
+  }
+  catch (error) {
+    console.error('Erro ao cadastrar o colaborador:', error);
     throw error;
   }
 };
