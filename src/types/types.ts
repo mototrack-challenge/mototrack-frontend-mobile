@@ -28,3 +28,10 @@ export type Departamento = {
   id_departamento: number;
   descricao: string;
 };
+
+export type Colaborador = {
+  id: number;
+  nome: string;
+  matricula: string;
+  email: string;
+}

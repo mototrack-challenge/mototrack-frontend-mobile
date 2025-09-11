@@ -101,7 +101,7 @@ const PaginaInicial = () => {
 
             <Botao
               titulo="Lista de Colaboradores"
-              onPress={() => navigation.navigate("ListaDeMotos")}
+              onPress={() => navigation.navigate("Colaboradores")}
             />
           </ContainerBotoesPaginaInicial>
         </ScrollPaginaInicial>
