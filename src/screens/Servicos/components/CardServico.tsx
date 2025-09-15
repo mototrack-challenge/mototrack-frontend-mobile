@@ -1,12 +1,18 @@
+import { useNavigation } from "@react-navigation/native";
 import { Servico } from "../../../types/types";
 import {
   BotaoConteudoCardServico,
+  BotaoEditarConteudoCardServico,
   ContainerCardServico,
   ConteudoCardServico,
   DescricaoConteudoCardServico,
   TextoBotaoConteudoCardServico,
   TituloConteudoCardServico,
 } from "../styles";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../../types/navigation";
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 type Props = {
   servico: Servico;
@@ -14,6 +20,8 @@ type Props = {
 };
 
 const CardServico = ({ servico, onDelete }: Props) => {
+  const navigation = useNavigation<NavigationProp>();
+
   const formatarData = (data: string) => {
     const d = new Date(data);
     return d.toLocaleString("pt-BR", {
@@ -82,6 +90,10 @@ const CardServico = ({ servico, onDelete }: Props) => {
           </DescricaoConteudoCardServico>
         </TituloConteudoCardServico>
       </ConteudoCardServico>
+
+      <BotaoEditarConteudoCardServico onPress={() => navigation.navigate("EditarServico", { id_servico: servico.id, id_moto: servico.motoId })}>
+        <TextoBotaoConteudoCardServico>Editar</TextoBotaoConteudoCardServico>
+      </BotaoEditarConteudoCardServico>
 
       <BotaoConteudoCardServico onPress={() => onDelete(servico.id)}>
         <TextoBotaoConteudoCardServico>Excluir</TextoBotaoConteudoCardServico>

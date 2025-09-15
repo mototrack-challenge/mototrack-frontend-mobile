@@ -90,7 +90,7 @@ export const BotaoEditarConteudoCardColaboradores = styled.TouchableOpacity`
     justify-content: center;
     padding: 5px;
     border-radius: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     background-color: #546E7A;
 `;
 

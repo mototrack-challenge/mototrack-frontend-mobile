@@ -37,6 +37,26 @@ export const buscarServicosPorMoto = async (idMoto: number) => {
   }
 };
 
+export const buscarServicoPorId = async (id: number) => {
+  try {
+    const response = await api.get(`/Servico/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Erro ao buscar serviço com ID ${id}:`, error);
+    throw error;
+  }
+};
+
+export const editarServico = async (id: number, servico: ServicoRequestDTO) => {
+  try {
+    const response = await api.put(`/Servico/${id}`, servico);
+    return response.data;
+  } catch (error) {
+    console.error(`Erro ao editar serviço com ID ${id}:`, error);
+    throw error;
+  }
+};
+
 export const deletarServico = async (id: number) => {
   try {
     const response = await api.delete(`/Servico/${id}`);

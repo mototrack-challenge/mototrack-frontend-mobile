@@ -74,6 +74,16 @@ export const DescricaoConteudoCardServico = styled.Text`
     font-family: ${theme.fonts.regular};
 `;
 
+export const BotaoEditarConteudoCardServico = styled.TouchableOpacity`
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    background-color: #546E7A;
+`;
+
 export const BotaoConteudoCardServico = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;

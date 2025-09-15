@@ -16,4 +16,5 @@ export type RootStackParamList = {
     EditarColaborador: {id_colaborador: number};
     Servicos: { id_moto: number };
     CadastroDeServico: { id_moto: number };
+    EditarServico: {id_servico: number, id_moto: number };
 };
