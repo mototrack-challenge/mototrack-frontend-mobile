@@ -42,25 +42,38 @@ const ListaDeMotos = () => {
   }, []);
 
   const handleDeletarMoto = async (id_moto: number) => {
-    Alert.alert(
-      "Confirmar Exclusão",
-      "Tem certeza que deseja excluir esta moto?",
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Excluir",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await deletarMoto(id_moto);
-              setMotos((prev) => prev.filter((m) => m.id_moto !== id_moto));
-            } catch (error) {
-              console.error("Erro ao deletar moto:", error);
-            }
-          },
-        },
-      ]
+    // Alert.alert(
+    //   "Confirmar Exclusão",
+    //   "Tem certeza que deseja excluir esta moto?",
+    //   [
+    //     { text: "Cancelar", style: "cancel" },
+    //     {
+    //       text: "Excluir",
+    //       style: "destructive",
+    //       onPress: async () => {
+    //         try {
+    //           await deletarMoto(id_moto);
+    //           setMotos((prev) => prev.filter((m) => m.id_moto !== id_moto));
+    //         } catch (error) {
+    //           console.error("Erro ao deletar moto:", error);
+    //         }
+    //       },
+    //     },
+    //   ]
+    // );
+    const confirmacao = window.confirm(
+      "Tem certeza que deseja excluir esta moto?"
     );
+
+    if (confirmacao) {
+      deletarMoto(id_moto)
+        .then(() => {
+          setMotos((prev) => prev.filter((c) => c.id_moto !== id_moto));
+        })
+        .catch((error) => {
+          console.error("Erro ao deletar a moto:", error);
+        });
+    }
   };
 
   if (loading) {

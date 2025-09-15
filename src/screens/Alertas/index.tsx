@@ -49,27 +49,40 @@ const Alertas = () => {
   }, []);
 
   const handleDelete = (id_alerta: number) => {
-    Alert.alert(
-      "Confirmar Exclusão",
-      "Tem certeza que deseja excluir este alerta?",
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Excluir",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await deletarAlerta(id_alerta);
-              setAlertas((prev) =>
-                prev.filter((a) => a.id_alerta !== id_alerta)
-              );
-            } catch (error) {
-              console.error("Erro ao deletar movimentação:", error);
-            }
-          },
-        },
-      ]
+    // Alert.alert(
+    //   "Confirmar Exclusão",
+    //   "Tem certeza que deseja excluir este alerta?",
+    //   [
+    //     { text: "Cancelar", style: "cancel" },
+    //     {
+    //       text: "Excluir",
+    //       style: "destructive",
+    //       onPress: async () => {
+    //         try {
+    //           await deletarAlerta(id_alerta);
+    //           setAlertas((prev) =>
+    //             prev.filter((a) => a.id_alerta !== id_alerta)
+    //           );
+    //         } catch (error) {
+    //           console.error("Erro ao deletar alerta:", error);
+    //         }
+    //       },
+    //     },
+    //   ]
+    // );
+    const confirmacao = window.confirm(
+      "Tem certeza que deseja excluir este alerta?"
     );
+
+    if (confirmacao) {
+      deletarAlerta(id_alerta)
+        .then(() => {
+          setAlertas((prev) => prev.filter((c) => c.id_alerta !== id_alerta));
+        })
+        .catch((error) => {
+          console.error("Erro ao deletar a alerta:", error);
+        });
+    }
   };
 
   if (loading) {
