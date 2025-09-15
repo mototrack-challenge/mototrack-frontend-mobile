@@ -12,6 +12,7 @@ import Cabecalho from "../../components/Cabecalho";
 import DropDownPicker from "react-native-dropdown-picker";
 import theme from "../../styles/theme";
 import Botao from "../../components/Botao";
+import Loading from "../../components/Loading";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type EditMotoRouteProp = RouteProp<RootStackParamList, "EditarMoto">;
@@ -39,6 +40,7 @@ const EditarMoto = () => {
     { label: "Manutenção", value: "MANUTENCAO" },
     { label: "Pronta para uso", value: "PRONTA_PARA_USO" },
   ]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const carregarDadosMoto = async () => {
@@ -52,6 +54,8 @@ const EditarMoto = () => {
         }
       } catch (error) {
         console.error("Erro ao carregar a moto:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -112,6 +116,10 @@ const EditarMoto = () => {
       setMensagemErro("Erro ao conectar com o servidor");
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

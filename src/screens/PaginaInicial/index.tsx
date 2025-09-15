@@ -14,6 +14,7 @@ import Botao from "../../components/Botao";
 import CardPaginaInicial from "./components/CardPaginaInicial";
 import { buscarMotos } from "../../services/motoService";
 import { Moto } from "../../types/types";
+import Loading from "../../components/Loading";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -23,6 +24,7 @@ const PaginaInicial = () => {
   const [emAnalise, setEmAnalise] = useState(0);
   const [emManutencao, setEmManutencao] = useState(0);
   const [prontas, setProntas] = useState(0);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const carregarDadosMotos = async () => {
@@ -58,11 +60,17 @@ const PaginaInicial = () => {
         setProntas(prontasCount);
       } catch (error) {
         console.error("Erro ao carregar dados das motos:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     carregarDadosMotos();
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

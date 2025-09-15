@@ -16,12 +16,14 @@ import {
 import Cabecalho from "../../components/Cabecalho";
 import Botao from "../../components/Botao";
 import CardMoto from "./components/CardMoto";
+import Loading from "../../components/Loading";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const ListaDeMotos = () => {
   const navigation = useNavigation<NavigationProp>();
   const [motos, setMotos] = useState<Moto[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const carregarMotos = async () => {
@@ -31,6 +33,8 @@ const ListaDeMotos = () => {
         setMotos(todasMotos);
       } catch (error) {
         console.error("Erro ao carregar as motos:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -58,6 +62,10 @@ const ListaDeMotos = () => {
       ]
     );
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

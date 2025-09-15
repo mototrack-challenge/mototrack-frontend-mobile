@@ -20,6 +20,7 @@ import {
 import Cabecalho from "../../components/Cabecalho";
 import CardAlerta from "./components/CardAlerta";
 import Botao from "../../components/Botao";
+import Loading from "../../components/Loading";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type AlertasRouteProp = RouteProp<RootStackParamList, "Alertas">;
@@ -29,6 +30,7 @@ const Alertas = () => {
   const route = useRoute<AlertasRouteProp>();
   const { id_moto } = route.params;
   const [alertas, setAlertas] = useState<Alerta[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const pegarAlertasDaMoto = async () => {
@@ -38,6 +40,8 @@ const Alertas = () => {
         setAlertas(alertasCadastrados);
       } catch (error) {
         console.error("Erro ao carregar os alertas:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -67,6 +71,10 @@ const Alertas = () => {
       ]
     );
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

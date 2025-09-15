@@ -20,6 +20,7 @@ import {
 import Cabecalho from "../../components/Cabecalho";
 import Botao from "../../components/Botao";
 import CardMovimentacao from "./components/CardMovimentacao";
+import Loading from "../../components/Loading";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type MovimentacoesRouteProp = RouteProp<RootStackParamList, "Movimentacoes">;
@@ -29,6 +30,7 @@ const Movimentacoes = () => {
   const route = useRoute<MovimentacoesRouteProp>();
   const { id_moto } = route.params;
   const [movimentacoes, setMovimentacoes] = useState<Movimentacao[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const pegarMovimentacoesDaMoto = async () => {
@@ -40,6 +42,8 @@ const Movimentacoes = () => {
         setMovimentacoes(movimentacoesCadastradas);
       } catch (error) {
         console.error("Erro ao carregar as movimentações:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -47,28 +51,45 @@ const Movimentacoes = () => {
   }, []);
 
   const handleDelete = (id_movimentacao: number) => {
-    Alert.alert(
-      "Confirmar Exclusão",
-      "Tem certeza que deseja excluir esta movimentação?",
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Excluir",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await deletarMovimentacao(id_movimentacao);
-              setMovimentacoes((prev) =>
-                prev.filter((m) => m.id_movimentacao !== id_movimentacao)
-              );
-            } catch (error) {
-              console.error("Erro ao deletar movimentação:", error);
-            }
-          },
-        },
-      ]
+    // Alert.alert(
+    //   "Confirmar Exclusão",
+    //   "Tem certeza que deseja excluir esta movimentação?",
+    //   [
+    //     { text: "Cancelar", style: "cancel" },
+    //     {
+    //       text: "Excluir",
+    //       style: "destructive",
+    //       onPress: async () => {
+    //         try {
+    //           await deletarMovimentacao(id_movimentacao);
+    //           setMovimentacoes((prev) =>
+    //             prev.filter((m) => m.id_movimentacao !== id_movimentacao)
+    //           );
+    //         } catch (error) {
+    //           console.error("Erro ao deletar movimentação:", error);
+    //         }
+    //       },
+    //     },
+    //   ]
+    // );
+    const confirmacao = window.confirm(
+      "Tem certeza que deseja excluir esta movimentação?"
     );
+
+    if (confirmacao) {
+      deletarMovimentacao(id_movimentacao)
+        .then(() => {
+          setMovimentacoes((prev) => prev.filter((c) => c.id_movimentacao !== id_movimentacao));
+        })
+        .catch((error) => {
+          console.error("Erro ao deletar a movimentação:", error);
+        });
+    }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

@@ -10,6 +10,7 @@ import { Colaborador } from "../../types/types";
 import { buscarColaboradores } from "../../services/colaboradorService";
 import { buscarServicoPorId, editarServico } from "../../services/servicoService";
 import { Botoes, Container, ContainerCadastroDoServico, ContainerDropDown, ContainerPaginaCadastroDeServico, DropDownInputStyle, Input, Label, MensagemErro, MensagemSucesso, ScrollPaginaCadastroDeServico, TituloCadastroDoServico } from "./styles";
+import Loading from "../../components/Loading";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type EditServicoRouteProp = RouteProp<RootStackParamList,"EditarServico">;
@@ -37,6 +38,7 @@ const EditarServico = () => {
     const [itensColaboradores, setItensColaboradores] = useState<DropDownItem[]>([]);
     const [mensagemErro, setMensagemErro] = useState<string>("");
     const [mensagemSucesso, SetMensagemSucesso] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const carregarDadosServico = async () => {
@@ -49,6 +51,8 @@ const EditarServico = () => {
                 }
             } catch (error) {
                 console.error("Erro ao carregar os dados do colaborador:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -99,6 +103,10 @@ const EditarServico = () => {
             setMensagemErro("Erro ao conectar com o servidor");
         }
     };
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return(
         <Container>

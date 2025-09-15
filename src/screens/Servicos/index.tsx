@@ -8,6 +8,7 @@ import { Container, ContainerBotoesPaginaServicos, ContainerCardsServicos, Conta
 import Cabecalho from "../../components/Cabecalho";
 import Botao from "../../components/Botao";
 import CardServico from "./components/CardServico";
+import Loading from "../../components/Loading";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type ServicosRouteProp = RouteProp<RootStackParamList, "Servicos">;
@@ -17,12 +18,20 @@ const Servicos = () => {
   const route = useRoute<ServicosRouteProp>();
   const { id_moto } = route.params;
   const [servicos, setServicos] = useState<Servico[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const carregarServicosMoto = async () => {
-      const servicosMoto = await buscarServicosPorMoto(id_moto);
+      try {
+        const servicosMoto = await buscarServicosPorMoto(id_moto);
+        setServicos(servicosMoto);
 
-      setServicos(servicosMoto);
+      } catch (error) {
+        console.error("Erro ao carregar os serviços:", error); 
+
+      } finally {
+        setLoading(false);
+      }
     };
 
     carregarServicosMoto();
@@ -64,6 +73,10 @@ const Servicos = () => {
         });
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

@@ -18,12 +18,14 @@ import CardColaborador from "./components/CardColaborador";
 import { buscarColaboradores, deletarColaborador } from "../../services/colaboradorService";
 import Botao from "../../components/Botao";
 import { Alert } from "react-native";
+import Loading from "../../components/Loading";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const Colaboradores = () => {
   const navigation = useNavigation<NavigationProp>();
   const [colaboradores, setColaboradores] = useState<Colaborador[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const pegarColaboradores = async () => {
@@ -33,6 +35,8 @@ const Colaboradores = () => {
         setColaboradores(colaboradoresCadastrados);
       } catch (error) {
         console.error("Erro ao carregar os colaboradores:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -75,6 +79,10 @@ const Colaboradores = () => {
         });
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

@@ -6,7 +6,7 @@ import { RootStackParamList } from '../types/navigation';
 // Screens
 import Login from '../screens/Login';
 import Cadastro from '../screens/Cadastro';
-import PaginaInicial from '../screens/PaginaInicialScreen';
+import PaginaInicial from '../screens/PaginaInicial';
 import ListaDeMotos from '../screens/ListaDeMotos';
 import CadastroDeMoto from '../screens/CadastroDeMoto';
 import EditarMoto from '../screens/EditarMoto';
@@ -43,10 +43,6 @@ export const AppNavigator: React.FC = () => {
   if (!initialRoute) {
     return null;
   }
-
-//   if (loading) {
-//     return null; // Ou um componente de loading
-//   }
 
   return (
     <NavigationContainer>
