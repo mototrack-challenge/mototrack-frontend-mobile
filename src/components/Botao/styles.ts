@@ -9,7 +9,7 @@ export const ComponenteBotao = styled.TouchableOpacity<ComponenteBotaoProps>`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 12px;
+    padding: 10px;
     background-color: ${(props: ComponenteBotaoProps) => props.backgroundColor || theme.colors.primary};
     border-radius: 8px;
     margin-bottom: 7px;

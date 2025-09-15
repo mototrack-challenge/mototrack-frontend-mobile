@@ -35,3 +35,11 @@ export type Colaborador = {
   matricula: string;
   email: string;
 }
+
+export type Servico = {
+  id: number;
+  descricao: string;
+  dataCadastro: string;
+  motoId: number
+  colaboradorId: number;
+}

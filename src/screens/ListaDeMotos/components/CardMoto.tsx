@@ -1,10 +1,12 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../types/navigation";
-import { Moto } from "../../../types/types";
+import { Moto, Servico } from "../../../types/types";
 import { useNavigation } from "@react-navigation/native";
 import { BotaoConteudoCardMotoAlertas, BotaoConteudoCardMotoDeletar, BotaoConteudoCardMotoEditar, BotaoConteudoCardMotoMovimentacoes, BotaoConteudoCardMotoServicos, BotoesConteudoCardMoto, CabecalhoCardMoto, ContainerCardMoto, ConteudoCardMoto, DescricaoConteudoCardMoto, ImagemCabecalhoCardMoto, TextoBotaoConteudoCardMoto, TituloCabecalhoCardMoto, TituloConteudoCardMoto } from "../styles";
 import { Text } from "react-native";
 import theme from "../../../styles/theme";
+import { useEffect, useState } from "react";
+import { buscarServicosPorMoto } from "../../../services/servicoService";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -15,6 +17,19 @@ type Props = {
 
 const CardMoto = ({ moto, onDelete }: Props) => {
     const navigation = useNavigation<NavigationProp>();
+    const [servicos, setServicos] = useState<Servico[]>([]);
+
+    useEffect(() => {
+        const carregarServicosMoto= async (idMoto: number) => {
+            const servicosMoto = await buscarServicosPorMoto(idMoto);
+
+            setServicos(servicosMoto);
+            console.log(servicos);
+            
+        };
+
+        carregarServicosMoto(moto.id_moto);
+    }, []);
 
     const formatarModelo = (modelo: string) => {
         switch (modelo) {
