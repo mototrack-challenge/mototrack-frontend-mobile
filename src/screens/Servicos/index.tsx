@@ -93,7 +93,7 @@ const Servicos = () => {
           <Botao
             titulo="Cadastrar Serviço"
             onPress={() =>
-              navigation.navigate("CadastroDeMovimentacao", {
+              navigation.navigate("CadastroDeServico", {
                 id_moto: id_moto,
               })
             }

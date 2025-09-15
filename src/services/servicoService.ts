@@ -4,6 +4,22 @@ const api = axios.create({
   baseURL: "http://localhost:5073/api",
 });
 
+export interface ServicoRequestDTO {
+  descricao: string;
+  status: string;
+  motoId: number;
+  colaboradorId: number;
+}
+
+export const cadastrarServico = async (servico: ServicoRequestDTO) => {
+  try {
+    const response = await api.post('/Servico', servico)
+  }
+  catch (error) {
+    console.error('Erro ao cadastrar o serviço:', error);
+    throw error;
+  }
+};
 
 export const buscarServicosPorMoto = async (idMoto: number) => {
   try {

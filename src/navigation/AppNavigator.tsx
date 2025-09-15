@@ -19,6 +19,7 @@ import Colaboradores from '../screens/Colaboradores';
 import CadastroDeColaborador from '../screens/CadastroDeColaborador';
 import EditarColaborador from '../screens/EditarColaborador';
 import Servicos from '../screens/Servicos';
+import CadastroDeServico from '../screens/CadastroDeServico';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -66,6 +67,7 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="CadastroDeColaborador" component={CadastroDeColaborador} />
         <Stack.Screen name="EditarColaborador" component={EditarColaborador} />
         <Stack.Screen name="Servicos" component={Servicos} />
+        <Stack.Screen name="CadastroDeServico" component={CadastroDeServico} />
       </Stack.Navigator>
     </NavigationContainer>
   );
