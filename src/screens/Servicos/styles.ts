@@ -5,24 +5,24 @@ export const Container = styled.View`
     flex: 1;
 `;
 
-export const ContainerPaginaMovimentacoes = styled.View`
+export const ContainerPaginaServicos = styled.View`
     flex: 1;
     padding: 16px;
     background-color: #FFF;
 `;
 
-export const ScrollPaginaMovimentacoes = styled.ScrollView.attrs(() => ({
+export const ScrollPaginaServicos = styled.ScrollView.attrs(() => ({
     contentContainerStyle: { justifyContent: 'center'}
 }))``;
 
-export const TituloMovimentacoes = styled.Text`
+export const TituloServicos = styled.Text`
     font-size: 18px;
     margin-bottom: 8px;
     text-align: left;
     font-family: ${theme.fonts.bold};
 `;
 
-export const TextoNenhumaMovimentacaoCadastrada = styled.Text`
+export const TextoNenhumServicoCadastrado = styled.Text`
     text-align: center;
     font-size: 16px;
     color: #666;
@@ -30,20 +30,20 @@ export const TextoNenhumaMovimentacaoCadastrada = styled.Text`
     font-style: italic;
 `;
 
-export const ContainerCardsMovimentacoes = styled.View`
+export const ContainerCardsServicos = styled.View`
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 15px;
 `;
 
-export const ContainerBotoesPaginaMovimentacoes = styled.View`
+export const ContainerBotoesPaginaServicos = styled.View`
     display: flex;
     flex-direction: column;
     margin-top: 5px;
 `;
 
-export const ContainerCardMovimentacao = styled.View`
+export const ContainerCardServico = styled.View`
     width: 100%;
     padding: 10px;
     border-radius: 12px;
@@ -53,28 +53,28 @@ export const ContainerCardMovimentacao = styled.View`
     border-width: 2px;
 `;
 
-export const ConteudoCardMovimentacao = styled.View`
+export const ConteudoCardServico = styled.View`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 10px;
 `;
 
-export const TituloConteudoCardMoto = styled.Text`
+export const TituloConteudoCardServico = styled.Text`
     font-size: 14px;
     color: #000000;
     margin-bottom: 7px;
     font-family: ${theme.fonts.bold};
 `;
 
-export const DescricaoConteudoCardMoto = styled.Text`
+export const DescricaoConteudoCardServico = styled.Text`
     font-size: 14px;
     color: #000000;
     margin-bottom: 7px;
     font-family: ${theme.fonts.regular};
 `;
 
-export const BotaoConteudoCardMovimentacao = styled.TouchableOpacity`
+export const BotaoConteudoCardServico = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -84,7 +84,7 @@ export const BotaoConteudoCardMovimentacao = styled.TouchableOpacity`
     background-color: #D32F2F;
 `;
 
-export const TextoBotaoConteudoCardMovimentacao = styled.Text`
+export const TextoBotaoConteudoCardServico = styled.Text`
     font-size: 14px;
     color: #fff;
 `;

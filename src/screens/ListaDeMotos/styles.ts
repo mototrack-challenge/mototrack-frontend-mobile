@@ -38,6 +38,7 @@ export const ContainerCardsMotos = styled.View`
 export const ContainerBotoesPaginaListaDeMotos = styled.View`
     display: flex;
     flex-direction: column;
+    margin-top: 5px;
 `;
 
 export const ContainerCardMoto = styled.View`

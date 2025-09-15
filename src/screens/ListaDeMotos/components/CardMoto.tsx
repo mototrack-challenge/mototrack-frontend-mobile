@@ -24,8 +24,6 @@ const CardMoto = ({ moto, onDelete }: Props) => {
             const servicosMoto = await buscarServicosPorMoto(idMoto);
 
             setServicos(servicosMoto);
-            console.log(servicos);
-            
         };
 
         carregarServicosMoto(moto.id_moto);
@@ -165,6 +163,35 @@ const CardMoto = ({ moto, onDelete }: Props) => {
                 )}
 
                 <TituloConteudoCardMoto>Serviços:</TituloConteudoCardMoto>
+                {servicos.length > 0 ? (
+                    servicos.map((servico) => (
+                        <Text
+                        key={servico.id}
+                        style={{
+                            fontFamily: theme.fonts.regular,
+                            marginLeft: 10,
+                            fontSize: 14,
+                            marginBottom: 5,
+                        }}
+                        >
+                        • {servico.descricao} (
+                        {new Date(servico.dataCadastro).toLocaleDateString("pt-BR")})
+                        </Text>
+                    ))
+                    ) : (
+                    <Text
+                        style={{
+                        fontFamily: theme.fonts.regular,
+                        marginLeft: 10,
+                        fontSize: 14,
+                        marginBottom: 5,
+                        fontStyle: "italic",
+                        color: "#666",
+                        }}
+                    >
+                        Nenhum serviço cadastrado
+                    </Text>
+                )}
 
                 {moto.alertas.length > 0 && (
                 <>
@@ -195,7 +222,7 @@ const CardMoto = ({ moto, onDelete }: Props) => {
                     <TextoBotaoConteudoCardMoto>Movimentações</TextoBotaoConteudoCardMoto>
                 </BotaoConteudoCardMotoMovimentacoes>
 
-                <BotaoConteudoCardMotoServicos>
+                <BotaoConteudoCardMotoServicos onPress={() => navigation.navigate("Servicos", { id_moto: moto.id_moto })}>
                     <TextoBotaoConteudoCardMoto>Serviços</TextoBotaoConteudoCardMoto>
                 </BotaoConteudoCardMotoServicos>
 

@@ -40,6 +40,7 @@ export type Servico = {
   id: number;
   descricao: string;
   dataCadastro: string;
+  status: string;
   motoId: number
-  colaboradorId: number;
+  colaborador: Colaborador;
 }

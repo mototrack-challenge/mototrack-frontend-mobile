@@ -3,9 +3,20 @@ import { RootStackParamList } from "../../types/navigation";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Alerta } from "../../types/types";
-import { buscarAlertasPorMoto, deletarAlerta } from "../../services/alertaService";
+import {
+  buscarAlertasPorMoto,
+  deletarAlerta,
+} from "../../services/alertaService";
 import { Alert } from "react-native";
-import { Container, ContainerBotoesPaginaAlertas, ContainerCardsAlertas, ContainerPaginaAlertas, ScrollPaginaAlertas, TextoNenhumaAlertaCadastrado, TituloAlertas } from "./styles";
+import {
+  Container,
+  ContainerBotoesPaginaAlertas,
+  ContainerCardsAlertas,
+  ContainerPaginaAlertas,
+  ScrollPaginaAlertas,
+  TextoNenhumaAlertaCadastrado,
+  TituloAlertas,
+} from "./styles";
 import Cabecalho from "../../components/Cabecalho";
 import CardAlerta from "./components/CardAlerta";
 import Botao from "../../components/Botao";
@@ -66,7 +77,9 @@ const Alertas = () => {
 
           <ContainerCardsAlertas>
             {alertas.length === 0 ? (
-              <TextoNenhumaAlertaCadastrado>Nenhum alerta encontrado</TextoNenhumaAlertaCadastrado>
+              <TextoNenhumaAlertaCadastrado>
+                Nenhum alerta encontrado
+              </TextoNenhumaAlertaCadastrado>
             ) : (
               alertas.map((alerta) => (
                 <CardAlerta
@@ -77,24 +90,23 @@ const Alertas = () => {
               ))
             )}
           </ContainerCardsAlertas>
-
-          <ContainerBotoesPaginaAlertas>
-            <Botao
-              titulo="Cadastrar Alerta"
-              onPress={() =>
-                navigation.navigate("CadastroDeAlerta", {
-                  id_moto: id_moto,
-                })
-              }
-              backgroundColor="#547A6E"
-            />
-
-            <Botao
-              titulo="Voltar"
-              onPress={() => navigation.navigate("ListaDeMotos")}
-            />
-          </ContainerBotoesPaginaAlertas>
         </ScrollPaginaAlertas>
+        <ContainerBotoesPaginaAlertas>
+          <Botao
+            titulo="Cadastrar Alerta"
+            onPress={() =>
+              navigation.navigate("CadastroDeAlerta", {
+                id_moto: id_moto,
+              })
+            }
+            backgroundColor="#547A6E"
+          />
+
+          <Botao
+            titulo="Voltar"
+            onPress={() => navigation.navigate("ListaDeMotos")}
+          />
+        </ContainerBotoesPaginaAlertas>
       </ContainerPaginaAlertas>
     </Container>
   );

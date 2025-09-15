@@ -14,4 +14,5 @@ export type RootStackParamList = {
     Colaboradores: undefined;
     CadastroDeColaborador: undefined;
     EditarColaborador: {id_colaborador: number};
+    Servicos: { id_moto: number };
 };

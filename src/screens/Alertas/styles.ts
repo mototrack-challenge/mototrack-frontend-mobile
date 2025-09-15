@@ -40,7 +40,7 @@ export const ContainerCardsAlertas = styled.View`
 export const ContainerBotoesPaginaAlertas = styled.View`
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-top: 5px;
 `;
 
 export const ContainerCardAlerta = styled.View`

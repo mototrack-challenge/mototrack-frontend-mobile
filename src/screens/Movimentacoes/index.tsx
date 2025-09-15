@@ -80,7 +80,9 @@ const Movimentacoes = () => {
 
           <ContainerCardsMovimentacoes>
             {movimentacoes.length === 0 ? (
-              <TextoNenhumaMovimentacaoCadastrada>Nenhuma movimentação cadastrada</TextoNenhumaMovimentacaoCadastrada>
+              <TextoNenhumaMovimentacaoCadastrada>
+                Nenhuma movimentação cadastrada
+              </TextoNenhumaMovimentacaoCadastrada>
             ) : (
               movimentacoes.map((movimentacao) => (
                 <CardMovimentacao
@@ -91,22 +93,23 @@ const Movimentacoes = () => {
               ))
             )}
           </ContainerCardsMovimentacoes>
-
-          <ContainerBotoesPaginaMovimentacoes>
-            <Botao
-              titulo="Cadastrar Movimentação"
-              onPress={() =>
-                navigation.navigate("CadastroDeMovimentacao", {id_moto: id_moto,})
-              }
-              backgroundColor="#547A6E"
-            />
-
-            <Botao
-              titulo="Voltar"
-              onPress={() => navigation.navigate("ListaDeMotos")}
-            />
-          </ContainerBotoesPaginaMovimentacoes>
         </ScrollPaginaMovimentacoes>
+        <ContainerBotoesPaginaMovimentacoes>
+          <Botao
+            titulo="Cadastrar Movimentação"
+            onPress={() =>
+              navigation.navigate("CadastroDeMovimentacao", {
+                id_moto: id_moto,
+              })
+            }
+            backgroundColor="#547A6E"
+          />
+
+          <Botao
+            titulo="Voltar"
+            onPress={() => navigation.navigate("ListaDeMotos")}
+          />
+        </ContainerBotoesPaginaMovimentacoes>
       </ContainerPaginaMovimentacoes>
     </Container>
   );
