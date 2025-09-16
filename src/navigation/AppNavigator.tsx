@@ -22,6 +22,8 @@ import Servicos from '../screens/Servicos';
 import CadastroDeServico from '../screens/CadastroDeServico';
 import EditarServico from '../screens/EditarServico';
 
+import { isTokenValid } from '../services/usuarioService';
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const AppNavigator: React.FC = () => {
@@ -29,15 +31,15 @@ export const AppNavigator: React.FC = () => {
   const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList | null>(null);
   
   useEffect(() => {
-    const checkLogin = async () => {
-      const usuarioId = await AsyncStorage.getItem('LoggedUser');
-      if (usuarioId) {
-        setInitialRoute('PaginaInicial');
+    const checkAuth = async () => {
+      const valid = await isTokenValid();
+      if (valid) {
+        setInitialRoute("PaginaInicial");
       } else {
-        setInitialRoute('Login');
+        setInitialRoute("Login");
       }
     };
-    checkLogin();
+    checkAuth();
   }, []);
 
   if (!initialRoute) {
