@@ -42,15 +42,3 @@ export async function login(usuario: UsuarioRequestLoginDTO) {
 export const cadastrarUsuario = async (usuario: UsuarioRequestDTO) => {
   return await api.post("/usuarios", usuario);
 };
-
-export const buscarUsuarios = async () => {
-  try {
-    const response = await api.get("/usuarios", {
-      params: { page: 0, size: 20 },
-    });
-    return response.data.content;
-  } catch (error) {
-    console.error("Erro ao buscar usuários:", error);
-    throw error;
-  }
-};
