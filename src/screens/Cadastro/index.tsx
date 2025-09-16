@@ -22,21 +22,21 @@ const Cadastro = () => {
         }
 
         try {
-            const usuariosExistentes = await buscarUsuarios();
+            // const usuariosExistentes = await buscarUsuarios();
 
-            const emailExiste = usuariosExistentes.some(
-            (u: any) => u.email.toLowerCase() === email.toLowerCase()
-            );
+            // const emailExiste = usuariosExistentes.some(
+            // (u: any) => u.email.toLowerCase() === email.toLowerCase()
+            // );
 
-            if (emailExiste) {
-            setMensagemErro("Este e-mail já está cadastrado!");
-            return;
-            }
+            // if (emailExiste) {
+            // setMensagemErro("Este e-mail já está cadastrado!");
+            // return;
+            // }
 
-            if (senha.length < 6) {
-            setMensagemErro("A senha deve ter pelo menos 6 caracteres");
-            return;
-            }
+            // if (senha.length < 6) {
+            // setMensagemErro("A senha deve ter pelo menos 6 caracteres");
+            // return;
+            // }
 
             await cadastrarUsuario({ nome, email, senha });
 

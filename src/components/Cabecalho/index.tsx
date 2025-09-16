@@ -16,7 +16,8 @@ const Cabecalho = ({ titulo }: CabecalhoProps) => {
 
     const handleLogout = async () => {
         try {
-            await AsyncStorage.removeItem('LoggedUser');
+            await AsyncStorage.removeItem('userId');
+            await AsyncStorage.removeItem('token');
             navigation.reset({
                 index: 0,
                 routes: [{ name: 'Login' }],
