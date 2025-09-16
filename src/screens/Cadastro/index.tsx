@@ -2,104 +2,113 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { buscarUsuarios, cadastrarUsuario } from "../../services/usuarioService";
-import { BotaoCadastrar, BotaoLink, Container, ContainerLink, Input, Logo, MensagemErro, MensagemSucesso, Subtitulo, TextoBotaoCadastrar, TextoBotaoLink, TextoLink, Titulo } from "./styles";
+import {
+  buscarUsuarios,
+  cadastrarUsuario,
+} from "../../services/usuarioService";
+import {
+  BotaoCadastrar,
+  BotaoLink,
+  Container,
+  ContainerLink,
+  Input,
+  Logo,
+  MensagemErro,
+  MensagemSucesso,
+  Subtitulo,
+  TextoBotaoCadastrar,
+  TextoBotaoLink,
+  TextoLink,
+  Titulo,
+} from "./styles";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const Cadastro = () => {
-    const navigation = useNavigation<NavigationProp>();
-    const [nome, setNome] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [senha, setSenha] = useState<string>("");
-    const [mensagemErro, setMensagemErro] = useState<string>("");
-    const [mensagemSucesso, setMensagemSucesso] = useState<string>("");
+  const navigation = useNavigation<NavigationProp>();
+  const [nome, setNome] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [senha, setSenha] = useState<string>("");
+  const [mensagemErro, setMensagemErro] = useState<string>("");
+  const [mensagemSucesso, setMensagemSucesso] = useState<string>("");
 
-    const handleCadastrar = async () => {
-        if (!nome || !email || !senha) {
-            setMensagemErro("Preencha todos os campos!");
-            return;
-        }
+  const handleCadastrar = async () => {
+    if (!nome || !email || !senha) {
+      setMensagemErro("Preencha todos os campos!");
+      return;
+    }
 
-        try {
-            // const usuariosExistentes = await buscarUsuarios();
+    try {
+      await cadastrarUsuario({ nome, email, senha });
 
-            // const emailExiste = usuariosExistentes.some(
-            // (u: any) => u.email.toLowerCase() === email.toLowerCase()
-            // );
+      setMensagemErro("");
+      setMensagemSucesso("Cadastro realizado com sucesso!");
 
-            // if (emailExiste) {
-            // setMensagemErro("Este e-mail já está cadastrado!");
-            // return;
-            // }
+      setTimeout(() => {
+        setMensagemSucesso("");
+        navigation.navigate("Login");
+      }, 2000);
+    } catch (error: any) {
+      console.error("Erro no cadastro:", error);
 
-            // if (senha.length < 6) {
-            // setMensagemErro("A senha deve ter pelo menos 6 caracteres");
-            // return;
-            // }
+      // Verifica se o erro veio da API
+      if (error.response &&error.response.data &&error.response.data.message) {
+        setMensagemErro(error.response.data.message);
+      } else {
+        setMensagemErro("Erro ao conectar com o servidor");
+      }
+    }
+  };
 
-            await cadastrarUsuario({ nome, email, senha });
+  return (
+    <Container>
+      <Logo source={require("../../../assets/images/logo-sem-fundo.png")} />
 
-            setMensagemErro("");
-            setMensagemSucesso("Cadastro realizado com sucesso!");
+      <Titulo>Bem-vindo à MotoTrack</Titulo>
+      <Subtitulo>Cadastre-se para acessar o dashboard</Subtitulo>
 
-            setTimeout(() => {
-            setMensagemSucesso("");
-            navigation.navigate("Login");
-            }, 2000);
-        } catch (error) {
-            console.error("Erro no cadastro:", error);
-            setMensagemErro("Erro ao conectar com o servidor");
-        }
-    };
+      <Input
+        value={nome}
+        onChangeText={setNome}
+        placeholder="Nome Completo"
+        placeholderTextColor="#999"
+      />
 
-    return (
-        <Container>
-            <Logo source={require('../../../assets/images/logo-sem-fundo.png')}/>
-            
-            <Titulo>Bem-vindo à MotoTrack</Titulo>
-            <Subtitulo>Cadastre-se para acessar o dashboard</Subtitulo>
+      <Input
+        value={email}
+        onChangeText={setEmail}
+        placeholder="E-mail"
+        placeholderTextColor="#999"
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
 
-            <Input
-                value={nome}
-                onChangeText={setNome}
-                placeholder="Nome Completo"
-                placeholderTextColor="#999"
-            />
+      <Input
+        value={senha}
+        onChangeText={setSenha}
+        placeholder="Senha"
+        placeholderTextColor="#999"
+        secureTextEntry
+      />
 
-            <Input
-                value={email}
-                onChangeText={setEmail}
-                placeholder="E-mail"
-                placeholderTextColor="#999"
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
+      {mensagemSucesso ? (
+        <MensagemSucesso>{mensagemSucesso}</MensagemSucesso>
+      ) : null}
+      {mensagemErro ? <MensagemErro>{mensagemErro}</MensagemErro> : null}
 
-            <Input
-                value={senha}
-                onChangeText={setSenha}
-                placeholder="Senha"
-                placeholderTextColor="#999"
-                secureTextEntry
-            />
+      <BotaoCadastrar onPress={handleCadastrar}>
+        <TextoBotaoCadastrar>Cadastrar</TextoBotaoCadastrar>
+      </BotaoCadastrar>
 
-            {mensagemSucesso ? <MensagemSucesso>{mensagemSucesso}</MensagemSucesso> : null}
-            {mensagemErro ? <MensagemErro>{mensagemErro}</MensagemErro> : null}
-            
-            <BotaoCadastrar onPress={handleCadastrar}>
-                <TextoBotaoCadastrar>Cadastrar</TextoBotaoCadastrar>
-            </BotaoCadastrar>
+      <ContainerLink>
+        <TextoLink>Já possui uma conta? </TextoLink>
 
-            <ContainerLink>
-                <TextoLink>Já possui uma conta? {' '}</TextoLink>
-
-                <BotaoLink onPress={() => navigation.navigate('Login')}>
-                    <TextoBotaoLink>Faça login</TextoBotaoLink>
-                </BotaoLink>
-            </ContainerLink>
-        </Container>
-    );
+        <BotaoLink onPress={() => navigation.navigate("Login")}>
+          <TextoBotaoLink>Faça login</TextoBotaoLink>
+        </BotaoLink>
+      </ContainerLink>
+    </Container>
+  );
 };
 
 export default Cadastro;
