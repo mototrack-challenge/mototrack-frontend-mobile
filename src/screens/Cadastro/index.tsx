@@ -2,10 +2,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import {
-  buscarUsuarios,
-  cadastrarUsuario,
-} from "../../services/usuarioService";
+import {cadastrarUsuario,} from "../../services/usuarioService";
 import {
   BotaoCadastrar,
   BotaoLink,
@@ -39,7 +36,12 @@ const Cadastro = () => {
     }
 
     try {
-      await cadastrarUsuario({ nome, email, senha });
+      await cadastrarUsuario({ 
+        nome: nome, 
+        email: email,
+        senha: senha,
+        perfil: "COMUM" 
+      });
 
       setMensagemErro("");
       setMensagemSucesso("Cadastro realizado com sucesso!");

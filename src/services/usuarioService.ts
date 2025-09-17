@@ -17,6 +17,7 @@ export interface UsuarioRequestDTO {
   nome: string;
   email: string;
   senha: string;
+  perfil: string;
 }
 
 export interface UsuarioRequestLoginDTO {
