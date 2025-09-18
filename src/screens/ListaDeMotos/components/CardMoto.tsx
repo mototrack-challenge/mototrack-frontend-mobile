@@ -61,8 +61,8 @@ const CardMoto = ({ moto, onDelete }: Props) => {
             return "Avaliação";
         case "MANUTENCAO":
             return "Manutenção";
-        case "PRONTA_PARA_USO":
-            return "Pronta para uso";
+        case "DISPONIVEL":
+            return "Disponível";
         default:
             return status;
         }

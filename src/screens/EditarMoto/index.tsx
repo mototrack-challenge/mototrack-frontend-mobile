@@ -38,7 +38,7 @@ const EditarMoto = () => {
   const [itemsStatus, setItemsStatus] = useState([
     { label: "Avaliação", value: "AVALIACAO" },
     { label: "Manutenção", value: "MANUTENCAO" },
-    { label: "Pronta para uso", value: "PRONTA_PARA_USO" },
+    { label: "Disponível", value: "DISPONIVEL" },
   ]);
   const [loading, setLoading] = useState<boolean>(true);
 
