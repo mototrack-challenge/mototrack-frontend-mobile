@@ -32,9 +32,10 @@ const Colaboradores = () => {
       try {
         const colaboradoresCadastrados = await buscarColaboradores();
 
-        setColaboradores(colaboradoresCadastrados);
+        setColaboradores(colaboradoresCadastrados ?? []);
       } catch (error) {
         console.error("Erro ao carregar os colaboradores:", error);
+        setColaboradores([]);
       } finally {
         setLoading(false);
       }
