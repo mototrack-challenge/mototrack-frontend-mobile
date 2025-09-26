@@ -13,7 +13,8 @@
 - [🚀 Como Rodar o Projeto MotoTrack Completo](#-como-rodar-o-projeto-mototrack-completo)  
 - [📱 Detalhes do Projeto Mobile (React Native + Expo)](#-detalhes-do-projeto-mobile-react-native--expo)  
 - [🚀 Como Rodar o Projeto Mobile (React Native + Expo)](#-como-rodar-o-projeto-mobile-react-native--expo)  
-- [📹 Demonstração em Vídeo](#-demonstração-em-vídeo)  
+- [📹 Demonstração em Vídeo](#-demonstração-em-vídeo)
+- [📦 Download do APK](#-download-do-apk)
 
 ## 📝 Descrição da Solução
 
@@ -193,3 +194,13 @@ No vídeo, você verá:
 - Cadastro, edição, listagem e exclusão de motos  
 - Cadastro, listagem e exclusão de movimentações e alertas  
 - Navegação pelas principais telas e funcionalidades do sistema
+ 
+---
+
+## 📦 Download do APK
+
+Se preferir, você pode instalar o aplicativo diretamente no seu celular Android baixando o arquivo `.apk` já gerado:
+
+👉 [Clique aqui para baixar o APK](https://expo.dev/artifacts/eas/tfCKXJ3mp1tLCkUJWm7EEJ.apk)
+
+> ⚠️ Observação: pode ser necessário permitir a instalação de **apps de fontes desconhecidas** no seu dispositivo para concluir a instalação.
