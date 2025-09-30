@@ -12,7 +12,8 @@
 - [🗄️ Modelagem do Banco de Dados](#️-modelagem-do-banco-de-dados)  
 - [🚀 Como Rodar o Projeto MotoTrack Completo](#-como-rodar-o-projeto-mototrack-completo)  
 - [📱 Detalhes do Projeto Mobile (React Native + Expo)](#-detalhes-do-projeto-mobile-react-native--expo)  
-- [🚀 Como Rodar o Projeto Mobile (React Native + Expo)](#-como-rodar-o-projeto-mobile-react-native--expo)  
+- [🚀 Como Rodar o Projeto Mobile (React Native + Expo)](#-como-rodar-o-projeto-mobile-react-native--expo)
+- [🎨 Protótipo no Figma](#-protótipo-no-figma)
 - [📹 Demonstração em Vídeo](#-demonstração-em-vídeo)
 - [📦 Download do APK](#-download-do-apk)
 
@@ -182,6 +183,16 @@ npx expo start
 > Dica: Certifique-se de que as APIs estão rodando e acessíveis nos endereços corretos (`localhost:8080` para Java e `localhost:5073` para .NET) antes de iniciar o aplicativo mobile.
 
 --- 
+
+## 🎨 Protótipo no Figma
+
+O design do **MotoTrack Mobile** foi planejado no **Figma**, garantindo uma interface moderna, responsiva e consistente entre as telas.  
+
+👉 [Acesse o protótipo no Figma](https://www.figma.com/design/8i4XiCi16s1NIJUHwOXBH7/MotoTrack?node-id=0-1&p=f&t=uIOG5S4MyxRBTbXK-0)
+
+> 💡 O protótipo apresenta o fluxo de navegação, cores, ícones e componentes utilizados na construção do aplicativo.
+
+---
 
 ## 📹 Demonstração em Vídeo
 
