@@ -215,3 +215,8 @@ Se preferir, você pode instalar o aplicativo diretamente no seu celular Android
 👉 [Clique aqui para baixar o APK](https://expo.dev/artifacts/eas/jEMCGuR33Hq6c4ozKoehXJ.apk)
 
 > ⚠️ Observação: pode ser necessário permitir a instalação de **apps de fontes desconhecidas** no seu dispositivo para concluir a instalação.
+
+---
+
+## 🧾 Versão Atual (Hash do Commit)
+Commit: [`16bf5da`](https://github.com/mototrack-challenge/mototrack-frontend-mobile/commit/16bf5da)
