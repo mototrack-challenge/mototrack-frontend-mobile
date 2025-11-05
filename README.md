@@ -212,6 +212,6 @@ No vídeo, você verá:
 
 Se preferir, você pode instalar o aplicativo diretamente no seu celular Android baixando o arquivo `.apk` já gerado:
 
-👉 [Clique aqui para baixar o APK](https://expo.dev/artifacts/eas/tfCKXJ3mp1tLCkUJWm7EEJ.apk)
+👉 [Clique aqui para baixar o APK](https://expo.dev/artifacts/eas/jEMCGuR33Hq6c4ozKoehXJ.apk)
 
 > ⚠️ Observação: pode ser necessário permitir a instalação de **apps de fontes desconhecidas** no seu dispositivo para concluir a instalação.
